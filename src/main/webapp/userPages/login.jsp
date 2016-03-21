@@ -20,7 +20,6 @@
 <script type="text/javascript">
     var phone = window.localStorage.getItem("phone");
     if(phone==null){
-
     }else {
         $.post("/user/validateUser.action",{"tel":phone},function(data){
             if(data=="success"){

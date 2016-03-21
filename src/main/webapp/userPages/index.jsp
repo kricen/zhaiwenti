@@ -295,13 +295,11 @@
 </script>
 <script>
     $(function(){
-
         $(".add").click(function(){
             var t=$(this).parent().find('input[class*=result]');
             t.val(parseInt(t.val())+1);
             setTotal();
         })
-
         $(".minus").click(function(){
             var t=$(this).parent().find('input[class*=result]');
             t.val(parseInt(t.val())-1);

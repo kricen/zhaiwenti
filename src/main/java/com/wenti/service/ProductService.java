@@ -3,6 +3,10 @@ package com.wenti.service;
 import com.wenti.dao.ProductDao;
 import com.wenti.domain.Product;
 import com.wenti.utils.PageBean;
+import com.wenti.web.action.ProductBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/3/16 0016.
@@ -10,6 +14,24 @@ import com.wenti.utils.PageBean;
 public class ProductService {
     private ProductDao productDao;
 
+    //构建productBean用于首页的显示
+    public List<ProductBean> getProductBeanList(){
+        List<Product> products = productDao.getProducts();
+        List<ProductBean> productBeanList = new ArrayList<ProductBean>();
+        for(int i=0;i<products.size();i++){
+            ProductBean findProductBean = isExistProductBean(products.get(i).getCategory().getId(),productBeanList);
+            if(findProductBean==null){
+                findProductBean = new ProductBean();
+                findProductBean.setCategoryId(products.get(i).getCategory().getId());
+                findProductBean.setCategoryName(products.get(i).getCategory().getName());
+                findProductBean.setId(products.get(i).getId());
+                findProductBean.setName(products.get(i).getName());
+                findProductBean.setPrice(products.get(i).getPrice());
+                //明天接着写，出现的问题，现在的写法还不能按类别分组
+            }
+        }
+        return productBeanList;
+    }
     //获得product集合
     public PageBean<Product> getPBeanProduct(int page,String name){
         PageBean<Product> pageBean = new PageBean<Product>();
@@ -79,5 +101,17 @@ public class ProductService {
 
     public void setProductDao(ProductDao productDao) {
         this.productDao = productDao;
+    }
+
+    //private functions
+    public ProductBean isExistProductBean(int id,List<ProductBean> productBeanList){
+        ProductBean productBean = null;
+        for(int i=0;i<productBeanList.size();i++){
+            if(productBeanList.get(i).getCategoryId()==id){
+                productBean = productBeanList.get(i);
+                break;
+            }
+        }
+        return productBean;
     }
 }

@@ -195,7 +195,7 @@ public class SellerRCAction extends ActionSupport{
             if(!imageFormat){
                 return ERROR;
             }
-            filename = uploadBookImage(image,imageFileName, 100,100);
+            filename = uploadBookImage(image,imageFileName, 50,50);
             //表示上传图片出错
             if(filename.equals(ERROR)){
                 return ERROR;

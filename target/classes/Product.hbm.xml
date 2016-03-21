@@ -17,7 +17,7 @@
         <property name="state" column="state"/>
         <property name="comments" column="commonts"/>
         <many-to-one name="seller" column="sid" class="com.wenti.domain.Seller"/>
-        <many-to-one name="category" column="cid" class="com.wenti.domain.Category"/>
+        <many-to-one name="category" column="cid" lazy="false" class="com.wenti.domain.Category"/>
         <set name="cartitems" inverse="true">
             <key column="pid"/>
             <one-to-many  class="com.wenti.domain.Cartitem"/>

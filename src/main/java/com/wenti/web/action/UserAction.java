@@ -3,6 +3,7 @@ package com.wenti.web.action;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.wenti.domain.User;
+import com.wenti.service.ProductService;
 import com.wenti.service.UserService;
 import com.wenti.utils.CommonUtils;
 import org.apache.struts2.ServletActionContext;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 import sun.print.PrinterJobWrapper;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/3/17 0017.
@@ -29,6 +31,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
         return user;
     }
     private UserService userService;
+    private ProductService productService;
 
     //index 页面
     @Action(
@@ -38,7 +41,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
             }
     )
     public String index(){
-
+        List<ProductBean> productBeanList = productService.getProductBeanList();
         return SUCCESS;
     }
     //validateUser校验用户
@@ -108,6 +111,10 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 
     public void setPage(int page) {
         this.page = page;
+    }
+
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
     }
 
     public void setUserService(UserService userService) {
