@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.wenti.domain.Category" table="category" catalog="wenti">
+        <id name="id" column="id">
+            <generator class="identity" />
+        </id>
+        <property name="name" column="name"/>
+        <property name="state" column="state"/>
+        <set name="products" inverse="true">
+            <key column="cid"/>
+            <one-to-many  class="com.wenti.domain.Product"/>
+        </set>
+    </class>
+</hibernate-mapping>

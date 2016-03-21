@@ -1,0 +1,46 @@
+@charset "UTF-8";
+/* 定义主色系 */
+body {
+  background-color: white; }
+
+section.content {
+  width: 600px;
+  margin-top: 22px;
+  margin-left: 100px; }
+
+/* 类别管理 */
+div#category-admin section.content table {
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  text-align: center; }
+  div#category-admin section.content table th {
+    background-color: #F5F5F5;
+    text-align: center; }
+  div#category-admin section.content table td.input-box {
+    padding: 0 8px;
+    vertical-align: middle; }
+  div#category-admin section.content table .input-text {
+    border: 0;
+    box-shadow: none;
+    background-color: white !important;
+    text-align: center; }
+  div#category-admin section.content table .input-text:hover {
+    cursor: default; }
+div#category-admin section.content footer {
+  text-align: right; }
+  div#category-admin section.content footer span.amount {
+    color: #C81623;
+    font-size: 16px;
+    font-weight: bold; }
+div#category-admin section.content p.remark {
+  text-align: left;
+  font-size: 12px;
+  color: #888; }
+div#category-admin section.content p.text {
+  padding-top: 6px;
+  height: 22px;
+  line-height: 22px;
+  color: #555555;
+  font-size: 14px; }
+
+/*# sourceMappingURL=category.css.map */

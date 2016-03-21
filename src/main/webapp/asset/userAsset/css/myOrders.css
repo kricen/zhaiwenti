@@ -1,0 +1,183 @@
+@charset "UTF-8";
+@import url("global.css");
+/* 定义全局颜色 */
+header {
+    width: 100%;
+    background-color: #F56900;
+    height: 44px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    line-height: 44px;
+    color: #fdfefe; }
+header h1 {
+    font-weight: bolder;
+    text-align: center;
+    font-size: 16px; }
+header a.back {
+    width: 36px;
+    position: absolute;
+    left: 0px;
+    padding-left: 10px;
+    text-align: left;
+    color: #fdfefe;
+    display: inline-block;
+    font-weight: normal;
+    text-decoration: none; }
+header a.home {
+    font-size: 22px;
+    width: 36px;
+    position: absolute;
+    right: 0px;
+    padding-right: 10px;
+    text-align: right;
+    color: #fdfefe;
+    display: inline-block;
+    font-weight: normal;
+    text-decoration: none; }
+div#content {
+  padding: 44px 0 12px;
+  /* nav part */
+  /* order part */
+  /* model part */ }
+  div#content nav {
+    margin-top: 4px;
+    background-color: #fdfefe;
+    font-size: 14px;
+    color: #333; }
+    div#content nav ul {
+      float: left;
+      width: 100%; }
+      div#content nav ul li {
+        display: inline-block;
+        width: 33.33333%;
+        text-align: center;
+        height: 42px;
+        line-height: 42px;
+        float: left; }
+    div#content nav p.underline {
+      display: inline-block;
+      width: 33.33333%;
+      height: 2px;
+      float: left;
+      background-color: #F56900; }
+  div#content section.order {
+    margin-top: 6px;
+    background-color: #fdfefe;
+    padding: 4px 12px; }
+    div#content section.order h3 {
+      height: 34px;
+      line-height: 34px;
+      font-size: 14px;
+      border-bottom: 1px dotted #EEE; }
+      div#content section.order h3 span.name {
+        color: black;
+        float: left; }
+      div#content section.order h3 span.state {
+        color: #888;
+        float: right; }
+      div#content section.order h3 span.accepted {
+        color: #337AB7; }
+      div#content section.order h3 span.waitMoney {
+        color: #C81623; }
+        div#content section.order h3 span.waitMoney span.time {
+          font-style: italic; }
+    div#content section.order p {
+      height: 32px;
+      line-height: 32px;
+      font-size: 12px;
+      color: #555;
+      border-bottom: 1px dotted #EEE; }
+      div#content section.order p span.num {
+        float: left; }
+      div#content section.order p span.time {
+        font-family: '微软雅黑';
+        font-style: italic;
+        float: right; }
+      div#content section.order p span.info {
+        float: left; }
+        div#content section.order p span.info span.pay {
+          font-weight: bold;
+          font-style: italic; }
+        div#content section.order p span.info .wechat {
+          color: #32b700; }
+        div#content section.order p span.info .alipay {
+          color: #00a0e8; }
+        div#content section.order p span.info .cash {
+          color: #c63c69; }
+      div#content section.order p span.price {
+        color: #d70930;
+        float: right; }
+      div#content section.order p span.price:before {
+        content: '￥'; }
+    div#content section.order ul.btns {
+      margin: 10px 0 6px;
+      float: left;
+      width: 100%; }
+      div#content section.order ul.btns li {
+        display: inline-block;
+        float: right;
+        width: 30%;
+        padding: 0 4px; }
+        div#content section.order ul.btns li button {
+          font-size: 14px;
+          background-color: #fdfefe;
+          width: 100%;
+          height: 36px;
+          box-sizing: border-box;
+          border: 1px solid #666;
+          text-align: center;
+          line-height: 32px;
+          border-radius: 4px;
+          color: #666; }
+    div#content section.order ul.btns li button.pay {
+        border-color: #179c45;
+        color: #179c45; }
+    div#content section.order ul.btns li button.delBtn {
+        border-color: #FE4D3D;
+        color: #FE4D3D; }
+    div#content section.order ul.btns li button.cancelOrder {
+        border-color: #FE4D3D;
+        color: #FE4D3D; }
+
+      div#content section.order ul.btns li:first-child {
+        padding-right: 0; }
+  div#content div#b {
+    display: none; }
+  div#content div#c {
+    display: none; }
+
+/* 订单条目 */
+div.goods {
+  width: 100%;
+  display: none; }
+  div.goods ul {
+    font-size: 12px; }
+    div.goods ul li {
+      border-bottom: 1px dotted #E4E3E5;
+      height: 32px;
+      line-height: 32px; }
+      div.goods ul li span {
+        display: inline-block; }
+      div.goods ul li span.dot {
+        margin-right: 6px;
+        float: left;
+        color: #FF4E00;
+        font-size: 18px; }
+      div.goods ul li span.title {
+        color: #666;
+        float: left;
+        font-size: 14px; }
+      div.goods ul li span.amount {
+        color: #888;
+        float: right; }
+      div.goods ul li span.amount:before {
+        content: "x"; }
+      div.goods ul li span.price {
+        color: #888;
+        float: right;
+        margin-left: 22px; }
+      div.goods ul li span.price:before {
+        content: "￥"; }
+
+/*# sourceMappingURL=myOrders.css.map */

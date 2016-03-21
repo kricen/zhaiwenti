@@ -1,0 +1,77 @@
+@charset "UTF-8";
+/* 定义主色系 */
+body {
+  background-color: white;
+  position: relative; }
+
+/* book-repertory part */
+div#book-repertory h1.page-header {
+  margin-bottom: 12px; }
+div#book-repertory table.table {
+  margin-top: 12px;
+  text-align: center;
+  margin-bottom: 0;
+}
+.margin_left3{
+  margin-left: 3%;
+}
+  div#book-repertory table.table thead {
+    background-color: #F5F5F5; }
+    div#book-repertory table.table thead th {
+      text-align: center; }
+  div#book-repertory table.table tbody td.title {
+    max-width: 116px; }
+  div#book-repertory table.table tbody td.author {
+    max-width: 140px; }
+  div#book-repertory table.table tbody td.publisher {
+    max-width: 116px; }
+  div#book-repertory table.table tbody img {
+    width: 60px; }
+  div#book-repertory table.table tbody img:hover {
+    cursor: pointer; }
+  div#book-repertory table.table tbody img.largeImg {
+    width: 200px;
+    margin: 0; }
+  div#book-repertory table.table tbody div.popover-content {
+    padding: 4px 6px; }
+  div#book-repertory table.table tbody td.discount, div#book-repertory table.table tbody td.remain {
+    color: #eb0a34; }
+  div#book-repertory table.table tbody td.discount, div#book-repertory table.table tbody td.remain {
+    font-style: italic; }
+div#book-repertory nav ul.pagination {
+  float: left; }
+div#book-repertory nav ul.info {
+  display: block;
+  float: left;
+  margin: 20px 0;
+  height: 34px;
+  line-height: 34px;
+  list-style: none;
+  padding-left: 116px; }
+  div#book-repertory nav ul.info li {
+    display: inline-block;
+    padding: 0 22px;
+    color: #eb0a34;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 18px; }
+  div#book-repertory nav ul.info li:before {
+    content: "共 ";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 14px;
+    color: #555; }
+  div#book-repertory nav ul.info li.pages:after {
+    content: " 页";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 14px;
+    color: #555; }
+  div#book-repertory nav ul.info li.orders:after {
+    content: " 单";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 14px;
+    color: #555; }
+
+/*# sourceMappingURL=bookRepertory.css.map */

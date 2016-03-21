@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<!-- 配置Action -->
+	<!-- 数据库连接池  -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql:///wenti"></property>
+		<property name="user" value="root"></property>
+		<property name="password" value="492226568"></property>
+	</bean>
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 配置hibernate属性 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop> <!-- 控制台上打印SQL -->
+				<prop key="hibernate.format_sql">true</prop> <!-- 控制台输出时，对SQL语句格式化 -->
+				<!-- 测试环境 create/ create-drop 正式环境 update validate -->
+				<prop key="hibernate.hbm2ddl.auto">update</prop> <!-- 自动建表 -->
+			</props>
+		</property>
+		<property name="mappingDirectoryLocations">
+			<list>
+				<value>classpath:</value>
+			</list>
+		</property>
+	</bean>
+	<!--userAction start-->
+	<bean id="userAction" class="com.wenti.web.action.UserAction" scope="prototype"></bean>
+	<!--userAction end-->
+
+	<bean id="sellerAction" class="com.wenti.web.action.SellerAction" scope="prototype"></bean>
+	<bean id="sellerRCAction" class="com.wenti.web.action.SellerRCAction" scope="prototype"></bean>
+	<bean id="sellerOrderAction" class="com.wenti.web.action.SellerOrderAction" scope="prototype"></bean>
+
+	<!--cart start-->
+	<bean id="cartService" class="com.wenti.service.CartService">
+		<property name="cartDao" ref="cartDao"></property>
+	</bean>
+	<bean id="cartDao" class="com.wenti.dao.CartDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!--cart end-->
+	<!--category start-->
+	<bean id="categoryService" class="com.wenti.service.CategoryService">
+		<property name="categoryDao" ref="categoryDao"></property>
+	</bean>
+	<bean id="categoryDao" class="com.wenti.dao.CategoryDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!--category end-->
+	<!--order start-->
+	<bean id="orderService" class="com.wenti.service.OrderService">
+		<property name="orderDao" ref="orderDao"></property>
+	</bean>
+	<bean id="orderDao" class="com.wenti.dao.OrderDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!--order end-->
+	<!--product start-->
+	<bean id="productService" class="com.wenti.service.ProductService">
+		<property name="productDao" ref="productDao"></property>
+	</bean>
+	<bean id="productDao" class="com.wenti.dao.ProductDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!--product end-->
+	<!--seller start-->
+	<bean id="sellerService" class="com.wenti.service.SellerService">
+		<property name="sellerDao" ref="sellerDao"></property>
+	</bean>
+	<bean id="sellerDao" class="com.wenti.dao.SellerDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!--seller dao-->
+	<!--user start-->
+	<bean id="userService" class="com.wenti.service.UserService">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+	<bean id="userDao" class="com.wenti.dao.UserDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!--user end-->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+</beans>

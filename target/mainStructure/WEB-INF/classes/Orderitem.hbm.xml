@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.wenti.domain.Orderitem" table="orderitem" catalog="wenti">
+        <id name="id" type="java.lang.Integer" >
+            <column name="id"></column>
+            <generator class="identity" />
+        </id>
+        <property name="num" column="num"/>
+        <many-to-one name="order" column="oid" class="com.wenti.domain.Order"/>
+        <many-to-one name="product" column="pid" class="com.wenti.domain.Product"/>
+    </class>
+</hibernate-mapping>

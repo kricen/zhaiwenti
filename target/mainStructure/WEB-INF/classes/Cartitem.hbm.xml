@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.wenti.domain.Cartitem" table="cartitem" catalog="wenti">
+        <id name="id" >
+            <generator class="identity" />
+        </id>
+        <property name="num"/>
+        <many-to-one name="cart"  column="cid" class="com.wenti.domain.Cart"/>
+        <many-to-one name="product" column="pid" class="com.wenti.domain.Product"/>
+        <many-to-one name="seller" column="sid" class="com.wenti.domain.Seller"/>
+    </class>
+</hibernate-mapping>
