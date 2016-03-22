@@ -28,7 +28,7 @@
 </header>
 <div id="content-footer" class="animated">
     <section id="content">
-            <s:if test="orderAddr!=null">
+            <s:if test="user.addr!=null">
             <div id="address" style="display: block">
                 <b class="top-line"></b>
                 <div class="addrDiv">
@@ -36,10 +36,10 @@
                 </div>
                 <ul class="info">
                     <li id="name-tel">
-                        <s:property value="orderAddr.name"/>&nbsp;&nbsp;&nbsp;&nbsp;<s:property value="orderAddr.phone"/>
+                        <s:property value="user.name"/>&nbsp;&nbsp;&nbsp;&nbsp;<s:property value="user.tel"/>
                     </li>
                     <li id="addr">
-                        <s:property value="orderAddr.addr"/>
+                        <s:property value="user.addr"/>
                     </li>
                 </ul>
                 <div class="moreDiv">
@@ -55,7 +55,7 @@
                         </p>
                 </div>
             </s:if>
-            <s:if test="orderAddr==null">
+            <s:if test="user.addr==null">
                  <div id="addAddress" style="display: block" >
                     <p>
                         <span class="iconfont remark">&#xe629;</span>
@@ -70,10 +70,10 @@
                     </div>
                     <ul class="info">
                         <li id="name-tel">
-                            <s:property value="orderAddr.name"/>&nbsp;&nbsp;&nbsp;&nbsp;<s:property value="orderAddr.phone"/>
+                            <s:property value="user.name"/>&nbsp;&nbsp;&nbsp;&nbsp;<s:property value="user.tel"/>
                         </li>
                         <li id="addr">
-                            <s:property value="orderAddr.addr"/>
+                            <s:property value="user.addr"/>
                         </li>
                     </ul>
                     <div class="moreDiv">
@@ -101,27 +101,20 @@
         </div>
         <div id="goods">
             <ul>
-                <s:iterator value="orders" var="order">
-                    <s:iterator value="#order.orderitems" var="orderitem">
+                    <s:iterator value="orderitems" var="orderitem">
                         <li>
                             <span class="iconfont dot">&#xe625;</span>
-                            <span class="title"><s:property value="#orderitem.book.title"/></span>
-                            <s:if test="#orderitem.salesBook==null">
-                                <span class="price"><s:property value="@@round(#orderitem.book.price*#orderitem.book.discount*10)/10d"/></span>
-                            </s:if>
-                            <s:else>
-                                <span class="price"><s:property value="#orderitem.salesBook.price"/></span>
-                            </s:else>
+                            <span class="title"><s:property value="#orderitem.product.name"/></span>
+                            <span class="price"><s:property value="#orderitem.product.price"/></span>
                             <span class="amount"><s:property value="#orderitem.num"/></span>
                         </li>
                     </s:iterator>
-                </s:iterator>
             </ul>
         </div>
         <div id="remark">
             <p>
                 <span class="iconfont remark">&#xe626;</span>
-                备注
+                备注(填写配送时间或者其他要求)
                 <span class="iconfont more">&#xe622;</span>
                 <span class="remark-content">添加备注</span>
             </p>
@@ -129,8 +122,8 @@
     </section>
     <footer>
         <p>
-            <span class="totalAmount"><s:property value="totalNum"/></span>
-            <span class="totalPrice"><s:property value="totalMoney"/></span>
+            <span class="totalAmount"><s:property value="num"/></span>
+            <span class="totalPrice"><s:property value="order.totalFee"/></span>
         </p>
         <button id="confirmOrder">确定下单</button>
     </footer>
@@ -146,15 +139,15 @@
     <div class="userInfo">
         <p>
             <label for="name">姓名：</label>
-            <input type="text" id="name" placeholder="请填写收货人姓名" value="<s:property value="orderAddr.name"/>" maxlength="7" autofocus>
+            <input type="text" id="name" placeholder="请填写收货人姓名" value="<s:property value="user.name"/>" maxlength="7" autofocus>
         </p>
         <p>
             <label for="tel">手机：</label>
-            <input type="tel" maxlength="11" id="tel" value="<s:property value="orderAddr.phone"/>" placeholder="请填写收货人手机号码">
+            <input type="tel" maxlength="11" id="tel" value="<s:property value="user.tel"/>" placeholder="请填写收货人手机号码">
         </p>
         <p>
             <label for="input-addr">地址：</label>
-            <input type="text" id="input-addr" value="<s:property value="orderAddr.addr"/>"  placeholder="请填写收货人地址" maxlength="20">
+            <input type="text" id="input-addr" value="<s:property value="user.addr"/>"  placeholder="请填写收货人地址" maxlength="20">
         </p>
     </div>
     <button id="confirmMyInfo">确定</button>

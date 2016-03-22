@@ -2,12 +2,14 @@ package com.wenti.service;
 
 import com.wenti.dao.CategoryDao;
 import com.wenti.domain.Category;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/3/16 0016.
  */
+@Transactional
 public class CategoryService {
     private CategoryDao categoryDao;
 

@@ -7,7 +7,6 @@ import java.util.Set;
  */
 public class Cart {
     private Integer id;
-    private Double totalFee;
     private User user;
     private Set<Cartitem> cartitems;
 
@@ -20,13 +19,7 @@ public class Cart {
     }
 
 
-    public Double getTotalFee() {
-        return totalFee;
-    }
 
-    public void setTotalFee(Double totalFee) {
-        this.totalFee = totalFee;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -36,7 +29,6 @@ public class Cart {
         Cart cart = (Cart) o;
 
         if (id != null ? !id.equals(cart.id) : cart.id != null) return false;
-        if (totalFee != null ? !totalFee.equals(cart.totalFee) : cart.totalFee != null) return false;
 
         return true;
     }
@@ -44,7 +36,6 @@ public class Cart {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (totalFee != null ? totalFee.hashCode() : 0);
         return result;
     }
 

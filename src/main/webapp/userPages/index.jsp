@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html>
@@ -17,252 +18,41 @@
 </head>
 <body>
 <script type="text/javascript" src="/asset/userAsset/js/jquery.min.js"></script>
-<div class="swiper-container">
+<div style="height: 100%" class="swiper-container">
     <div class="swiper-wrapper">
         <div class="swiper-slide"><img src="/asset/userAsset/images/prt_1.jpg"></div>
         <div class="swiper-slide"><img src="/asset/userAsset/images/prt_1.jpg"></div>
         <div class="swiper-slide"><img src="/asset/userAsset/images/prt_1.jpg"></div>
     </div>
 </div>
-
 <div class="nav-lf">
     <ul id="nav">
-        <li class="current"><a href="#st1">分类一</a><b></b></li>
-        <li><a href="#st2">分类二</a><b>1</b></li>
-        <li><a href="#st3">分类三</a><b>3</b></li>
-        <li><a href="#st4">分类四</a><b>6</b></li>
+    <s:iterator value="productBeanList" var="productBean" status="index">
+        <li class="<s:if test="#index.index==0">current</s:if>"> <a href="#st<s:property value="#productBean.categoryId"/>"><s:property value="#productBean.categoryName"/></a><b <s:if test="#productBean.num>0"> style="display:inline;"</s:if> class="amount"><s:property value="#productBean.num"/></b></li>
+    </s:iterator>
     </ul>
 </div>
 
 <div id="container" class="container">
-
-    <div class="section" id="st1">
+    <s:iterator value="productBeanList" var="productBean">
+    <div class="section" id="st<s:property value="#productBean.categoryId"/>">
+        <s:iterator value="#productBean.list" var="product">
         <div class="prt-lt">
-            <div class="lt-lt"><img src="/asset/userAsset/images/prt_1.jpg"></div>
+            <div class="lt-lt"><img src="<s:property value="#product.image"/>"></div>
             <div class="lt-ct">
-                <p>商品1</p>
-                <p class="pr">¥<span class="price">60.00</span></p>
+                <p><s:property value="#product.name"/><span class="ltgreen"></span></p>
+                <p class="pr">¥<span class="price"><s:property value="#product.price"/></span></p>
             </div>
             <div class="lt-rt">
-                <input type="button" class="minus"  value="-">
-                <input type="text" class="result" value="0">
-                <input type="button" class="add" value="+">
+                <input type="hidden" value="<s:property value="#product.id"/>" class="productId">
+                <span type="button" class="minus"  value="-">-</span>
+                <input type="text" class="result" value="<s:property value="#product.num"/>">
+                <span type="button" class="add" value="+">+</span>
             </div>
         </div>
-
-        <div class="prt-lt">
-            <div class="lt-lt"><img src="images/index/prt_2.jpg"></div>
-            <div class="lt-ct">
-                <p>商品1</p>
-                <p class="pr">¥<span class="price">60.00</span></p>
-            </div>
-            <div class="lt-rt">
-                <input type="button" class="minus"  value="-">
-                <input type="text" class="result" value="0">
-                <input type="button" class="add" value="+">
-            </div>
-        </div>
-
-        <div class="prt-lt">
-            <div class="lt-lt"><img src="images/index/prt_3.jpg"></div>
-            <div class="lt-ct">
-                <p>商品1</p>
-                <p class="pr">¥<span class="price">60.00</span></p>
-            </div>
-            <div class="lt-rt">
-                <input type="button" class="minus"  value="-">
-                <input type="text" class="result" value="0">
-                <input type="button" class="add" value="+">
-            </div>
-        </div>
-
-        <div class="prt-lt">
-            <div class="lt-lt"><img src="images/index/prt_4.jpg"></div>
-            <div class="lt-ct">
-                <p>商品1</p>
-                <p class="pr">¥<span class="price">60.00</span></p>
-            </div>
-            <div class="lt-rt">
-                <input type="button" class="minus"  value="-">
-                <input type="text" class="result" value="0">
-                <input type="button" class="add" value="+">
-            </div>
-        </div>
-
-        <div class="prt-lt">
-            <div class="lt-lt"><img src="images/index/prt_5.jpg"></div>
-            <div class="lt-ct">
-                <p>商品1</p>
-                <p class="pr">¥<span class="price">60.00</span></p>
-            </div>
-            <div class="lt-rt">
-                <input type="button" class="minus"  value="-">
-                <input type="text" class="result" value="0">
-                <input type="button" class="add" value="+">
-            </div>
-        </div>
-
+        </s:iterator>
     </div>
-
-
-
-
-    <div class="section" id="st2">
-
-        <div class="prt-lt">
-            <div class="lt-lt"><img src="/asset/userAsset/images/prt_1.jpg"></div>
-            <div class="lt-ct">
-                <p>商品2</p>
-                <p class="pr">¥<span class="price">60.00</span></p>
-            </div>
-            <div class="lt-rt">
-                <input type="button" class="minus"  value="-">
-                <input type="text" class="result" value="0">
-                <input type="button" class="add" value="+">
-            </div>
-        </div>
-
-        <div class="prt-lt">
-            <div class="lt-lt"><img src="/asset/userAsset/images/prt_1.jpg"></div>
-            <div class="lt-ct">
-                <p>商品2</p>
-                <p class="pr">¥<span class="price">60.00</span></p>
-            </div>
-            <div class="lt-rt">
-                <input type="button" class="minus"  value="-">
-                <input type="text" class="result" value="0">
-                <input type="button" class="add" value="+">
-            </div>
-        </div>
-
-        <div class="prt-lt">
-            <div class="lt-lt"><img src="/asset/userAsset/images/prt_1.jpg"></div>
-            <div class="lt-ct">
-                <p>商品2</p>
-                <p class="pr">¥<span class="price">60.00</span></p>
-            </div>
-            <div class="lt-rt">
-                <input type="button" class="minus"  value="-">
-                <input type="text" class="result" value="0">
-                <input type="button" class="add" value="+">
-            </div>
-        </div>
-
-        <div class="prt-lt">
-            <div class="lt-lt"><img src="/asset/userAsset/images/prt_1.jpg"></div>
-            <div class="lt-ct">
-                <p>商品2</p>
-                <p class="pr">¥<span class="price">60.00</span></p>
-            </div>
-            <div class="lt-rt">
-                <input type="button" class="minus"  value="-">
-                <input type="text" class="result" value="0">
-                <input type="button" class="add" value="+">
-            </div>
-        </div>
-
-        <div class="prt-lt">
-            <div class="lt-lt"><img src="/asset/userAsset/images/prt_1.jpg"></div>
-            <div class="lt-ct">
-                <p>商品2</p>
-                <p class="pr">¥<span class="price">60.00</span></p>
-            </div>
-            <div class="lt-rt">
-                <input type="button" class="minus"  value="-">
-                <input type="text" class="result" value="0">
-                <input type="button" class="add" value="+">
-            </div>
-        </div>
-
-    </div>
-
-    <div class="section" id="st3">
-
-        <div class="prt-lt">
-            <div class="lt-lt"><img src="/asset/userAsset/images/prt_1.jpg"></div>
-            <div class="lt-ct">
-                <p>商品3</p>
-                <p class="pr">¥<span class="price">60.00</span></p>
-            </div>
-            <div class="lt-rt">
-                <input type="button" class="minus"  value="-">
-                <input type="text" class="result" value="0">
-                <input type="button" class="add" value="+">
-            </div>
-        </div>
-
-        <div class="prt-lt">
-            <div class="lt-lt"><img src="/asset/userAsset/images/prt_1.jpg"></div>
-            <div class="lt-ct">
-                <p>商品3</p>
-                <p class="pr">¥<span class="price">60.00</span></p>
-            </div>
-            <div class="lt-rt">
-                <input type="button" class="minus"  value="-">
-                <input type="text" class="result" value="0">
-                <input type="button" class="add" value="+">
-            </div>
-        </div>
-
-        <div class="prt-lt">
-            <div class="lt-lt"><img src="/asset/userAsset/images/prt_1.jpg"></div>
-            <div class="lt-ct">
-                <p>商品3</p>
-                <p class="pr">¥<span class="price">60.00</span></p>
-            </div>
-            <div class="lt-rt">
-                <input type="button" class="minus"  value="-">
-                <input type="text" class="result" value="0">
-                <input type="button" class="add" value="+">
-            </div>
-        </div>
-
-        <div class="prt-lt">
-            <div class="lt-lt"><img src="/asset/userAsset/images/prt_1.jpg"></div>
-            <div class="lt-ct">
-                <p>商品3</p>
-                <p class="pr">¥<span class="price">60.00</span></p>
-            </div>
-            <div class="lt-rt">
-                <input type="button" class="minus"  value="-">
-                <input type="text" class="result" value="0">
-                <input type="button" class="add" value="+">
-            </div>
-        </div>
-
-        <div class="prt-lt">
-            <div class="lt-lt"><img src="/asset/userAsset/images/prt_1.jpg"></div>
-            <div class="lt-ct">
-                <p>商品3</p>
-                <p class="pr">¥<span class="price">60.00</span></p>
-            </div>
-            <div class="lt-rt">
-                <input type="button" class="minus"  value="-">
-                <input type="text" class="result" value="0">
-                <input type="button" class="add" value="+">
-            </div>
-        </div>
-
-    </div>
-
-    <div class="section" id="st4">
-
-        <div class="prt-lt">
-            <div class="lt-lt"><img src="/asset/userAsset/images/prt_1.jpg"></div>
-            <div class="lt-ct">
-                <p>商品4</p>
-                <p class="pr">¥<span class="price">60.00</span></p>
-            </div>
-            <div class="lt-rt">
-                <input type="button" class="minus"  value="-">
-                <input type="text" class="result" value="0">
-                <input type="button" class="add" value="+">
-            </div>
-        </div>
-
-
-    </div>
-
+    </s:iterator>
     <div class="lastfooter" >
     </div>
 </div>
@@ -272,11 +62,9 @@
         <p>合计:<span id="total" class="total">163.00元</span><span class="nm">(<label class="share"></label>份)</span></p>
     </div>
     <div class="ft-rt">
-        <p>选好了</p>
+        <p id="selectOk">去结算</p>
     </div>
 </footer>
-
-
 <script type="text/javascript" src="/asset/userAsset/js/Adaptive.js"></script>
 <script type="text/javascript" src="/asset/userAsset/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="/asset/userAsset/js/swiper.min.js"></script>
@@ -291,23 +79,50 @@
     $(function(){
         $('#nav').onePageNav();
     });
-
-</script>
-<script>
     $(function(){
         $(".add").click(function(){
             var t=$(this).parent().find('input[class*=result]');
             t.val(parseInt(t.val())+1);
+            var attrId = $(this).parent().parent().parent().attr("id");
+            $("#nav").find("li.current").removeClass('current');
+            $("#nav li").each(function () {
+                var ahref =  $(this).find("a");
+                if(ahref.attr('href')=='#'+attrId){
+                    ahref.parent().addClass('current');
+                }
+            })
             setTotal();
+            var productId = $(this).siblings('.productId').val();
+            var productNum = $(this).siblings('.result').val()
+            $.post("/user/addCart.action",{'id':productId,"num":productNum},function(data){
+                if(data=="noLogin"){
+                    window.location.href="/user/huanchong.action"
+                }
+            })
         })
         $(".minus").click(function(){
             var t=$(this).parent().find('input[class*=result]');
+            var attrId = $(this).parent().parent().parent().attr("id");
+            $("#nav").find("li.current").removeClass('current');
+            $("#nav li").each(function () {
+                var ahref =  $(this).find("a");
+                if(ahref.attr('href')=='#'+attrId){
+                    ahref.parent().addClass('current');
+                }
+            })
+
             t.val(parseInt(t.val())-1);
             if(parseInt(t.val())<0){
                 t.val(0);
             }
             setTotal();
-
+            var productId = $(this).siblings('.productId').val();
+            var productNum = $(this).siblings('.result').val()
+            $.post("/user/addCart.action",{'id':productId,"num":productNum},function(data){
+                if(data=="noLogin"){
+                    window.location.href="/user/huanchong.action"
+                }
+        })
 
         })
 
@@ -344,6 +159,21 @@
         setTotal();
 
     })
+    $(function(){
+        $("#selectOk").click(function (data) {
+            $.post("/user/cartToOrder.action",{}, function (data) {
+                if(data=="noLogin"){
+                    window.location.href="/user/huanchong.action"
+                }else if(data=='success'){
+                    window.location.href = "/user/orderInfo.action"
+                }else if(data=='index'){
+                    alert("您还没选购商品");
+                }else {
+
+                }
+            })
+        })
+    });
 </script>
 <script type="text/javascript" src="/asset/userAsset/js/waypoints.min.js"></script>
 <script type="text/javascript" src="/asset/userAsset/js/navbar2.js"></script>

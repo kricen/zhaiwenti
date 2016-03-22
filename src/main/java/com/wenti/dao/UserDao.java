@@ -18,6 +18,12 @@ public class UserDao extends HibernateDaoSupport {
         return find.isEmpty()? null:find.get(0);
     }
 
+    //根据id得到用户
+    public User getUser(int userId){
+        User find = this.getHibernateTemplate().get(User.class,userId);
+        return find;
+    }
+
     //保存用户
     public void save(User user){
         this.getHibernateTemplate().save(user);

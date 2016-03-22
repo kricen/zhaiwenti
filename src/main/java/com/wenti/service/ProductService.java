@@ -1,33 +1,71 @@
 package com.wenti.service;
 
 import com.wenti.dao.ProductDao;
+import com.wenti.domain.Cartitem;
 import com.wenti.domain.Product;
 import com.wenti.utils.PageBean;
-import com.wenti.web.action.ProductBean;
+import com.wenti.domain.ProductBean;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/3/16 0016.
  */
+@Transactional
 public class ProductService {
     private ProductDao productDao;
 
     //构建productBean用于首页的显示
-    public List<ProductBean> getProductBeanList(){
+    public List<ProductBean> getProductBeanList(List<Cartitem> cartitems){
         List<Product> products = productDao.getProducts();
+        System.out.println(products.size());
         List<ProductBean> productBeanList = new ArrayList<ProductBean>();
+        int tempNum=0;
         for(int i=0;i<products.size();i++){
             ProductBean findProductBean = isExistProductBean(products.get(i).getCategory().getId(),productBeanList);
             if(findProductBean==null){
                 findProductBean = new ProductBean();
+                findProductBean.setNum(0);
                 findProductBean.setCategoryId(products.get(i).getCategory().getId());
                 findProductBean.setCategoryName(products.get(i).getCategory().getName());
-                findProductBean.setId(products.get(i).getId());
-                findProductBean.setName(products.get(i).getName());
-                findProductBean.setPrice(products.get(i).getPrice());
-                //明天接着写，出现的问题，现在的写法还不能按类别分组
+                Cartitem cartitem = null;
+                products.get(i).setNum(0);
+                if(cartitems!=null){
+                    for(int k=0;k<cartitems.size();k++){
+                        if(tempNum==cartitems.size()) break;
+                        cartitem = cartitems.get(k);
+                        Product findProduct = cartitem.getProduct();
+                        System.out.println(findProduct.getId()+"  "+products.get(i).getId()+findProduct.getId().equals(products.get(i).getId()));
+                        if(findProduct.getId().equals(products.get(i).getId())){
+                            products.get(i).setNum(cartitem.getNum());
+                            findProductBean.setNum(findProductBean.getNum()+1);
+                            tempNum++;
+                        }
+                    }
+                }
+                List<Product> products1 = new ArrayList<Product>();
+                products1.add(products.get(i));
+                findProductBean.setList(products1);
+                productBeanList.add(findProductBean);
+            }else{
+                Cartitem cartitem = null;
+                products.get(i).setNum(0);
+                if(cartitems!=null){
+                    for(int k=0;k<cartitems.size();k++){
+                        if(tempNum==cartitems.size()) break;
+                        cartitem = cartitems.get(k);
+                        Product findProduct = cartitem.getProduct();
+                        if(findProduct.getId().equals(products.get(i).getId())){
+                            products.get(i).setNum(cartitem.getNum());
+                            tempNum++;
+                            findProductBean.setNum(findProductBean.getNum()+1);
+                        }
+                    }
+                }
+                findProductBean.getList().add(products.get(i));
             }
         }
         return productBeanList;

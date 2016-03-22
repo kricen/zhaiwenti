@@ -85,7 +85,7 @@
                 $.post("/user/addUser.action",{"tel":phone,"name":name,"addr":addr}, function (data) {
                     if(data=="success"){
                         window.localStorage.setItem("phone",phone);
-                        window.location.href="/user/center.action"
+                        window.location.href="/user/index.action"
                     }
                 })
             }

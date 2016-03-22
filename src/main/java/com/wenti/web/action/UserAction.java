@@ -2,16 +2,20 @@ package com.wenti.web.action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import com.wenti.domain.Cart;
+import com.wenti.domain.Cartitem;
+import com.wenti.domain.ProductBean;
 import com.wenti.domain.User;
+import com.wenti.service.CartService;
 import com.wenti.service.ProductService;
 import com.wenti.service.UserService;
 import com.wenti.utils.CommonUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.*;
 import org.springframework.context.annotation.Scope;
-import sun.print.PrinterJobWrapper;
 
 import java.io.PrintWriter;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -32,6 +36,20 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
     }
     private UserService userService;
     private ProductService productService;
+    private CartService cartService;
+
+
+    //选择主页面
+    @Action(
+            value = "centerPage",
+            results = {
+                    @Result(name = SUCCESS,location = "/userPages/center.jsp")
+            }
+    )
+    public String centerPage(){
+
+        return SUCCESS;
+    }
 
     //index 页面
     @Action(
@@ -41,7 +59,22 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
             }
     )
     public String index(){
-        List<ProductBean> productBeanList = productService.getProductBeanList();
+        User sessionUser = (User)ServletActionContext.getRequest().getSession().getAttribute("user");
+        Cart cart = cartService.getCartByUser(sessionUser.getId());
+        List<Cartitem> cartitems = null;
+        if(cart!=null){
+            cartitems = cartService.getCartitemListByCart(cart.getId());
+        }
+        if(cartitems!=null){
+            for(int i=0;i<cartitems.size();i++){
+                if(cartitems.get(i).getNum()<=0){
+                    cartService.delCartitem(cartitems.get(i));
+                    cartitems.remove(cartitems.get(i));
+                }
+            }
+        }
+        List<ProductBean> productBeanList = productService.getProductBeanList(cartitems);
+        ServletActionContext.getContext().getValueStack().set("productBeanList",productBeanList);
         return SUCCESS;
     }
     //validateUser校验用户
@@ -95,6 +128,18 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
         return SUCCESS;
     }
 
+    //用户登录缓冲页面
+    @Action(
+            value = "huanchong",
+            results = {
+                    @Result(name = SUCCESS,location = "/userPages/login.jsp")
+            }
+    )
+    public String huanchong(){
+
+        return SUCCESS;
+    }
+
     //用户登录页面
     @Action(
             value = "login",
@@ -111,6 +156,10 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 
     public void setPage(int page) {
         this.page = page;
+    }
+
+    public void setCartService(CartService cartService) {
+        this.cartService = cartService;
     }
 
     public void setProductService(ProductService productService) {

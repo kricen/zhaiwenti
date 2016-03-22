@@ -63,8 +63,6 @@
 
 <ul class="mainmenu">
     <li><a href="/" ><b><img src="/asset/userAsset/images/tb01.png" /></b><span>购物中心</span></a></li>
-    <li><a href="/" ><b><img src="/asset/userAsset/images/tb08.png" /></b><span>地址管理</span></a></li>
-    <li><a href="/" ><b><img src="/asset/userAsset/images/tb03.png" /></b><span>购物车</span></a></li>
     <li><a href="/" ><b><img src="/asset/userAsset/images/tb04.png" /></b><span>我的订单</span></a></li>
     <li><a href="/" ><b><img src="/asset/userAsset/images/tb04.png" /></b><span>联系商家</span></a></li>
 

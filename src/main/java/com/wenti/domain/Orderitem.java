@@ -5,8 +5,6 @@ package com.wenti.domain;
  */
 public class Orderitem {
     private Integer id;
-    private Integer pid;
-    private Integer oid;
     private Integer num;
     private Order order;
     private Product product;
@@ -19,21 +17,8 @@ public class Orderitem {
         this.id = id;
     }
 
-    public Integer getPid() {
-        return pid;
-    }
 
-    public void setPid(Integer pid) {
-        this.pid = pid;
-    }
 
-    public Integer getOid() {
-        return oid;
-    }
-
-    public void setOid(Integer oid) {
-        this.oid = oid;
-    }
 
     public Integer getNum() {
         return num;
@@ -51,8 +36,6 @@ public class Orderitem {
         Orderitem orderitem = (Orderitem) o;
 
         if (id != null ? !id.equals(orderitem.id) : orderitem.id != null) return false;
-        if (pid != null ? !pid.equals(orderitem.pid) : orderitem.pid != null) return false;
-        if (oid != null ? !oid.equals(orderitem.oid) : orderitem.oid != null) return false;
         if (num != null ? !num.equals(orderitem.num) : orderitem.num != null) return false;
 
         return true;
@@ -61,8 +44,6 @@ public class Orderitem {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (pid != null ? pid.hashCode() : 0);
-        result = 31 * result + (oid != null ? oid.hashCode() : 0);
         result = 31 * result + (num != null ? num.hashCode() : 0);
         return result;
     }

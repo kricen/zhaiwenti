@@ -117,4 +117,12 @@ public class CommonUtils {
         String time = simpleDateFormat.format(date);
         return time;
     }
+    /**
+     * 获得当前时间
+     * @return
+     */
+    public static Date getNowTime(){
+        Date date = new Date();
+        return date;
+    }
 }

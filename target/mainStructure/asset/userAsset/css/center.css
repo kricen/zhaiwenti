@@ -25,7 +25,7 @@ body .mainmenu li a span{ display:block; height:25px; line-height:30px;backgroun
 
 body .mainmenu li:nth-child(8n+1) {background-color:#36A1DB}
 body .mainmenu li:nth-child(8n+2) {background-color:#678ce1}
-body .mainmenu li:nth-child(8n+3) {background-color:#8c67df}
+body .mainmenu li:nth-child(8n+3) {background-color:#8c67df;margin-left:29%}
 body .mainmenu li:nth-child(8n+4) {background-color:#84d018}
 body .mainmenu li:nth-child(8n+5) {background-color:#14c760;margin-left:29%}
 body .mainmenu li:nth-child(8n+6) {background-color:#f3b613}

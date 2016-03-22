@@ -17,6 +17,8 @@ public class Product {
     private Seller seller;
     private Category category;
     private int sellNum;
+    //用户统计购物车中当前商品的数量，不牵扯数据库表
+    private int num;
     private int hot;
     public Integer getId() {
         return id;
@@ -44,6 +46,14 @@ public class Product {
 
     public void setSellNum(int sellNum) {
         this.sellNum = sellNum;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public void setImage(String image) {

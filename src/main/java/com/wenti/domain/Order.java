@@ -1,6 +1,6 @@
 package com.wenti.domain;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -10,7 +10,7 @@ public class Order {
     private Integer id;
     private Date ordertime;
     private Date successDate;
-    private Double totalFee;
+    private float totalFee;
     private Integer state;
     private Seller seller;
     private User user;
@@ -52,9 +52,6 @@ public class Order {
         this.successDate = successDate;
     }
 
-    public Double getTotalFee() {
-        return totalFee;
-    }
 
     public String getAddr() {
         return addr;
@@ -80,7 +77,11 @@ public class Order {
         this.name = name;
     }
 
-    public void setTotalFee(Double totalFee) {
+    public float getTotalFee() {
+        return totalFee;
+    }
+
+    public void setTotalFee(float totalFee) {
         this.totalFee = totalFee;
     }
 
@@ -102,7 +103,6 @@ public class Order {
         if (id != null ? !id.equals(order.id) : order.id != null) return false;
         if (ordertime != null ? !ordertime.equals(order.ordertime) : order.ordertime != null) return false;
         if (successDate != null ? !successDate.equals(order.successDate) : order.successDate != null) return false;
-        if (totalFee != null ? !totalFee.equals(order.totalFee) : order.totalFee != null) return false;
         if (state != null ? !state.equals(order.state) : order.state != null) return false;
 
         return true;
@@ -113,7 +113,6 @@ public class Order {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (ordertime != null ? ordertime.hashCode() : 0);
         result = 31 * result + (successDate != null ? successDate.hashCode() : 0);
-        result = 31 * result + (totalFee != null ? totalFee.hashCode() : 0);
         result = 31 * result + (state != null ? state.hashCode() : 0);
         return result;
     }

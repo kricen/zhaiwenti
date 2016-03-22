@@ -10,7 +10,6 @@
             <column name="id"></column>
             <generator class="identity" />
         </id>
-        <property name="totalFee" column="total_fee"/>
         <many-to-one name="user" column="uid" class="com.wenti.domain.User"/>
         <set name="cartitems">
             <key column="cid"></key>

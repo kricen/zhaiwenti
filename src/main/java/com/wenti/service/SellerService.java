@@ -2,10 +2,12 @@ package com.wenti.service;
 
 import com.wenti.dao.SellerDao;
 import com.wenti.domain.Seller;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Administrator on 2016/3/16 0016.
  */
+@Transactional
 public class SellerService {
     private SellerDao sellerDao;
 

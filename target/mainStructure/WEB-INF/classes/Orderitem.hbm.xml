@@ -9,7 +9,7 @@
             <generator class="identity" />
         </id>
         <property name="num" column="num"/>
-        <many-to-one name="order" column="oid" class="com.wenti.domain.Order"/>
-        <many-to-one name="product" column="pid" class="com.wenti.domain.Product"/>
+        <many-to-one name="order" lazy="false" column="oid" class="com.wenti.domain.Order"/>
+        <many-to-one name="product" lazy="false" column="pid" class="com.wenti.domain.Product"/>
     </class>
 </hibernate-mapping>
