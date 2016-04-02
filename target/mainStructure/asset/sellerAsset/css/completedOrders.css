@@ -1,0 +1,138 @@
+@charset "UTF-8";
+/* 定义全局颜色 */
+@font-face {
+  font-family: 'iconfont';
+  src: url("//at.alicdn.com/t/font_1442999520_3759027.eot");
+  /* IE9*/
+  src: url("//at.alicdn.com/t/font_1442999520_3759027.eot?#iefix") format("embedded-opentype"), url("//at.alicdn.com/t/font_1442999520_3759027.woff") format("woff"), url("//at.alicdn.com/t/font_1442999520_3759027.ttf") format("truetype"), url("//at.alicdn.com/t/font_1442999520_3759027.svg#iconfont") format("svg");
+  /* iOS 4.1- */ }
+.iconfont {
+  font-family: "iconfont";
+  font-size: 24px;
+  font-style: normal;
+  padding-top: 0;
+  padding-bottom: 0; }
+
+table.table {
+  margin-top: 12px;
+  margin-bottom: 0; }
+  table.table thead {
+    background-color: #F5F5F5; }
+  table.table tbody tr td.address {
+    max-width: 150px; }
+  table.table tbody tr td.payWay {
+    font-style: italic;
+    font-weight: bold;
+    font-family: '微软雅黑'; }
+  table.table tbody tr td.cash {
+    color: #C63C69; }
+  table.table tbody tr td.alipay {
+    color: #00A0E8; }
+  table.table tbody tr td.wechat {
+    color: #32B700; }
+  table.table tbody tr td.succe {
+    color: #168cde;
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: 39px; }
+  table.table tbody tr td.fail {
+    color: #eb0a34;
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: 39px; }
+
+nav ul.pagination {
+  float: left; }
+nav ul.info {
+  display: block;
+  float: left;
+  margin: 20px 0;
+  height: 34px;
+  line-height: 34px;
+  list-style: none;
+  padding-left: 116px; }
+  nav ul.info li {
+    display: inline-block;
+    padding: 0 22px;
+    color: #eb0a34;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 18px; }
+  nav ul.info li:before {
+    content: "共 ";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 14px;
+    color: #555; }
+  nav ul.info li.pages:after {
+    content: " 页";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 14px;
+    color: #555; }
+  nav ul.info li.orders:after {
+    content: " 单";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 14px;
+    color: #555; }
+
+div#orderShow h3.orderHead {
+  margin-top: 0; }
+div#orderShow ul.bottomInfo {
+  padding: 0;
+  margin-left: 26px; }
+  div#orderShow ul.bottomInfo li {
+    display: inline-block; }
+    div#orderShow ul.bottomInfo li label {
+      color: #C81623;
+      font-size: 16px; }
+    div#orderShow ul.bottomInfo li span {
+      text-decoration: underline;
+      font-size: 14px; }
+  div#orderShow ul.bottomInfo li:nth-of-type(n+2) {
+    margin-left: 26px; }
+div#orderShow table.detail {
+  text-align: center;
+  margin-bottom: 0 !important; }
+  div#orderShow table.detail td.price {
+    color: #C81623;
+    font-size: 16px;
+    font-style: italic; }
+div#orderShow table.detail th {
+  text-align: center; }
+div#orderShow hr {
+  border-top: 3px solid #eee !important;
+  margin-top: 0; }
+div#orderShow #orderFooter ul {
+  float: right;
+  margin-right: 66px; }
+div#orderShow #orderFooter ul li {
+  display: inline-block; }
+div#orderShow img {
+  width: 42px; }
+div#orderShow img:hover {
+  cursor: pointer; }
+div#orderShow img.largeImg {
+  width: 200px;
+  margin: 0; }
+div#orderShow #orderFooter .amount {
+  color: #C81623;
+  font-weight: bold;
+  text-decoration: none; }
+div#orderShow #orderFooter .totalPrice {
+  color: #C81623;
+  font-size: 32px;
+  text-decoration: none; }
+div#orderShow .aTag {
+  font-size: 14px; }
+div#orderShow .orderedTime {
+  font-style: italic;
+  float: right;
+  font-size: 16px;
+  margin-right: 26px;
+  color: #666;
+  text-decoration: underline;
+  line-height: 29px; }
+
+/*# sourceMappingURL=completedOrders.css.map */

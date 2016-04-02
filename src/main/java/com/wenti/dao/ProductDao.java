@@ -15,7 +15,7 @@ public class ProductDao extends HibernateDaoSupport {
 
     //获取product集合
     public List<Product> getProducts(){
-        String hql = "from Product p where p.state=0  and p.seller<>null and p.category.state=0 order by p.hot desc ,p.id desc";
+        String hql = "from Product p where p.state=0  and p.seller<>null and p.category.state=0 order by p.category.id ,p.id desc";
         List<Product> find = this.getHibernateTemplate().find(hql);
         return find;
     }

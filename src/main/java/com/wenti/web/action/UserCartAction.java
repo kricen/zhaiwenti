@@ -26,6 +26,12 @@ import java.util.List;
 @ParentPackage("user-default")
 @Namespace(value="/user")
 @Results({
+        @Result(name="userJsonLogin",type="json"),
+        @Result(name="userActionLogin",location="huanchong",type="redirectAction"),
+        @Result(name = "notFound",location="huanchong",type="redirectAction" )
+})
+@ExceptionMappings({
+        @ExceptionMapping(result = "notFound",exception = "java.lang.Exception")
 })
 public class UserCartAction extends ActionSupport implements ModelDriven<Product>{
     private Product product = new Product();
@@ -38,6 +44,9 @@ public class UserCartAction extends ActionSupport implements ModelDriven<Product
 
     @Action(
             value = "cartToOrder",
+            interceptorRefs = {
+                    @InterceptorRef(value = "userJsonStack")
+            },
             results = {
                     @Result(name = SUCCESS,type = "json")
             }
@@ -56,6 +65,7 @@ public class UserCartAction extends ActionSupport implements ModelDriven<Product
             }else {
                 Order order = new Order();
                 order.setState(-1);
+                order.setVisible(0);
                 order.setUser(user);
                 order.setOrdertime(CommonUtils.getNowTime());
                 order.setTotalFee(0);
@@ -68,7 +78,14 @@ public class UserCartAction extends ActionSupport implements ModelDriven<Product
                         order.setSeller(cartitem.getSeller());
                     }
                     orderitem.setOrder(order);
-                    orderitem.setProduct(cartitem.getProduct());
+                    //产品处理
+                    Product findProduct = cartitem.getProduct();
+                    findProduct.setSellNum(findProduct.getSellNum()+cartitem.getNum());
+                    if(findProduct.getSellNum()>500){
+                        findProduct.setHot(1);
+                    }
+                    productService.update(findProduct);
+                    orderitem.setProduct(findProduct);
                     orderitem.setNum(cartitem.getNum());
                     order.setTotalFee(order.getTotalFee()+cartitem.getNum()*cartitem.getProduct().getPrice());
                     orderService.save(orderitem);
@@ -86,6 +103,9 @@ public class UserCartAction extends ActionSupport implements ModelDriven<Product
     //进入cart页面
     @Action(
             value = "cartPage",
+            interceptorRefs = {
+                    @InterceptorRef(value = "userActionStack")
+            },
             results = {
                     @Result(name = SUCCESS,location = "/userPages/cart.jsp")
             }
@@ -97,6 +117,9 @@ public class UserCartAction extends ActionSupport implements ModelDriven<Product
     //商品加入cart
     @Action(
             value = "addCart",
+            interceptorRefs = {
+                    @InterceptorRef(value = "userJsonStack")
+            },
             results = {
                     @Result(name = SUCCESS,type = "json")
             }

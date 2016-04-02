@@ -54,9 +54,10 @@ $("#del").click(function(){
 
 //confirm edit 
 $("#confirmEdit").click(function(){
-	var $input = $("#editModal").find('input')
+	var $input = $("#editModal").find('input');
 	var cName = $input.val().trim(); //类别名称
-	if(cName==''){
+    var score = $("#categoryScore option:selected").text().trim(); //类别优先级
+	if(cName==''||score==''){
 		//如果类别名为空
 		$input.parents('.form-group').addClass('has-error');
 		$input.siblings('.help-block').text('类别名称不能为空！')
@@ -65,7 +66,7 @@ $("#confirmEdit").click(function(){
 	//发起post请求，编辑或添加类别，类别ID 为 category_admin.$data.currentId
 	if(category_admin.$data.currentId==''){
 		//添加操作
-        $.post('/seller/addUpdateCategory.action', {'name': cName}, function(json) {
+        $.post('/seller/addUpdateCategory.action', {'name': cName,"score":score}, function(json) {
             if(json=='repeat'||json=="error"){
                 alert("该类别已经存在");
                 $input.parents('.form-group').addClass('has-error');
@@ -81,7 +82,7 @@ $("#confirmEdit").click(function(){
 	}else{
         console.log('edit')
 		//编辑操作
-        $.post('/seller/addUpdateCategory.action', {'id': category_admin.$data.currentId,'name':cName}, function(json, textStatus) {
+        $.post('/seller/addUpdateCategory.action', {'id': category_admin.$data.currentId,'name':cName,'score':score}, function(json, textStatus) {
             console.log(json);
             if(json=='repeat'||json=="error"){
                 alert("该类别已经存在");

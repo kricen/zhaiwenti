@@ -19,7 +19,7 @@
 </head>
 <body>
 <!-- 隐藏订单编号  -->
-<span style="display:none" id="orderNo"><s:property value="orderNo"/></span>
+<span style="display:none" id="orderNo"><s:property value="order.id"/></span>
 <header>
     <h1>
         <a class="iconfont back" href="javascript:window.history.go(-1)"></a>
@@ -155,11 +155,11 @@
 <footer>
     <div class="h50"></div>
     <ul class="bottom_nav w tc">
-        <li><a href="#">返回</a></li>
+        <li><a href="javascript:window.history.go(-1)">返回</a></li>
         <li><a href="#">联系商家</a></li>
-        <li><a href="#"></a></li>
-        <li><a href="#">商城中心</a></li>
-        <li><a href="#">我的订单</a></li>
+        <li><a href="/user/index.action"></a></li>
+        <li><a href="/user/centerPage.action">商城中心</a></li>
+        <li><a href="/user/orderPage.action">我的订单</a></li>
     </ul>
 </footer>
 <!— 验证码弹框 —>
@@ -461,29 +461,19 @@
                     //用户选择的是货到付款,验证手机号码
                     $("#loadingToast").show();
                     //向服务器发起post请求，做 “tel” 校验
-                    $.post('/user/getTelFromOA.action', {phone: tel}, function(data) {
-                        if(data=='success'){
                             //号码已有，不需要校验
-                            $.post('/user/checkCode.action', {'addr': address,'phone':tel,'orderNo':orderNo,'name':name,'remark':remark}, function(data) {
-                                if(data=='success'){
-                                    window.location.href = "/user/orderPage.action";
-                                }else{
-                                    //验证码错误
-                                    $("#checkBox").addClass('wobble').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend', function(){
-                                        $(this).removeClass('wobble');
-                                    });
-                                    document.getElementById('checkCode').value = '';
-                                    $("#checkCode").attr('placeholder','验证码错误');
-                                }
+                            $.post('/user/orderSubmit.action', {'addr': address,'tel':tel,'id':orderNo,'name':name,'remark':remark}, function(data) {
+                               if(data=="noLogin"){
+                                   window.location.href="/user/huanchong.action?page=2"
+                               }else if(data=="error"){
+                                    window.location.href="/user/errorPage.action"
+                               }else if(data=="notNull"){
+                                    alertMsg("请检查您的地址栏")
+                               }else if(data=="success"){
+                                   window.location.href="/user/orderPage.action"
+                               }
+
                             });
-                        }else{
-                            //号码没有，需要校验
-                            $("#loadingToast").hide();
-                            $("#model").show(); //显示输入验证码模态框
-                            numDown(document.getElementById('time'));
-                            $(".getCheckCodeAgain").unbind();
-                        }
-                    });
                 }else{
                 }
             }

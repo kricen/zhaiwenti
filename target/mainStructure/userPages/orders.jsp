@@ -21,7 +21,7 @@
     <h1>
         <a class="iconfont back" href="javascript:window.history.go(-1)">&#xe601;</a >
         我的订单
-        <a class="iconfont home" href="/user/index.dhtml">&#xe60e;</a >
+        <a class="iconfont home" href="/user/centerPage.action">&#xe60e;</a >
     </h1>
 </header>
 
@@ -29,8 +29,8 @@
     <!-- nav part -->
     <nav>
         <ul id="category">
-            <li class="0">全部 (<span class="all0"><s:property value="allOrders.size()"/></span>)</li>
-            <li class="1">进行中 (<span class="pending1"><s:property value="tradingOrders.size()"/></span>)</li>
+            <li class="0">待处理(<span class="all0"><s:property value="pendingOrders.size()"/></span>)</li>
+            <li class="1">进行中 (<span class="pending1"><s:property value="ongoingOrders.size()"/></span>)</li>
             <li class="2">已完成 (<span class="complete2"><s:property value="completeOrders.size()"/></span>)</li>
         </ul>
         <p class="underline"></p>
@@ -39,210 +39,154 @@
 
     <!-- orders part -->
     <div id="a" class="model">
-        <s:iterator value="allOrders" var="order">
-            <s:if test="#order.order!=null">
-            <section class="order <s:property value="#order.order.id"/> ">
+        <s:iterator value="pendingOrders" var="order">
+            <section class="order <s:property value="#order.id"/>">
                 <h3>
-                    <span class="name"><s:property value="#order.order.seller.name"/> </span>
-                    <s:if test="#order.order.state==-1">
-                         <span class="state waitMoney">剩余付款时间
-						    <span class="remainTime"><s:property value="#order.order.ordertime.substring(11)"/> </span>
+                    <span class="name"><s:property value="#order.name"/> </span>
+                    <s:if test="#order.state==-1">
+                        <span class="state waitMoney">待提交
 					    </span>
                     </s:if>
-                    <s:elseif test="#order.order.state==0">
+                    <s:elseif test="#order.state==0">
                         <span class="state accepted">下单成功,等待商家接单</span>
                     </s:elseif>
-                    <s:elseif test="#order.order.state==1">
+                    <s:elseif test="#order.state==1">
                         <span class="state accepted">商家已接单</span>
                     </s:elseif>
-                    <s:elseif test="#order.order.state==2">
+                    <s:elseif test="#order.state==2">
                         <span class="state">交易成功</span>
                     </s:elseif>
-                    <s:elseif test="#order.order.state==3">
+                    <s:elseif test="#order.state==3">
                         <span class="state">交易失败</span>
                     </s:elseif>
                 </h3>
                 <p>
-                    <span class="num">订单号：<s:property value="#order.order.id"/></span>
-                    <span class="time"><s:property value="#order.order.ordertime.substring(0,16)"/></span>
+                    <span class="num">订单号：<s:property value="#order.id"/></span>
+                    <span class="time"><s:date name="#order.ordertime" format="yyyy-MM-dd" /></span>
                 </p>
                 <p>
                         <span class="info">
-                            共计 <s:property value="#order.order.num"/> 本书
-                            <s:if test="#order.order.payWay==0">
+                            共计 <s:property value="#order.num"/> 件
                                 <span class="pay cash">（货到付款）</span>
-                            </s:if>
-                            <s:elseif test="#order.order.payWay==2">
-                                 <span class="pay wechat">(微信支付)</span>
-                            </s:elseif>
-                            <s:else>
-                                <span class="pay alipay">（支付宝支付）</span>
-                            </s:else>
                         </span>
-                    <span class="price"><s:property value="#order.order.totalFee"/></span>
+                    <span class="price"><s:property value="#order.totalFee"/></span>
                 </p>
                 <div class="goods">
                     <ul>
-                        <s:iterator value="#order.order.orderitems" var="orderitem">
+                        <s:iterator value="#order.orderitems" var="orderitem">
                             <li>
                                 <span class="iconfont dot">&#xe625;</span>
-                                <span class="title"><s:property value="#orderitem.book.title"/> </span>
-                                <s:if test="#orderitem.salesBook==null">
-                                    <span class="price"><s:property value="@@round(#orderitem.book.price*0.82*10)/10d"/></span>
-                                </s:if>
-                                <s:else>
-                                    <span class="price"><s:property value="#orderitem.salesBook.price"/></span>
-                                </s:else>
+                                <span class="title"><s:property value="#orderitem.product.name"/> </span>
+                                    <span class="price"><s:property value="#orderitem.product.price"/></span>
                                 <span class="amount"><s:property value="#orderitem.num"/></span>
                             </li>
                         </s:iterator>
                     </ul>
                 </div>
                 <ul class="btns">
-                    <li>
-                        <button class="tel" data-tel="<s:property value="#order.order.seller.tel"/>">联系商家</button>
-                    </li>
+                    <s:if test="#order.state!=-1">
+                        <li>
+                            <button class="tel" data-tel="<s:property value="#order.seller.tel"/>">联系商家</button>
+                        </li>
+                    </s:if>
+                    <s:if test="#order.state==-1">
+                        <li>
+                            <button class="payNow pay">立即提交</button>
+                            <input type="hidden" class="orderNo" value="<s:property value="#order.id"/>">
+                        </li>
+                    </s:if>
                     <li>
                         <button class="lookInfo">查看详情</button>
                     </li>
-                    <s:if test="#order.order.state==2||#order.order.state==3">
+                    <s:if test="#order.state==-1">
+                        <li>
+                            <button class="delBtn cancelOrder">取消订单</button>
+                            <input type="hidden" class="orderNo" value="<s:property value="#order.id"/>">
+                        </li>
+                    </s:if>
+                    <s:if test="#order.state==2||#order.state==3">
                         <li>
                             <button class="delOrder delBtn">删除记录</button>
-                            <input type="hidden" class="orderId" value="<s:property value="#order.order.id"/>">
+                            <input type="hidden" class="orderId" value="<s:property value="#order.id"/>">
                         </li>
                     </s:if>
                 </ul>
                 <div style="clear:both"></div>
             </section>
-            </s:if>
-            <s:else>
-            <section class="order">
-                <h3>
-                    <span class="name">待付款订单</span>
-                         <span class="state waitMoney">剩余付款时间
-						    <span class="remainTime"><s:property value="#order.ordertime.substring(11)"/> </span>
-					    </span>
-                </h3>
-                <p>
-                    <span class="num">订单编号：<s:property value="#order.orderNo"/></span>
-                    <span class="time"><s:property value="#order.ordertime.substring(0,10)"/> <span class="orderTime"><s:property value="#order.ordertime.substring(10,16)"/></span></span>
-                </p>
-                <p>
-                        <span class="infoa">
-                            共计 <s:property value="#order.totalNum"/> 本书
-                        </span>
-                    <span class="price"><s:property value="@@round(#order.totalFee*10)/10d"/></span>
-                </p>
-                <div class="goods">
-                    <ul>
-                        <s:iterator value="#order.orderList" var="indexOrder">
-                        <s:iterator value="#indexOrder.orderitems" var="orderitem">
-                            <li>
-                                <span class="iconfont dot">&#xe625;</span>
-                                <span class="title"><s:property value="#orderitem.book.title"/> </span>
-                                <s:if test="#orderitem.salesBook==null">
-                                    <span class="price"><s:property value="@@round(#orderitem.book.price*0.82*10)/10d"/></span>
-                                </s:if>
-                                <s:else>
-                                    <span class="price"><s:property value="#orderitem.salesBook.price"/></span>
-                                </s:else>
-                                <span class="amount"><s:property value="#orderitem.num"/></span>
-                            </li>
-                        </s:iterator>
-                        </s:iterator>
-                    </ul>
-                </div>
-                <ul class="btns">
-                    <li>
-                        <button class="payNow pay">立即支付</button>
-                        <input type="hidden" class="orderNo" value="<s:property value="#order.orderList[0].orderNo"/>">
-                    </li>
-                    <li>
-                        <button class="lookInfo">查看详情</button>
-                    </li>
-                     <li>
-                         <button class="delBtn cancelOrder">取消订单</button>
-                         <input type="hidden" class="orderNo" value="<s:property value="#order.orderList[0].orderNo"/>">
-                     </li>
-                </ul>
-                <div style="clear:both"></div>
-            </section>
-            </s:else>
-
         </s:iterator>
+
     </div>
 
      <div id="b" class="model">
-         <s:iterator value="tradingOrders" var="order">
-             <section class="order <s:property value="#order.order.id"/>">
+         <s:iterator value="ongoingOrders" var="order">
+             <section class="order <s:property value="#order.id"/>">
                  <h3>
-                     <span class="name"><s:property value="#order.order.seller.name"/> </span>
+                     <span class="name"><s:property value="#order.name"/> </span>
                      <s:if test="#order.state==-1">
-                        <span class="state waitMoney">剩余付款时间
-						    <span class="remainTime"><s:property value="#order.order.ordertime.substring(11)"/> </span>
+                        <span class="state waitMoney">待提交
 					    </span>
                      </s:if>
-                     <s:elseif test="#order.order.state==0">
+                     <s:elseif test="#order.state==0">
                          <span class="state accepted">下单成功,等待商家接单</span>
                      </s:elseif>
-                     <s:elseif test="#order.order.state==1">
+                     <s:elseif test="#order.state==1">
                          <span class="state accepted">商家已接单</span>
                      </s:elseif>
-                     <s:elseif test="#order.order.state==2">
+                     <s:elseif test="#order.state==2">
                          <span class="state">交易成功</span>
                      </s:elseif>
-                     <s:elseif test="#order.order.state==3">
+                     <s:elseif test="#order.state==3">
                          <span class="state">交易失败</span>
                      </s:elseif>
                  </h3>
                  <p>
-                     <span class="num">订单号：<s:property value="#order.order.id"/></span>
-                     <span class="time"><s:property value="#order.order.ordertime.substring(0,16)"/></span>
+                     <span class="num">订单号：<s:property value="#order.id"/></span>
+                     <span class="time"><s:date name="#order.ordertime" format="yyyy-MM-dd" /></span>
                  </p>
                  <p>
                         <span class="info">
-                            共计 <s:property value="#order.order.num"/> 本书
-                            <s:if test="#order.order.payWay==0">
+                            共计 <s:property value="#order.num"/> 件
                                 <span class="pay cash">（货到付款）</span>
-                            </s:if>
-                            <s:elseif test="#order.order.payWay==2">
-                                <span class="pay wechat">(微信支付)</span>
-                            </s:elseif>
-                            <s:else>
-                                <span class="pay alipay">（支付宝支付）</span>
-                            </s:else>
                         </span>
-                     <span class="price"><s:property value="#order.order.totalFee"/></span>
+                     <span class="price"><s:property value="#order.totalFee"/></span>
                  </p>
                  <div class="goods">
                      <ul>
-                         <s:iterator value="#order.order.orderitems" var="orderitem">
+                         <s:iterator value="#order.orderitems" var="orderitem">
                              <li>
                                  <span class="iconfont dot">&#xe625;</span>
-                                 <span class="title"><s:property value="#orderitem.book.title"/> </span>
-                                 <s:if test="#orderitem.salesBook==null">
-                                     <span class="price"><s:property value="@@round(#orderitem.book.price*0.82*10)/10d"/></span>
-                                 </s:if>
-                                 <s:else>
-                                     <span class="price"><s:property value="#orderitem.salesBook.price"/></span>
-                                 </s:else>
-
+                                 <span class="title"><s:property value="#orderitem.product.name"/> </span>
+                                 <span class="price"><s:property value="#orderitem.product.price"/></span>
                                  <span class="amount"><s:property value="#orderitem.num"/></span>
                              </li>
                          </s:iterator>
                      </ul>
                  </div>
                  <ul class="btns">
-                     <li>
-                         <button class="tel" data-tel="<s:property value="#order.order.seller.tel"/>">联系商家</button>
-                     </li>
+                     <s:if test="#order.state!=-1">
+                         <li>
+                             <button class="tel" data-tel="<s:property value="#order.seller.tel"/>">联系商家</button>
+                         </li>
+                     </s:if>
+                     <s:if test="#order.state==-1">
+                         <li>
+                             <button class="payNow pay">立即提交</button>
+                             <input type="hidden" class="orderNo" value="<s:property value="#order.id"/>">
+                         </li>
+                     </s:if>
                      <li>
                          <button class="lookInfo">查看详情</button>
                      </li>
-                     <s:if test="#order.order.state==2||#order.order.state==3">
+                     <s:if test="#order.state==-1">
+                         <li>
+                             <button class="delBtn cancelOrder">取消订单</button>
+                             <input type="hidden" class="orderNo" value="<s:property value="#order.id"/>">
+                         </li>
+                     </s:if>
+                     <s:if test="#order.state==2||#order.state==3">
                          <li>
                              <button class="delOrder delBtn">删除记录</button>
-                             <input type="hidden" class="orderId" value="<s:property value="#order.order.id"/>">
+                             <input type="hidden" class="orderId" value="<s:property value="#order.id"/>">
                          </li>
                      </s:if>
                  </ul>
@@ -250,78 +194,76 @@
              </section>
          </s:iterator>
     </div>
-
     <div id="c" class="model">
         <s:iterator value="completeOrders" var="order">
-            <section class="order <s:property value="#order.order.id"/>">
+            <section class="order <s:property value="#order.id"/>">
                 <h3>
-                    <span class="name"><s:property value="#order.order.seller.name"/> </span>
-                    <s:if test="#order.order.state==-1">
-                       <span class="state waitMoney">剩余付款时间
-						    <span class="remainTime"><s:property value="#order.order.ordertime.substring(11)"/> </span>
+                    <span class="name"><s:property value="#order.name"/> </span>
+                    <s:if test="#order.state==-1">
+                        <span class="state waitMoney">待提交
 					    </span>
                     </s:if>
-                    <s:elseif test="#order.order.state==0">
+                    <s:elseif test="#order.state==0">
                         <span class="state accepted">下单成功,等待商家接单</span>
                     </s:elseif>
-                    <s:elseif test="#order.order.state==1">
+                    <s:elseif test="#order.state==1">
                         <span class="state accepted">商家已接单</span>
                     </s:elseif>
-                    <s:elseif test="#order.order.state==2">
+                    <s:elseif test="#order.state==2">
                         <span class="state">交易成功</span>
                     </s:elseif>
-                    <s:elseif test="#order.order.state==3">
+                    <s:elseif test="#order.state==3">
                         <span class="state">交易失败</span>
                     </s:elseif>
                 </h3>
                 <p>
-                    <span class="num">订单号：<s:property value="#order.order.id"/></span>
-                    <span class="time"><s:property value="#order.order.ordertime.substring(0,16)"/></span>
+                    <span class="num">订单号：<s:property value="#order.id"/></span>
+                    <span class="time"><s:date name="#order.ordertime" format="yyyy-MM-dd" /></span>
                 </p>
                 <p>
                         <span class="info">
-                            共计<s:property value="#order.order.num"/> 本书
-                             <s:if test="#order.order.payWay==0">
-                                 <span class="pay cash">（货到付款）</span>
-                             </s:if>
-                            <s:elseif test="#order.order.payWay==2">
-                                <span class="pay wechat">(微信支付)</span>
-                            </s:elseif>
-                            <s:else>
-                                <span class="pay alipay">（支付宝支付）</span>
-                            </s:else>
+                            共计 <s:property value="#order.num"/> 件
+                                <span class="pay cash">（货到付款）</span>
                         </span>
-                    <span class="price"><s:property value="#order.order.totalFee"/></span>
+                    <span class="price"><s:property value="#order.totalFee"/></span>
                 </p>
                 <div class="goods">
                     <ul>
-                        <s:iterator value="#order.order.orderitems" var="orderitem">
+                        <s:iterator value="#order.orderitems" var="orderitem">
                             <li>
                                 <span class="iconfont dot">&#xe625;</span>
-                                <span class="title"><s:property value="#orderitem.book.title"/> </span>
-                                <s:if test="#orderitem.salesBook==null">
-                                    <span class="price"><s:property value="@@round(#orderitem.book.price*0.82*10)/10d"/></span>
-                                </s:if>
-                                <s:else>
-                                    <span class="price"><s:property value="#orderitem.salesBook.price"/></span>
-                                </s:else>
-
+                                <span class="title"><s:property value="#orderitem.product.name"/> </span>
+                                <span class="price"><s:property value="#orderitem.product.price"/></span>
                                 <span class="amount"><s:property value="#orderitem.num"/></span>
                             </li>
                         </s:iterator>
                     </ul>
                 </div>
                 <ul class="btns">
-                    <li>
-                        <button class="tel" data-tel="<s:property value="#order.order.seller.tel"/>">联系商家</button>
-                    </li>
+                    <s:if test="#order.state!=-1">
+                        <li>
+                            <button class="tel" data-tel="<s:property value="#order.seller.tel"/>">联系商家</button>
+                        </li>
+                    </s:if>
+                    <s:if test="#order.state==-1">
+                        <li>
+                            <button class="payNow pay">立即提交</button>
+                            <input type="hidden" class="orderNo" value="<s:property value="#order.id"/>">
+                        </li>
+                    </s:if>
                     <li>
                         <button class="lookInfo">查看详情</button>
                     </li>
-                    <s:if test="#order.order.state==2||#order.order.state==3">
+                    <s:if test="#order.state==-1">
+                        <li>
+                            <button class="delBtn cancelOrder">取消订单</button>
+                            <input type="hidden" class="orderNo" value="<s:property value="#order.id"/>">
+                        </li>
+                    </s:if>
+                    <s:if test="#order.state==2||#order.state==3">
                         <li>
                             <button class="delOrder delBtn">删除记录</button>
-                            <input type="hidden" class="orderId" value="<s:property value="#order.order.id"/>">
+                            <input type="hidden" class="orderId" value="<s:property value="#order.id"/>">
                         </li>
                     </s:if>
                 </ul>
@@ -336,7 +278,7 @@
 <script type="text/javascript">
     $(".delOrder").click(function () {
         var orderId = $(this).siblings(".orderId").val();
-        var url = '/user/userDelOrder.dhtml';
+        var url = '/user/userDelOrder.action';
         var allNum = parseInt($(".all0").text().trim());
         var completeNum = parseInt($(".complete2").text().trim());
         var args= {"id":orderId};
@@ -346,16 +288,15 @@
                 $(".all0").text(--allNum);
                 $("."+orderId).remove();
                 $(".complete2").text(--completeNum)
-                console.log(data);
                 $target.remove();
             }
         })
     });
     $(".cancelOrder").click(function () {
         var orderId = $(this).siblings(".orderNo").val();
-        var url = '/user/cancelOrder.dhtml';
+        var url = '/user/cancelOrder.action';
         var allNum = parseInt($(".all0").text().trim());
-        var args= {"orderNo":orderId};
+        var args= {"id":orderId};
         var $target = $(this).parent().parent().parent();
         $.post(url,args, function (data) {
             if(data=="success"){
@@ -367,8 +308,7 @@
     });
     $(".payNow").click(function () {
         var orderId = $(this).siblings(".orderNo").val();
-        var url = '/user/payNow.dhtml';
-        window.location.href="/user/payNow.dhtml?orderNo="+orderId;
+        window.location.href="/user/orderInfoPage.action?id="+orderId;
     });
     //nav part's animation
     $("#category").on('tap', 'li', function(event) {

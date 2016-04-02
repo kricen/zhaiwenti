@@ -18,6 +18,8 @@ public class Order {
     private String tel;
     private String name;
     private String addr;
+    private int num;
+    private int visible;
     private Set<Orderitem> orderitems;
 
     public String getRemark() {
@@ -36,8 +38,24 @@ public class Order {
         this.id = id;
     }
 
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
     public Date getOrdertime() {
         return ordertime;
+    }
+
+    public int getVisible() {
+        return visible;
+    }
+
+    public void setVisible(int visible) {
+        this.visible = visible;
     }
 
     public void setOrdertime(Date ordertime) {
@@ -84,6 +102,7 @@ public class Order {
     public void setTotalFee(float totalFee) {
         this.totalFee = totalFee;
     }
+
 
     public Integer getState() {
         return state;

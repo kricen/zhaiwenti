@@ -9,6 +9,7 @@ public class Category {
     private Integer id;
     private String name;
     private int state;
+    private int score;
     private Set<Product> products;
 
     public Integer getId() {
@@ -29,6 +30,14 @@ public class Category {
 
     public int getState() {
         return state;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public void setState(int state) {

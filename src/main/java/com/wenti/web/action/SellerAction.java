@@ -18,8 +18,13 @@ import java.io.PrintWriter;
 @ParentPackage("seller-default")
 @Namespace(value="/seller")
 @Results({
+        @Result(name="sellerJsonLogin",type="json"),
+        @Result(name="sellerActionLogin",location="login",type="redirectAction"),
+        @Result(name = "notFound",location="pendingOrderPage",type="redirectAction" ),
+        @Result(name = "loginPage",location="login",type="redirectAction" )
 })
 @ExceptionMappings({
+        @ExceptionMapping(result = "notFound",exception = "java.lang.Exception")
 })
 public class SellerAction extends ActionSupport implements ModelDriven<Seller>{
     private Seller seller = new Seller();
@@ -28,6 +33,21 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>{
     }
 
     private SellerService sellerService;
+
+    //商家退出
+    @Action(
+            value = "exit",
+            interceptorRefs = {
+                    @InterceptorRef(value = "sellerActionStack")
+            },
+            results = {
+                    @Result(name = SUCCESS,location = "login",type = "redirectAction")
+            }
+    )
+    public String exit(){
+        ServletActionContext.getRequest().getSession().invalidate();
+        return SUCCESS;
+    }
 
     //商家登陆页面
     @Action(
@@ -53,6 +73,7 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>{
             writer.write("not_find");
         }else {
             writer.write("success");
+            ServletActionContext.getRequest().getSession().setAttribute("seller",findSeller);
         }
         writer.flush();
         writer.close();

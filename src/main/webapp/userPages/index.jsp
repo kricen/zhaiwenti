@@ -40,7 +40,7 @@
         <div class="prt-lt">
             <div class="lt-lt"><img src="<s:property value="#product.image"/>"></div>
             <div class="lt-ct">
-                <p><s:property value="#product.name"/><span class="ltgreen"></span></p>
+                <p><s:property value="#product.name"/><s:if test="#product.hot==1"><span class="ltgreen"></span></s:if></p>
                 <p class="pr">¥<span class="price"><s:property value="#product.price"/></span></p>
             </div>
             <div class="lt-rt">
@@ -162,10 +162,11 @@
     $(function(){
         $("#selectOk").click(function (data) {
             $.post("/user/cartToOrder.action",{}, function (data) {
+                console.log(data)
                 if(data=="noLogin"){
                     window.location.href="/user/huanchong.action"
                 }else if(data=='success'){
-                    window.location.href = "/user/orderInfo.action"
+                    window.location.href = "/user/orderInfoPage.action"
                 }else if(data=='index'){
                     alert("您还没选购商品");
                 }else {

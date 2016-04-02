@@ -26,8 +26,13 @@ import java.util.List;
 @ParentPackage("seller-default")
 @Namespace(value="/seller")
 @Results({
+        @Result(name="sellerJsonLogin",type="json"),
+        @Result(name="sellerActionLogin",location="login",type="redirectAction"),
+        @Result(name = "notFound",location="pendingOrderPage",type="redirectAction" ),
+        @Result(name = "loginPage",location="login",type="redirectAction" )
 })
 @ExceptionMappings({
+        @ExceptionMapping(result = "notFound",exception = "java.lang.Exception")
 })
 public class SellerRCAction extends ActionSupport{
     private File image;
@@ -38,12 +43,16 @@ public class SellerRCAction extends ActionSupport{
     private String name;
     private float price;
     private int categoryId;
+    private int score;
     private ProductService productService;
     private CategoryService categoryService;
 
     //库存管理 包含新增商品和更改商品
     @Action(
             value = "addUpdateProduct",
+            interceptorRefs = {
+                    @InterceptorRef(value = "sellerJsonStack")
+            },
             results = {
                     @Result(name = SUCCESS,type = "json")
             }
@@ -107,6 +116,9 @@ public class SellerRCAction extends ActionSupport{
     //库存管理页面
     @Action(
             value = "repertoryPage",
+            interceptorRefs = {
+                    @InterceptorRef(value = "sellerActionStack")
+            },
             results = {
                     @Result(name = SUCCESS,location = "/sellerPages/repertory.jsp")
             }
@@ -122,6 +134,9 @@ public class SellerRCAction extends ActionSupport{
     //类别管理页面
     @Action(
             value = "categoryPage",
+            interceptorRefs = {
+                    @InterceptorRef(value = "sellerActionStack")
+            },
             results = {
                     @Result(name = SUCCESS,location = "/sellerPages/categories.jsp")
             }
@@ -135,6 +150,9 @@ public class SellerRCAction extends ActionSupport{
     //类别管理
     @Action(
             value = "addUpdateCategory",
+            interceptorRefs = {
+                    @InterceptorRef(value = "sellerJsonStack")
+            },
             results = {
                     @Result(name = SUCCESS,type = "json")
             }
@@ -148,6 +166,7 @@ public class SellerRCAction extends ActionSupport{
                 category = new Category();
                 category.setName(name);
                 category.setState(0);
+                category.setScore(score);
                 categoryService.save(category);
                 writer.write("success");
             }else {
@@ -261,6 +280,10 @@ public class SellerRCAction extends ActionSupport{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public void setCategoryService(CategoryService categoryService) {

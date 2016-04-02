@@ -28,4 +28,9 @@ public class UserDao extends HibernateDaoSupport {
     public void save(User user){
         this.getHibernateTemplate().save(user);
     }
+
+
+    //更新用户
+    public void update(User user){this.getHibernateTemplate().update(user);}
+
 }

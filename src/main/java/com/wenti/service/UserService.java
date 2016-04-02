@@ -25,6 +25,9 @@ public class UserService {
     public void save(User user){
         userDao.save(user);
     }
+
+    //更新用户
+    public void update(User user){userDao.update(user);}
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }

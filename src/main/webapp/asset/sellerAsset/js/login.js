@@ -42,7 +42,7 @@
 							show_err_msg('账号或密码错误！');
 							$('#email').focus();
 						}else if(data=="success"){
-							window.location.href = "http://www.baidu.com";
+							window.location.href = "/seller/pendingOrderPage.action";
 						}
 					})
 					//ajax提交表单，#login_form为表单的ID。 如：$('#login_form').ajaxSubmit(function(data) { ... });

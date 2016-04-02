@@ -62,12 +62,11 @@
 </div>
 
 <ul class="mainmenu">
-    <li><a href="/" ><b><img src="/asset/userAsset/images/tb01.png" /></b><span>购物中心</span></a></li>
-    <li><a href="/" ><b><img src="/asset/userAsset/images/tb04.png" /></b><span>我的订单</span></a></li>
-    <li><a href="/" ><b><img src="/asset/userAsset/images/tb04.png" /></b><span>联系商家</span></a></li>
+    <li><a href="/user/index.action" ><b><img src="/asset/userAsset/images/tb01.png" /></b><span>购物中心</span></a></li>
+    <li><a href="/user/orderPage.action" ><b><img src="/asset/userAsset/images/plugmenu10.png" /></b><span>我的订单</span></a></li>
+    <li><a href="javascript:zhuxiao();" ><b><img src="/asset/userAsset/images/tb04.png" /></b><span>注销登陆</span></a></li>
 
 </ul>
-
 
 <script type="text/javascript">
     var count = document.getElementById("thelist").getElementsByTagName("img").length;
@@ -87,6 +86,11 @@
             document.getElementById("thelist").getElementsByTagName("img").item(i).style.cssText = " width:"+document.body.clientWidth+"px";
         }
         document.getElementById("scroller").style.cssText = " width:"+document.body.clientWidth*count+"px";
+    }
+
+    function zhuxiao(){
+        window.localStorage.removeItem("phone");
+        window.location.href = "/user/huanchong.action"
     }
 </script>
 

@@ -345,6 +345,14 @@
       <version>2.4</version>
       <classifier>jdk15</classifier>
     </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
   </dependencies>
   <build>
     <finalName>mainStructure</finalName>

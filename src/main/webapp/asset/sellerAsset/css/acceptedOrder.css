@@ -1,0 +1,139 @@
+@charset "UTF-8";
+/* 定义全局颜色 */
+table.table {
+  margin-top: 12px;
+  margin-bottom: 0; }
+  table.table thead {
+    background-color: #F5F5F5; }
+  table.table tbody tr td.payWay {
+    font-style: italic;
+    font-weight: bold;
+    font-family: '微软雅黑'; }
+  table.table tbody tr td.cash {
+    color: #C63C69; }
+  table.table tbody tr td.alipay {
+    color: #00A0E8; }
+  table.table tbody tr td.wechat {
+    color: #32B700; }
+  table.table tbody tr td.acceptOrderTime {
+    color: #eb0a34;
+    font-style: italic;
+    font-family: '微软雅黑'; }
+  table.table tbody tr td.address {
+    max-width: 150px; }
+
+nav ul.pagination {
+  float: left; }
+nav ul.info {
+  display: block;
+  float: left;
+  margin: 20px 0;
+  height: 34px;
+  line-height: 34px;
+  list-style: none;
+  padding-left: 116px; }
+  nav ul.info li {
+    display: inline-block;
+    padding: 0 22px;
+    color: #eb0a34;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 18px; }
+  nav ul.info li:before {
+    content: "共 ";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 14px;
+    color: #555; }
+  nav ul.info li.pages:after {
+    content: " 页";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 14px;
+    color: #555; }
+  nav ul.info li.orders:after {
+    content: " 单";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 14px;
+    color: #555; }
+
+section#box {
+  width: 100%;
+  text-align: center;
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 30%;
+  z-index: 9999999; }
+  section#box p {
+    padding: 0 10px;
+    display: inline-block;
+    width: auto;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    font-size: 14px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 4px;
+    box-shadow: 0, 0, 3px rgba(0, 0, 0, 0.3); }
+
+div#orderShow h3.orderHead {
+  margin-top: 0; }
+div#orderShow ul.bottomInfo {
+  padding: 0;
+  margin-left: 26px; }
+  div#orderShow ul.bottomInfo li {
+    display: inline-block; }
+    div#orderShow ul.bottomInfo li label {
+      color: #C81623;
+      font-size: 16px; }
+    div#orderShow ul.bottomInfo li span {
+      text-decoration: underline;
+      font-size: 14px; }
+  div#orderShow ul.bottomInfo li:nth-of-type(n+2) {
+    margin-left: 26px; }
+div#orderShow table.detail {
+  text-align: center;
+  margin-bottom: 0 !important; }
+  div#orderShow table.detail td.price {
+    color: #C81623;
+    font-size: 16px;
+    font-style: italic; }
+div#orderShow table.detail th {
+  text-align: center; }
+div#orderShow hr {
+  border-top: 3px solid #eee !important;
+  margin-top: 0; }
+div#orderShow #orderFooter ul {
+  float: right;
+  margin-right: 66px; }
+div#orderShow #orderFooter ul li {
+  display: inline-block; }
+div#orderShow img {
+  width: 42px; }
+div#orderShow img:hover {
+  cursor: pointer; }
+div#orderShow img.largeImg {
+  width: 200px;
+  margin: 0; }
+div#orderShow #orderFooter .amount {
+  color: #C81623;
+  font-weight: bold;
+  text-decoration: none; }
+div#orderShow #orderFooter .totalPrice {
+  color: #C81623;
+  font-size: 32px;
+  text-decoration: none; }
+div#orderShow .aTag {
+  font-size: 14px; }
+div#orderShow .orderedTime {
+  font-style: italic;
+  float: right;
+  font-size: 16px;
+  margin-right: 26px;
+  color: #666;
+  text-decoration: underline;
+  line-height: 29px; }
+
+/*# sourceMappingURL=acceptedOrder.css.map */

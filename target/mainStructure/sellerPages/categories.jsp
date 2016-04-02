@@ -44,7 +44,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/seller/pendingOrder.action">123456<s:property value="#session.seller.name"/> </a>
+            <a class="navbar-brand" href="/seller/pendingOrderPage.action">123456<s:property value="#session.seller.name"/> </a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
@@ -52,7 +52,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> 123456<s:property value="#session.seller.username"/> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="/seller/getSellerDetail.action" class="switchModel" data-target="seller-info"><i class="fa fa-fw fa-user" ></i> 我的信息</a>
+                        <a href="#" class="switchModel" data-target="seller-info"><i class="fa fa-fw fa-user" ></i> 我的信息</a>
                     </li>
                     <li class="divider"></li>
                     <li>
@@ -72,10 +72,10 @@
                 <li >
                     <a href="/seller/completeOrderPage.action"><i class="fa fa-fw fa-edit"></i> 已完成订单</a>
                 </li>
-                <li class="active">
+                <li >
                     <a href="/seller/repertoryPage.action"><i class="fa fa-fw fa-wrench"></i> 库存查看</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="/seller/categoryPage.action"><i class="fa fa-fw fa-file"></i> 分类管理</a>
                 </li>
             </ul>
@@ -171,8 +171,20 @@
                     <div class="form-group">
                         <label for="inputPassword" class="col-sm-2 control-label">类别名称</label>
                         <div class="col-sm-8">
-                            <input type="text" maxlength="10" class="form-control" id="inputPassword" placeholder="请输入类别名称...">
+                            <input type="text" maxlength="10" class="name form-control" id="categoryName" placeholder="请输入类别名称...">
                             <span id="helpBlock" class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-2 control-label">优先级</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="categoryScore">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
                         </div>
                     </div>
                 </form>

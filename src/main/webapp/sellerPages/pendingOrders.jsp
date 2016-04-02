@@ -12,14 +12,13 @@
     <meta name="author" content="">
     <title>SB Admin - Bootstrap Admin Template</title>
     <!-- Bootstrap Core CSS -->
-    <link href="/asset/sellerAssets/sellerBack/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/asset/sellerAsset/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="/asset/sellerAssets/sellerBack/css/sb-admin.css" rel="stylesheet">
+    <link href="/asset/sellerAsset/css/sb-admin.css" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href="/asset/sellerAssets/sellerBack/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="/asset/sellerAssets/sellerBack/css/pengdingOrders.css">
-    <link rel="stylesheet" type="text/css" href="/asset/sellerAssets/css/animate.css">
-    <link rel="shortcut icon" type="image/x-icon" href="/images/goushubao.ico" media="screen" />
+    <link href="/asset/sellerAsset/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/asset/sellerAsset/css/pengdingOrders.css">
+    <link rel="stylesheet" type="text/css" href="/asset/sellerAsset/css/animate.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -39,57 +38,39 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/seller/index.dhtml"><s:property value="#session.seller.name"/> </a>
+            <a class="navbar-brand" href="/seller/pendingOrderPage.action">123456<s:property value="#session.seller.name"/> </a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <s:property value="#session.seller.username"/> <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> 123456<s:property value="#session.seller.username"/> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="/seller/getSellerDetail.dhtml" class="switchModel" data-target="seller-info"><i class="fa fa-fw fa-user" ></i> 我的信息</a>
+                        <a href="#" class="switchModel" data-target="seller-info"><i class="fa fa-fw fa-user" ></i> 我的信息</a>
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="/seller/exit.dhtml"><i class="fa fa-fw fa-power-off"></i> 退出</a>
+                        <a href="/seller/exit.action"><i class="fa fa-fw fa-power-off"></i> 退出</a>
                     </li>
                 </ul>
             </li>
         </ul>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
-                <li>
-                    <a href="/seller/retailPage.dhtml"><i class="fa fa-fw fa-dashboard"></i> 线下零售</a>
-                </li>
                 <li class="active">
-                    <a href="/seller/pendingOrder.dhtml"><i class="fa fa-fw fa-bar-chart-o"></i> 待处理订单</a>
+                    <a href="/seller/pendingOrderPage.action"><i class="fa fa-fw fa-bar-chart-o"></i> 待处理订单</a>
                 </li>
                 <li>
-                    <a href="/seller/acceptOrder.dhtml"><i class="fa fa-fw fa-table"></i> 已接受订单</a>
+                    <a href="/seller/waitingOrderPage.action"><i class="fa fa-fw fa-table"></i> 已接受订单</a>
                 </li>
                 <li >
-                    <a href="/seller/completOrder.dhtml"><i class="fa fa-fw fa-edit"></i> 已完成订单</a>
-                </li>
-                <li >
-                    <a href="/seller/pendingNewbookOrderPage.dhtml"><i class="fa fa-fw fa-maxcdn"></i>待处理新书</a>
+                    <a href="/seller/completeOrderPage.action"><i class="fa fa-fw fa-edit"></i> 已完成订单</a>
                 </li>
                 <li>
-                    <a href="/seller/uploadSBookPage.dhtml"><i class="fa fa-fw fa-desktop"></i> 上传图书</a>
+                    <a href="/seller/repertoryPage.action"><i class="fa fa-fw fa-wrench"></i> 库存查看</a>
                 </li>
                 <li>
-                    <a href="/seller/bookRepertory.dhtml"><i class="fa fa-fw fa-wrench"></i> 库存查看</a>
-                </li>
-                <li>
-                    <a href="/seller/categoriesPage.dhtml"><i class="fa fa-fw fa-file"></i> 分类管理</a>
-                </li>
-                <li>
-                    <a href="/seller/offlineSalesRecord.dhtml"><i class="fa fa-fw fa-fighter-jet "></i> 线下零售记录</a>
-                </li>
-                <li>
-                    <a href="/seller/sellerExchange.dhtml"><i class="fa fa-fw fa-book"></i>仓库补货</a>
-                </li>
-                <li>
-                    <a href="/seller/financePage.dhtml"><i class="fa fa-fw fa-maxcdn"></i>销售统计</a>
+                    <a href="/seller/categoryPage.action"><i class="fa fa-fw fa-file"></i> 分类管理</a>
                 </li>
             </ul>
         </div>
@@ -104,11 +85,11 @@
                     </h1>
                 </div>
             </div>
-            <form action="/seller/orderSearch.dhtml" method="post">
+            <form action="/seller/pendingOrderPage.action" method="post">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="input-group">
-                            <input type="text" name="phone" class="form-control" placeholder="请输入用户手机号...">
+                            <input type="text" name="tel" class="form-control" placeholder="请输入用户手机号...">
                             <input type="hidden" name="state" value="0">
                         <span class="input-group-btn">
                              <button type="submit" class="btn btn-default">
@@ -124,8 +105,7 @@
                 <th>订单号</th>
                 <th>下单时间</th>
                 <th>收货地址</th>
-                <th>书本数量</th>
-                <th>支付方式</th>
+                <th>购买数量</th>
                 <th>总价</th>
                 <th>操作</th>
                 </thead>
@@ -134,17 +114,8 @@
                     <tr id="<s:property value="#order.id"/>">
                         <td><s:property value="#order.id"/></td>
                         <td><s:property value="#order.ordertime"/></td>
-                        <td><s:property value="#order.orderAddr.addr"/></td>
+                        <td><s:property value="#order.addr"/></td>
                         <td><s:property value="#order.num"/></td>
-                        <s:if test="#order.payWay==0">
-                            <td class="payWay cash">货到付款</td>
-                        </s:if>
-                        <s:elseif test="#order.payWay==1">
-                            <td class="payWay alipay">支付宝支付</td>
-                        </s:elseif>
-                        <s:else >
-                            <td class="payWay wechat">微信支付</td>
-                        </s:else>
                         <td><s:property value="#order.totalFee"/></td>
                         <td>
                             <div class="btn-group btn-group-xs">
@@ -230,22 +201,18 @@
                         <thead>
                         <tr>
                             <th>图片</th>
-                            <th>书名</th>
-                            <th>出版社</th>
-                            <th>ISBN</th>
+                            <th>名称</th>
                             <th>价格</th>
                             <th>数量</th>
                         </tr>
                         </thead>
-                        <tr v-repeat="book in books">
+                        <tr v-repeat="product in products">
                             <td>
-                                <img class="bookPic" v-attr="src:book.bigImage">
+                                <img class="bookPic" v-attr="src:product.image">
                             </td>
-                            <td v-text="book.title"></td>
-                            <td v-text="book.publisher"></td>
-                            <td v-text="book.isbn"></td>
-                            <td class="price" v-text="book.price"></td>
-                            <td v-text="book.num"></td>
+                            <td v-text="product.name"></td>
+                            <td class="price" v-text="product.price"></td>
+                            <td v-text="product.num"></td>
                         </tr>
                     </table>
                     <hr>
@@ -270,7 +237,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-default" id="print">打印</button>
                 <button class="btn btn-primary"  data-dismiss="modal">我知道了</button>
             </div>
         </div>
@@ -301,36 +267,11 @@
     <p></p>
 </section>
 <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
-<script src="/asset/sellerAssets/sellerBack/js/jquery.js"></script>
-<script type="text/javascript" src="/asset/sellerAssets/sellerBack/js/lodop.js"></script>
-<script src="/asset/sellerAssets/sellerBack/js/bootstrap.min.js"></script>
+<script src="/asset/sellerAsset/js/jquery.js"></script>
+<script src="/asset/sellerAsset/js/bootstrap.min.js"></script>
 <script src="http://cdn.bootcss.com/vue/0.12.16/vue.min.js"></script>
 <script type="text/javascript">
     //实现打印功能
-    $("#print").click(function(){
-        var printData = {};  //创建打印对象
-        //封装数据
-        printData.totalPrice = orderInfo.$data.price;
-        printData.orderID = orderInfo.$data.orderId;
-        printData.name = orderInfo.$data.name;
-        printData.address = orderInfo.$data.addr;
-        printData.tel = orderInfo.$data.tel;
-        printData.payWay = orderInfo.$data.payWay;
-        printData.remark = orderInfo.$data.remark;
-        printData.books = [] ;
-        var books = orderInfo.$data.books;
-        for(var i = 0 ;i<books.length;i++){
-            var temp = {};
-            var needField = ['title' ,'isbn' ,'num' , 'price']
-            for(var j = 0 ;j<needField.length;j++){
-                temp[needField[j]] = books[i][needField[j]];
-            }
-            printData.books.push(temp);
-        }
-        standerdPrint(printData);
-    })
-
-
 
     //查看订单详情  绑定vue对象
     var orderInfo = new Vue({
@@ -343,8 +284,7 @@
             num:'',
             remark:'',
             price:'',
-            books:[],
-            payWay :'',
+            products:[],
             orderId :''
         }
     })
@@ -359,11 +299,11 @@
     //确定删除
     $("#del").click(function(e){
         //发起post请求，删除订单
-        $.post("/seller/changeOrderState.dhtml",{"id":orderId,"state":3},function(data){
+        $.post("/seller/changeOrderState.action",{"id":orderId,"state":3},function(data){
             if(data=="error"){
-                window.location.href = "/seller/pendingOrder.dhtml";
+                window.location.href = "/seller/pendingOrder.action";
             }else if(data=="noLogin"){
-                window.location.href = "/seller/loginPage.dhtml";
+                window.location.href = "/seller/loginPage.action";
             }else{
                 $("#delModal").modal('hide');
                 $("#" + orderId).remove();
@@ -385,12 +325,12 @@
     $('table').on('click','.btn-success',function(e){
         orderId = $(this).parents('tr').attr('id');
 
-        $.post("/seller/changeOrderState.dhtml",{"id":orderId,"state":1},function(data){
+        $.post("/seller/changeOrderState.action",{"id":orderId,"state":1},function(data){
             console.log(data)
             if(data=="error"){
-                window.location.href = "/seller/pendingOrder.dhtml";
+                window.location.href = "/seller/pendingOrder.action";
             }else if(data=="noLogin"){
-                window.location.href = "/seller/loginPage.dhtml";
+                window.location.href = "/seller/loginPage.action";
             }else{
                 alertMsg('成功接受订单，请快速发货！')
                 $("#" + orderId).remove();
@@ -409,10 +349,9 @@
         orderInfo.$data.orderId = orderId;
         orderInfo.$data.payWay = trEl.find('.payWay').text().trim();
         var $btn = $(this).button('loading')
-        $.post("/seller/orderInfo.dhtml",{"id":orderId},function(data){
-            data = JSON.parse(data);
+        $.post("/seller/orderInfo.action",{"id":orderId},function(data){
             if(data=="noLogin"){
-                window.location.href = "/seller/loginPage.dhtml"
+                window.location.href = "/seller/loginPage.action"
             }else{
                 $btn.button('reset')
                 for(var key in data){
@@ -427,7 +366,7 @@
             for(var i = 0 ; i<images.length;i++){
                 $(images[i]).popover({
                     html:true,
-                    content:'<img class="largeImg" src="'+orderInfo.$data.books[i].bigImage+'">',
+                    content:'<img class="largeImg" src="'+orderInfo.$data.products[i].image+'">',
                     trigger:'hover'
                 });
             }

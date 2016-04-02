@@ -40,7 +40,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/seller/pendingOrder.action">123456<s:property value="#session.seller.name"/> </a>
+            <a class="navbar-brand" href="/seller/pendingOrderPage.action">123456<s:property value="#session.seller.name"/> </a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
@@ -48,7 +48,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> 123456<s:property value="#session.seller.username"/> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="/seller/getSellerDetail.action" class="switchModel" data-target="seller-info"><i class="fa fa-fw fa-user" ></i> 我的信息</a>
+                        <a href="#" class="switchModel" data-target="seller-info"><i class="fa fa-fw fa-user" ></i> 我的信息</a>
                     </li>
                     <li class="divider"></li>
                     <li>

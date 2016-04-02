@@ -23,13 +23,13 @@
     }else {
         $.post("/user/validateUser.action",{"tel":phone},function(data){
             if(data=="success"){
-                //购物车
-                <s:if test="page==1">
-                window.location.href = "/user/cartPage.action"
-                </s:if>
                 //订单中心
-                <s:elseif test="page==2">
+                <s:if test="page==1">
                 window.location.href = "/user/orderPage.action"
+                </s:if>
+                //结账页面
+                <s:elseif test="page==2">
+                window.location.href = "/user/orderInfoPage.action"
                 </s:elseif>
                 //选购页面
                 <s:else>
@@ -60,7 +60,7 @@
                 <input type="text" hidden class="input" id="addr" placeholder="地址："  />
             </li>
             <li class="btnArea" style="text-align: center">
-                <button style="width: 8rem"  type="button" id="hlkOK"  class="btn"  >注&nbsp;&nbsp;册</button>
+                <button style="width: 8rem"  type="button" id="hlkOK"  class="btn"  >登&nbsp;&nbsp;陆</button>
                 <button type="button" id="otherInput"  style="width: 10rem" class="btn">展开其他信息</button>
             </li>
         </ul>

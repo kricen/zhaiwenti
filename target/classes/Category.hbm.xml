@@ -9,6 +9,7 @@
             <generator class="identity" />
         </id>
         <property name="name" column="name"/>
+        <property name="score" column="score"/>
         <property name="state" column="state"/>
         <set name="products" inverse="true">
             <key column="cid"/>

@@ -25,8 +25,13 @@ import java.util.List;
 @ParentPackage("user-default")
 @Namespace(value="/user")
 @Results({
+        @Result(name="userJsonLogin",type="json"),
+        @Result(name="userActionLogin",location="huanchong",type="redirectAction"),
+        @Result(name = "notFound",location="huanchong",type="redirectAction" )
+
 })
 @ExceptionMappings({
+        @ExceptionMapping(result = "notFound",exception = "java.lang.Exception")
 })
 public class UserAction extends ActionSupport implements ModelDriven<User>{
     private User user = new User();
@@ -38,10 +43,25 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
     private ProductService productService;
     private CartService cartService;
 
+    @Action(
+            value = "errorPage",
+            interceptorRefs = {
+                    @InterceptorRef(value = "userActionStack")
+            },
+            results = {
+                    @Result(name = SUCCESS,location = "/userPages/error.jsp")
+            }
+    )
+    public String errorPage(){
 
+        return SUCCESS;
+    }
     //选择主页面
     @Action(
             value = "centerPage",
+            interceptorRefs = {
+                    @InterceptorRef(value = "userActionStack")
+            },
             results = {
                     @Result(name = SUCCESS,location = "/userPages/center.jsp")
             }
@@ -54,6 +74,9 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
     //index 页面
     @Action(
             value = "index",
+            interceptorRefs = {
+                    @InterceptorRef(value = "userActionStack")
+            },
             results = {
                     @Result(name = SUCCESS,location = "/userPages/index.jsp")
             }
@@ -132,7 +155,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
     @Action(
             value = "huanchong",
             results = {
-                    @Result(name = SUCCESS,location = "/userPages/login.jsp")
+                    @Result(name = SUCCESS,location = "/userPages/huanchong.jsp")
             }
     )
     public String huanchong(){

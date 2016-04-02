@@ -3,6 +3,7 @@ package com.wenti.utils;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -123,6 +124,15 @@ public class CommonUtils {
      */
     public static Date getNowTime(){
         Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String dd =format.format(date);
+        try {
+            date = format.parse(dd);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return date;
     }
+
 }

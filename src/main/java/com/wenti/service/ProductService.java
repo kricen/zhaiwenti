@@ -73,6 +73,7 @@ public class ProductService {
     //获得product集合
     public PageBean<Product> getPBeanProduct(int page,String name){
         PageBean<Product> pageBean = new PageBean<Product>();
+        pageBean.setUrl("/seller/repertoryPage.action");
         int limit = 10;
         pageBean.setLimit(limit);
         int totalCount = productDao.getProductCount(name);

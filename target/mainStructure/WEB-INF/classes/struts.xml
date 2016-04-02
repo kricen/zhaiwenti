@@ -10,9 +10,33 @@
     <constant name="struts.custom.i18n.resources" value="message"></constant>
     <constant name="struts.multipart.saveDir" value="/tmp"/>
     <package name="user-default" namespace="/user" extends="json-default">
-
+        <interceptors>
+            <interceptor name="userJsonLogin" class="com.wenti.web.interceptor.UserJsonLogin"></interceptor>
+            <interceptor name="userActionLogin" class="com.wenti.web.interceptor.UserLogin"></interceptor>
+            <interceptor-stack name="userActionStack">
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+                <interceptor-ref name="userActionLogin"></interceptor-ref>
+            </interceptor-stack>
+            <interceptor-stack name="userJsonStack">
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+                <interceptor-ref name="userJsonLogin"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <default-action-ref name="notFound"></default-action-ref>
     </package>
     <package name="seller-default" namespace="/seller" extends="json-default">
-
+        <interceptors>
+            <interceptor name="sellerJsonLogin" class="com.wenti.web.interceptor.SellerJsonLogin"></interceptor>
+            <interceptor name="sellerActionLogin" class="com.wenti.web.interceptor.SellerActionLogin"></interceptor>
+            <interceptor-stack name="sellerActionStack">
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+                <interceptor-ref name="sellerActionLogin"></interceptor-ref>
+            </interceptor-stack>
+            <interceptor-stack name="sellerJsonStack">
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+                <interceptor-ref name="sellerJsonLogin"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <default-action-ref name="notFound"></default-action-ref>
     </package>
 </struts>
