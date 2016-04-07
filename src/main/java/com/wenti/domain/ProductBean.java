@@ -1,11 +1,12 @@
 package com.wenti.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/3/21 0021.
  */
-public class ProductBean {
+public class ProductBean implements Serializable {
     private String categoryName;
     private int categoryId;
     private int num;

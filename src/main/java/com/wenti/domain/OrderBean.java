@@ -1,11 +1,12 @@
 package com.wenti.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Lixiao on 11/29/2015.
  */
-public class OrderBean {
+public class OrderBean implements Serializable {
     String name;
     String tel;
     String addr;

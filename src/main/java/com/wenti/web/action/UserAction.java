@@ -43,6 +43,8 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
     private ProductService productService;
     private CartService cartService;
 
+
+
     @Action(
             value = "errorPage",
             interceptorRefs = {

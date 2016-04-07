@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>宅文体商家中心</title>
     <!-- Bootstrap Core CSS -->
     <link href="/asset/sellerAssets/sellerBack/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->

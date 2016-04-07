@@ -40,6 +40,8 @@
 	</bean>
 	<!--userAction start-->
 	<bean id="userAction" class="com.wenti.web.action.UserAction" scope="prototype"></bean>
+	<bean id="userCartAction" class="com.wenti.web.action.UserCartAction" scope="prototype"></bean>
+	<bean id="userOrderAction" class="com.wenti.web.action.UserOrderAction" scope="prototype"></bean>
 	<!--userAction end-->
 
 	<bean id="sellerAction" class="com.wenti.web.action.SellerAction" scope="prototype"></bean>

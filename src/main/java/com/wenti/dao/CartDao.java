@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/3/16 0016.
  */
-public class CartDao extends HibernateDaoSupport {
+public class CartDao extends HibernateDaoSupport{
 
     //删除购物清单
     public void delCartitem(Cartitem cartitem){

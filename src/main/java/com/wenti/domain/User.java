@@ -1,21 +1,31 @@
 package com.wenti.domain;
 
+import java.io.Serializable;
 import java.util.Set;
 
 /**
  * Created by Administrator on 2016/3/15 0015.
  */
-public class User {
+public class User implements Serializable {
     private Integer id;
     private String tel;
     private String name;
     private String addr;
     private Integer state;
+    private String openId;
     private Set<Cart> carts;
     private Set<Order> orders;
 
     public Integer getId() {
         return id;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 
     public void setId(Integer id) {

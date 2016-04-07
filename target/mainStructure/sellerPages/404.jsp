@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>无标题文档</title>
+    <title>404</title>
     <link rel="shortcut icon" type="image/x-icon" href="/images/goushubao.ico" media="screen" />
     <style>
         .page404{width:745px; padding:190px 0;}

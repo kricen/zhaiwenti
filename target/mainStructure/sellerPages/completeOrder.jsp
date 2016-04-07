@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>宅文体已完成订单</title>
     <link rel="shortcut icon" type="image/x-icon" href="/images/goushubao.ico" media="screen" />
     <!-- Bootstrap Core CSS -->
     <link href="/asset/sellerAsset/css/bootstrap.min.css" rel="stylesheet">

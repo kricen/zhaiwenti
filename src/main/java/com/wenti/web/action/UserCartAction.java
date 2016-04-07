@@ -30,9 +30,9 @@ import java.util.List;
         @Result(name="userActionLogin",location="huanchong",type="redirectAction"),
         @Result(name = "notFound",location="huanchong",type="redirectAction" )
 })
-@ExceptionMappings({
-        @ExceptionMapping(result = "notFound",exception = "java.lang.Exception")
-})
+//@ExceptionMappings({
+//        @ExceptionMapping(result = "notFound",exception = "java.lang.Exception")
+//})
 public class UserCartAction extends ActionSupport implements ModelDriven<Product>{
     private Product product = new Product();
     public Product getModel() {

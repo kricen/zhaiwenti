@@ -4,7 +4,7 @@
 <html lang="en" class="no-js">
 <head>
     <meta charset="utf-8">
-    <title>html5响应式后台登录界面模板</title>
+    <title>宅文体</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">

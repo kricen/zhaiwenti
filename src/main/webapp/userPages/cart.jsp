@@ -98,23 +98,7 @@
 
 
     </form>
-    <!-- <div class="shop_cart">
-         <a href="cart.html">
-             <img src="/asset/userAsset/images/shop_cart.png" class="cart_img">
-             <p>购物车</p>
-         </a>
-     </div>-->
 
-    <footer>
-        <div class="h50"></div>
-        <ul class="bottom_nav w tc">
-            <li><a href="#">返回</a></li>
-            <li><a href="#">联系商家</a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#">商城中心</a></li>
-            <li><a href="#">我的订单</a></li>
-        </ul>
-    </footer>
 </div>
 </body>
 </html>

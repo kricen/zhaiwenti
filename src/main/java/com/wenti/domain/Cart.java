@@ -1,11 +1,12 @@
 package com.wenti.domain;
 
+import java.io.Serializable;
 import java.util.Set;
 
 /**
  * Created by Administrator on 2016/3/15 0015.
  */
-public class Cart {
+public class Cart implements Serializable{
     private Integer id;
     private User user;
     private Set<Cartitem> cartitems;

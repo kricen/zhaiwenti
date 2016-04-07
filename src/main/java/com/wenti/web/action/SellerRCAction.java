@@ -60,6 +60,7 @@ public class SellerRCAction extends ActionSupport{
     public String addUpdateProduct(){
         Seller seller = (Seller)ServletActionContext.getRequest().getSession().getAttribute("seller");
         String handleResult = uploadHandle();
+
         PrintWriter writer = CommonUtils.getHtmlPrintWriter(ServletActionContext.getResponse());
         if(handleResult != ERROR){
             //如果id为0 ，那么此操作为增加操作
@@ -160,6 +161,7 @@ public class SellerRCAction extends ActionSupport{
     public String addUpdateCategory(){
         //如果id=0 那么就是增加操作，如果id！=0 就是update操作
         PrintWriter writer = CommonUtils.getHtmlPrintWriter(ServletActionContext.getResponse());
+        System.out.println(name);
         if(id==0){
             Category category =  categoryService.getCategory(name);
             if(category==null){

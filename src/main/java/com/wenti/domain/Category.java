@@ -1,11 +1,12 @@
 package com.wenti.domain;
 
+import java.io.Serializable;
 import java.util.Set;
 
 /**
  * Created by Administrator on 2016/3/15 0015.
  */
-public class Category {
+public class Category implements Serializable {
     private Integer id;
     private String name;
     private int state;

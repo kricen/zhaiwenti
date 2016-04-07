@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>宅文体待处理订单</title>
     <!-- Bootstrap Core CSS -->
     <link href="/asset/sellerAsset/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->

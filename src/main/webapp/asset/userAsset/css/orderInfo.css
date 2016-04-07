@@ -474,13 +474,12 @@ section#model div#checkBox button#submitVertify:active {
 .footer{
     width:100%;margin:0 auto;background:#fff;border-top: 1px solid #e2e2e2;display: block}
 .bottom_nav{position:fixed; height:45px; left:0; bottom:0; background:linear-gradient(top,#504644,#4b4340); background:-webkit-linear-gradient(top,#504644,#4b4340); background:-moz-linear-gradient(top,#504644,#4b4340); z-index:10000; padding-top:2px;}
-.bottom_nav li{width:20%; float:left; height:45px; position:relative;}
+.bottom_nav li{width:33%; float:left; height:45px; position:relative;}
 .bottom_nav li a{display:block; width:100%; color:#fff; padding-top:23px;font-size:12px;}
 .bottom_nav li:nth-child(1) a{ background:url(/asset/userAsset/images/icons.png) center 3px no-repeat; background-size:60px auto;}
-.bottom_nav li:nth-child(2) a{ background:url(/asset/userAsset/images/icons.png) center -37px no-repeat; background-size:60px auto;}
-.bottom_nav li:nth-child(3) a{ position:absolute; padding:0; width:100%; height:70px; left:0; top:-20px; background:url(/asset/userAsset/images/icons.png) center -75px no-repeat; background-size:56px auto;}
-.bottom_nav li:nth-child(4) a{ background:url(/asset/userAsset/images/icons.png) center -168px no-repeat; background-size:60px auto;}
-.bottom_nav li:nth-child(5) a{background:url(/asset/userAsset/images/icons.png) center -218px no-repeat; background-size:60px auto;}
+/*.bottom_nav li:nth-child(2) a{ background:url(/asset/userAsset/images/icons.png) center -37px no-repeat; background-size:60px auto;}*/
+.bottom_nav li:nth-child(2) a{ position:absolute; padding:0; width:100%; margin:0 auto  ;height:70px; left:0; top:-20px; background:url(/asset/userAsset/images/icons.png) center -75px no-repeat; background-size:56px auto;}
+.bottom_nav li:nth-child(3) a{ background:url(/asset/userAsset/images/icons.png) center -168px no-repeat; background-size:60px auto;}
 
 
 /* selector popover */

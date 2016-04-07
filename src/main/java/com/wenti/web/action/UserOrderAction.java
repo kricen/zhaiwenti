@@ -7,10 +7,7 @@ package com.wenti.web.action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-import com.wenti.domain.Order;
-import com.wenti.domain.Orderitem;
-import com.wenti.domain.Product;
-import com.wenti.domain.User;
+import com.wenti.domain.*;
 import com.wenti.service.OrderService;
 import com.wenti.service.UserService;
 import com.wenti.utils.CommonUtils;
@@ -44,6 +41,7 @@ public class UserOrderAction extends ActionSupport implements ModelDriven<Order>
     }
 
     private OrderService orderService;
+
     private UserService userService;
 
     //进入订单页面

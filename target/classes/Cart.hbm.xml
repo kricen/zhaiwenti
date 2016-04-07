@@ -10,8 +10,8 @@
             <column name="id"></column>
             <generator class="identity" />
         </id>
-        <many-to-one name="user" column="uid" class="com.wenti.domain.User"/>
-        <set name="cartitems">
+        <many-to-one name="user" column="uid" fetch="select" class="com.wenti.domain.User"/>
+        <set name="cartitems" inverse="true" fetch="subselect">
             <key column="cid"></key>
             <one-to-many  class="com.wenti.domain.Cartitem"></one-to-many>
         </set>

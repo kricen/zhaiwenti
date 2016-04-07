@@ -12,6 +12,7 @@
         <property name="name" column="name"/>
         <property name="addr" column="addr"/>
         <property name="state" column="state"/>
+        <property name="openId" column="openid" type="java.lang.String" length="50"/>
         <set name="carts" inverse="true">
             <key>
                 <column name="uid"></column>

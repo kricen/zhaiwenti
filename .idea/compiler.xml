@@ -22,13 +22,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="main" />
-        <module name="XiaoJiangWenTi" />
+        <module name="mainStructure" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="main" target="1.5" />
-      <module name="XiaoJiangWenTi" target="1.5" />
+      <module name="mainStructure" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>购书宝</title>
+    <title>宅文体类别管理</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/asset/sellerAsset/css/bootstrap.min.css" rel="stylesheet">

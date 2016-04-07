@@ -36,6 +36,11 @@ public class CartService {
         return cartDao.getCartByUser(userId);
     }
 
+    public void testLazy(){
+        Cart cart = cartDao.getCartByUser(1);
+        System.out.println(cart.getUser().getName());
+    }
+
     //保存购物车
     public void save(Cart cart){
         cartDao.save(cart);

@@ -1,9 +1,11 @@
 package com.wenti.domain;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2016/3/15 0015.
  */
-public class Cartitem {
+public class Cartitem implements Serializable {
     private Integer id;
     private Integer num;
     private Cart cart;

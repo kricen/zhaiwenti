@@ -33,9 +33,9 @@
     <param-value>classpath:applicationContext.xml</param-value>
   </context-param>
 
-  <!--<filter>
+  <filter>
     <filter-name>CharFilter</filter-name>
-    <filter-class>com.youqin.web.inteceptor.CharFilter</filter-class>
+    <filter-class>com.wenti.web.Fileter.CharFilter</filter-class>
     <init-param>
       <param-name>encoding</param-name>
       <param-value>utf8</param-value>
@@ -44,7 +44,7 @@
   <filter-mapping>
     <filter-name>CharFilter</filter-name>
     <url-pattern>/*</url-pattern>
-  </filter-mapping>-->
+  </filter-mapping>
   <!-- struts2 核心控制器 -->
   <filter>
     <filter-name>struts2</filter-name>

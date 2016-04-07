@@ -87,7 +87,7 @@
                 <li >
                     <span class="iconfont logo cash">&#xe623;</span>货到付款
                     <span class="iconfont check cashCheck"></span>
-                    <span class="info">另加运费 ￥5</span>
+                    <span class="info">另加运费 ￥<s:property value="#session.seller.deliveryFee"/></span>
                 </li>
                 <li style="display: none">
                     <span class="iconfont logo alipay">&#xe621;</span>支付宝支付
@@ -155,11 +155,9 @@
 <footer>
     <div class="h50"></div>
     <ul class="bottom_nav w tc">
-        <li><a href="#">返回</a></li>
-        <li><a href="#">联系商家</a></li>
-        <li><a href="#"></a></li>
-        <li><a href="#">商城中心</a></li>
-        <li><a href="#">我的订单</a></li>
+        <li><a href="javascript:window.history.go(-1)">返回</a></li>
+        <li><a href="/user/index.action"></a></li>
+        <li><a href="/user/orderPage.action">我的订单</a></li>
     </ul>
 </footer>
 <!— 验证码弹框 —>

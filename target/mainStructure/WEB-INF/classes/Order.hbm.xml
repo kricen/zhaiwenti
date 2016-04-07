@@ -20,7 +20,7 @@
         <property name="visible" column="visible"/>
         <many-to-one name="seller" column="sid" lazy="false" class="com.wenti.domain.Seller"/>
         <many-to-one name="user" column="uid" lazy="false" class="com.wenti.domain.User"/>
-        <set name="orderitems" inverse="true" lazy="false">
+        <set name="orderitems" inverse="true" lazy="false" fetch="subselect">
             <key column="oid"/>
             <one-to-many class="com.wenti.domain.Orderitem"/>
         </set>
