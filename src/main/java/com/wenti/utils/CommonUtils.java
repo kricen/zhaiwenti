@@ -73,6 +73,12 @@ public class CommonUtils {
         return writer;
     }
 
+    public static void closePrintWriter(PrintWriter printWriter){
+        if(printWriter!=null){
+            printWriter.flush();
+            printWriter.close();
+        }
+    }
     public static synchronized String getOrderNo() {
         String str = new SimpleDateFormat("yyMMddHHmmss").format(new Date());
         return str;

@@ -65,10 +65,10 @@
         <p>合计:<span id="total" class="total">0.00</span>元<span class="nm">(<label class="share"></label>份)20元起送</span></p>
     </div>
     <div class="ft-zt">
-        <p id="">去结算</p>
+        <p id="selectOk">去结算</p>
     </div>
     <div class="ft-rt">
-        <p id="selectOk">菜单</p>
+        <p id="caidan">菜单</p>
     </div>
 </footer>
 <script type="text/javascript" src="/asset/userAsset/js/Adaptive.js"></script>
@@ -193,6 +193,10 @@
 
                 }
             })
+        })
+
+        $("#caidan").click(function (data) {
+            window.location.href="/user/centerPage.action"
         })
     });
 </script>

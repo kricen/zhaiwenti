@@ -159,7 +159,9 @@ public class UserOrderAction extends ActionSupport implements ModelDriven<Order>
             for(int i=0;i<orderitems.size();i++){
                 totalNum+=orderitems.get(i).getNum();
             }
+            Seller seller = order.getSeller();
             ActionContext.getContext().getValueStack().set("num",totalNum);
+            ActionContext.getContext().getValueStack().set("deliverFee",seller.getDeliveryFee());
             ActionContext.getContext().getValueStack().set("orderitems",orderitems);
             ActionContext.getContext().getValueStack().set("user",user);
             ActionContext.getContext().getValueStack().set("order",order);

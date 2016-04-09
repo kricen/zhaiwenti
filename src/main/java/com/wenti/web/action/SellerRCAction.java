@@ -47,6 +47,24 @@ public class SellerRCAction extends ActionSupport{
     private ProductService productService;
     private CategoryService categoryService;
 
+
+    //商品状态的改变,商品下架操作
+    @Action(
+            value = "productOperation",
+            interceptorRefs = {
+                    @InterceptorRef(value = "sellerJsonStack")
+            },
+            results = {
+                    @Result(name = SUCCESS,type = "json")
+            }
+    )
+    public String productOperation(){
+        String  result = productService.productOperation(id);
+        PrintWriter writer = CommonUtils.getHtmlPrintWriter(ServletActionContext.getResponse());
+        writer.write(result);
+        CommonUtils.closePrintWriter(writer);
+        return SUCCESS;
+    }
     //库存管理 包含新增商品和更改商品
     @Action(
             value = "addUpdateProduct",
@@ -100,6 +118,7 @@ public class SellerRCAction extends ActionSupport{
                         Category category = categoryService.getCategory(categoryId);
                         updateProduct.setCategory(category);
                     }
+                    updateProduct.setImage(handleResult);
                     productService.update(updateProduct);
                 }
 
@@ -145,6 +164,24 @@ public class SellerRCAction extends ActionSupport{
     public String categoryPage(){
         List<Category> categoryList = categoryService.getCategories();
         ServletActionContext.getContext().getValueStack().set("categories",categoryList);
+        return SUCCESS;
+    }
+
+    //类别操作页面 更改类别的状态属性
+    @Action(
+            value = "categoryOperation",
+            interceptorRefs = {
+                    @InterceptorRef(value = "sellerJsonStack")
+            },
+            results = {
+                    @Result(name = SUCCESS,type = "json")
+            }
+    )
+    public String categoryOperation(){
+        String handleResult = categoryService.categoryOperation(id);
+        PrintWriter writer = CommonUtils.getHtmlPrintWriter(ServletActionContext.getResponse());
+        writer.write(handleResult);
+        CommonUtils.closePrintWriter(writer);
         return SUCCESS;
     }
 

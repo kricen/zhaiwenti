@@ -123,6 +123,19 @@ public class ProductService {
         return productDao.getProduct(id);
     }
 
+    //product state operation
+    public String productOperation(int productId){
+        Product product = productDao.getProduct(productId);
+        if(product==null) return "notFound";
+        if(product.getState()==0){
+            product.setState(1);
+        }else {
+            product.setState(0);
+        }
+        productDao.update(product);
+
+        return "success";
+    }
     //根据name获得商品
     public Product getProduct(String name){
         return productDao.getProduct(name);

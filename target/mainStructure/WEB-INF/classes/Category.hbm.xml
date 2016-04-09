@@ -11,7 +11,7 @@
         <property name="name" column="name"/>
         <property name="score" column="score"/>
         <property name="state" column="state"/>
-        <set name="products" inverse="true">
+        <set name="products" inverse="true" cascade="all">
             <key column="cid"/>
             <one-to-many  class="com.wenti.domain.Product"/>
         </set>

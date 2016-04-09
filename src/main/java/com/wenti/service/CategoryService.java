@@ -23,6 +23,14 @@ public class CategoryService {
         return categoryDao.getCategory(id);
     }
 
+    public String categoryOperation(int categoryId){
+        Category category = categoryDao.getCategory(categoryId);
+        if(category==null) return "notFound";
+        if(category.getState()==0) category.setState(1);
+        else category.setState(0);
+        return "success";
+    }
+
     //根据名称获得category
     public Category getCategory(String name){
         return categoryDao.getCategory(name);

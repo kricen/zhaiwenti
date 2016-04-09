@@ -14,6 +14,8 @@ var category_admin = new Vue({
 		},
 		editCategoryName:function(e){
 			this.currentId = $(e.target).parents('tr').attr('id');
+            console.log($(e.target).parents('tr').find("input").val())
+            $("#editModal").find("select").val($(e.target).parents('tr').find(".score").val());
 			$("#editModal").modal('show').find('input').val($("#"+this.currentId).find('.cName').text().trim()).focus();
 		},
 		addRow:function(e){
@@ -35,11 +37,9 @@ category_admin.$data.all_category_account = all;
 //confirm delete 
 $("#del").click(function(){
     var tr = $("#"+ category_admin.$data.currentId);
-    var num = parseInt(tr.find('.bookCount').text().trim())
-    var all = parseInt(tr.find('.category-account').text().trim())
     tr.remove();
 	//发起post 删除类别
-    $.getJSON('/seller/delCategory.action', {'id':category_admin.$data.currentId}, function(json) {
+    $.getJSON('/seller/categoryOperation.action', {'id':category_admin.$data.currentId}, function(json) {
         //将要删除的类别ID发给服务器，同步删除
         if(json=="noLogin"){
             window.location.href = "/seller/loginPage.action";

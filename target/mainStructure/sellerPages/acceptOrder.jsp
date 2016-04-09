@@ -22,7 +22,7 @@
     <!-- Custom Fonts -->
     <link href="/asset/sellerAsset/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="/asset/sellerAsset/css/acceptedOrder.css">
-    <link rel="stylesheet" type="text/css" href="/asset/sellerAssets/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="/asset/sellerAsset/css/animate.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -46,16 +46,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/seller/pendingOrderPage.action">123456<s:property value="#session.seller.name"/> </a>
+            <a class="navbar-brand" href="/seller/pendingOrderPage.action"><s:property value="#session.seller.name"/> </a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> 123456<s:property value="#session.seller.username"/> <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <s:property value="#session.seller.username"/> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li>
-                        <a href="#" class="switchModel" data-target="seller-info"><i class="fa fa-fw fa-user" ></i> 我的信息</a>
-                    </li>
+                    <%--<li>--%>
+                        <%--<a href="#" class="switchModel" data-target="seller-info"><i class="fa fa-fw fa-user" ></i> 我的信息</a>--%>
+                    <%--</li>--%>
                     <li class="divider"></li>
                     <li>
                         <a href="/seller/exit.action"><i class="fa fa-fw fa-power-off"></i> 退出</a>
@@ -368,7 +368,6 @@
         var $btn = $(this).button('loading')
         //发起post ， 请求数据 示例数据
         $.post("/seller/orderInfo.action",{"id":orderId},function(data){
-            data = JSON.parse(data);
             if(data=="noLogin"){
                 window.location.href = "/seller/loginPage.action"
             }else{

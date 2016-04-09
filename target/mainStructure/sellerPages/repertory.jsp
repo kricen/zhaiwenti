@@ -40,16 +40,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/seller/pendingOrderPage.action">123456<s:property value="#session.seller.name"/> </a>
+            <a class="navbar-brand" href="/seller/pendingOrderPage.action"><s:property value="#session.seller.name"/> </a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> 123456<s:property value="#session.seller.username"/> <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <s:property value="#session.seller.username"/> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li>
-                        <a href="#" class="switchModel" data-target="seller-info"><i class="fa fa-fw fa-user" ></i> 我的信息</a>
-                    </li>
+                    <%--<li>--%>
+                        <%--<a href="#" class="switchModel" data-target="seller-info"><i class="fa fa-fw fa-user" ></i> 我的信息</a>--%>
+                    <%--</li>--%>
                     <li class="divider"></li>
                     <li>
                         <a href="/seller/exit.action"><i class="fa fa-fw fa-power-off"></i> 退出</a>
@@ -119,13 +119,14 @@
                     <th>价格</th>
                     <th>是否热销</th>
                     <th>状态</th>
+                    <th>类别</th>
                     <th>销售量</th>
                     <th>操作</th>
                     </thead>
                     <tbody>
                     <s:iterator value="pageBean.list" var="product">
                         <tr id="<s:property value="#product.id"/>">
-                            <input type="hidden" class="category" value=""/>
+                            <input type="hidden" class="category" value="<s:property value="#product.category.id"/>"/>
                             <td>
                                 <img  src="<s:property value="#product.image"/>" data-html="true" data-toggle="popover" data-content="<img class='largeImg' src='<s:property value="#product.Image"/>'>">
                             </td>
@@ -133,13 +134,14 @@
                             <td  class="price" > <s:property value="#product.price"/></td>
                             <td class="isHot"  name="热销状态"><s:if test="#product.state==0">正常</s:if><s:else>热销</s:else> </td>
                             <td class="state"><s:if test="#product.state==0">正常</s:if><s:else>异常</s:else></td>
+                            <td class="state"><s:property value="#product.category.name"/></td>
                             <td class="sellCount"><s:property value="#product.sellNum"/></td>
                             <td>
                                 <div class="btn-group btn-group-xs">
-                                    <button class="btn btn-primary">修改</button>
+                                    <button class="btn btn-primary product-edit">修改</button>
                                 </div>
                                 <div class="btn-group btn-group-xs">
-                                    <button class="btn btn-danger">下架</button>
+                                    <button class="btn btn-danger product-del">下架</button>
                                 </div>
                             </td>
                         </tr>
@@ -247,6 +249,27 @@
         </div>
     </div>
 </div>
+<!-- 删除提醒 -->
+<div class="modal" id="delModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">提示信息</h4>
+            </div>
+            <div class="modal-body">
+                <p>您确定要删除这一个订单嘛？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" id="del" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="/asset/sellerAsset/js/jquery.js"></script>
 <script src="/asset/sellerAsset/js/bootstrap.min.js"></script>
 <script src="/asset/sellerAsset/js/ajaxfileupload.js"></script>
@@ -315,7 +338,7 @@
                                 if(data.responseText=="success"){
                                   window.location.href="/seller/repertoryPage.action"
                                 }else if(data.responseText=="noLogin"){
-                                    window.location.href="/seller/login.action"
+                                    window.location.href="/seller/pendingOrderPage.action"
                                 }else{
                                     $("#imageE").show();
                                 }
@@ -325,7 +348,7 @@
                                 if(data.responseText=="success"){
                                     window.location.href="/seller/repertoryPage.action"
                                 }else if(data.responseText=="noLogin"){
-                                    window.location.href="/seller/login.action"
+                                    window.location.href="/seller/pendingOrderPage.action"
                                 }else{
                                     $("#imageE").show();
                                 }
@@ -337,14 +360,38 @@
             }
         }
     })
+    var orderId;
 
-    $("table").on('click','.btn',function(){
+    $("table").on('click','.product-edit',function(){
         id = $(this).parents('tr').attr('id')
         var $trEl = $("#"+id);
         modal.$data.title = $trEl.find('.title').text().trim();
-        modal.$data.discount = discountEl.text().trim();
-        modal.$data.remain = remainEl.text().trim();
+        modal.$data.price = $trEl.find('.price').text().trim();
+        modal.$data.selected = $trEl.find('.category').val().trim();
+        modal.$data.productId = id;
         $("#editModal").modal('show').find('input').first().focus();
+    })
+    $("table").on('click','.product-del',function(){
+        id = $(this).parents('tr').attr('id')
+        orderId = id;
+        $("#delModal").modal('show');
+
+    })
+    $("#del").click(function(e){
+        //发起post请求，删除订单
+        $.post("/seller/productOperation.action",{"id":orderId,"state":3},function(data){
+            if(data=="notFound"){
+                alert("没有找到此商品")
+                window.location.href = "/seller/repertoryPage.action";
+            }else if(data=="noLogin"){
+                window.location.href = "/seller/pendingOrderPage.action";
+            }else{
+                $("#delModal").modal('hide');
+                $("#" + orderId).remove();
+                var ordersNum = parseInt($(".orders").text().trim())
+            }
+        })
+
     })
     $("#add").click(function(){
         modal.$data.id = '';
