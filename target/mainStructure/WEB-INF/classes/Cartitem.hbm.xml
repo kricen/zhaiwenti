@@ -9,8 +9,8 @@
             <generator class="identity" />
         </id>
         <property name="num"/>
-        <many-to-one name="cart"  column="cid" class="com.wenti.domain.Cart"/>
+        <property name="fee" column="fee" type="java.lang.Float"/>
+        <property name="user"/>
         <many-to-one name="product" lazy="false" column="pid" class="com.wenti.domain.Product"/>
-        <many-to-one name="seller" column="sid" class="com.wenti.domain.Seller"/>
     </class>
 </hibernate-mapping>

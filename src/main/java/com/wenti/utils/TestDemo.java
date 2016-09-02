@@ -1,8 +1,6 @@
 package com.wenti.utils;
 
-import com.wenti.domain.Cart;
-import com.wenti.domain.User;
-import com.wenti.service.CartService;
+import com.wenti.domain.*;
 import com.wenti.service.UserService;
 import com.wenti.web.action.UserCartAction;
 import org.junit.Test;
@@ -14,14 +12,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class TestDemo {
 
-    @Test
-    public void testLazy(){
-        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        CartService cartService = (CartService)context.getBean("cartService");
-        Cart cart = cartService.getCartByUser(1);
-        System.out.println(cart.getUser().getName());
-
-    }
 
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -52,5 +42,20 @@ public class TestDemo {
             thread.start();
         }
 
+    }
+    @Test
+    public void testSort(){
+        int[] a = {2,8,3,1,7};
+    }
+
+
+    @Test
+    public void testNull(){
+        System.out.print(null==null);
+    }
+
+    @Test
+    public void test1(){
+        System.out.println(CommonUtils.getOrderNo(11));
     }
 }

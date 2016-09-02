@@ -8,10 +8,9 @@ import java.io.Serializable;
 public class Cartitem implements Serializable {
     private Integer id;
     private Integer num;
-    private Cart cart;
     private Product product;
-    private Seller seller;
-
+    private Integer user;
+    private float fee;
     public Integer getId() {
         return id;
     }
@@ -27,33 +26,23 @@ public class Cartitem implements Serializable {
         this.num = num;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        Cartitem cartitem = (Cartitem) o;
-
-        if (id != null ? !id.equals(cartitem.id) : cartitem.id != null) return false;
-        if (num != null ? !num.equals(cartitem.num) : cartitem.num != null) return false;
-
-        return true;
+    public Integer getUser() {
+        return user;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (num != null ? num.hashCode() : 0);
-        return result;
+    public void setUser(Integer user) {
+        this.user = user;
     }
 
-    public Cart getCart() {
-        return cart;
+    public float getFee() {
+        return fee;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setFee(float fee) {
+        this.fee = fee;
     }
+
 
     public Product getProduct() {
         return product;
@@ -63,11 +52,4 @@ public class Cartitem implements Serializable {
         this.product = product;
     }
 
-    public Seller getSeller() {
-        return seller;
-    }
-
-    public void setSeller(Seller seller) {
-        this.seller = seller;
-    }
 }

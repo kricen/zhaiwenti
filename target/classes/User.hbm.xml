@@ -10,15 +10,10 @@
         </id>
         <property name="tel" column="tel"/>
         <property name="name" column="name"/>
+        <property name="school" column="sid"/>
         <property name="addr" column="addr"/>
         <property name="state" column="state"/>
         <property name="openId" column="openid" type="java.lang.String" length="50"/>
-        <set name="carts" inverse="true">
-            <key>
-                <column name="uid"></column>
-            </key>
-            <one-to-many class="com.wenti.domain.Cart"/>
-        </set>
         <set name="orders" inverse="true">
             <key>
                 <column name="uid"></column>

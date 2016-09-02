@@ -1,14 +1,12 @@
 package com.wenti.web.action;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.wenti.domain.Category;
-import com.wenti.domain.Product;
-import com.wenti.domain.Seller;
+import com.wenti.domain.*;
 import com.wenti.service.CategoryService;
 import com.wenti.service.ProductService;
-import com.wenti.utils.CommonUtils;
-import com.wenti.utils.CompressImg;
-import com.wenti.utils.PageBean;
+import com.wenti.utils.*;
+import com.wenti.wenxin.CommonUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.*;
@@ -32,7 +30,7 @@ import java.util.List;
         @Result(name = "loginPage",location="login",type="redirectAction" )
 })
 @ExceptionMappings({
-        @ExceptionMapping(result = "notFound",exception = "java.lang.Exception")
+//        @ExceptionMapping(result = "notFound",exception = "java.lang.Exception")
 })
 public class SellerRCAction extends ActionSupport{
     private File image;
@@ -43,7 +41,9 @@ public class SellerRCAction extends ActionSupport{
     private String name;
     private float price;
     private int categoryId;
+    private int index;
     private int score;
+    private String comments;
     private ProductService productService;
     private CategoryService categoryService;
 
@@ -65,9 +65,11 @@ public class SellerRCAction extends ActionSupport{
         CommonUtils.closePrintWriter(writer);
         return SUCCESS;
     }
-    //库存管理 包含新增商品和更改商品
+
+
+    //商品状态的改变,商品下架操作
     @Action(
-            value = "addUpdateProduct",
+            value = "delImage",
             interceptorRefs = {
                     @InterceptorRef(value = "sellerJsonStack")
             },
@@ -75,63 +77,271 @@ public class SellerRCAction extends ActionSupport{
                     @Result(name = SUCCESS,type = "json")
             }
     )
-    public String addUpdateProduct(){
-        Seller seller = (Seller)ServletActionContext.getRequest().getSession().getAttribute("seller");
-        String handleResult = uploadHandle();
-
+    public String delImage(){
+        Product product = productService.getProduct(id);
         PrintWriter writer = CommonUtils.getHtmlPrintWriter(ServletActionContext.getResponse());
-        if(handleResult != ERROR){
-            //如果id为0 ，那么此操作为增加操作
-            //否则获取商品编号为id的商品，对此商品进行信息更改操作
-            if(id == 0){
-                Product saveProduct = productService.getProduct(name);
-                if(saveProduct==null) {
-                    saveProduct = new Product();
-                    saveProduct.setName(name);
-                    saveProduct.setComments(null);
-                    saveProduct.setImage(handleResult);
-                    saveProduct.setState(0);
-                    saveProduct.setSellNum(0);
-                    saveProduct.setHot(0);
-                    saveProduct.setSeller(seller);
-                    Category category = categoryService.getCategory(categoryId);
-                    saveProduct.setCategory(category);
-                    saveProduct.setPrice(price);
-                    productService.save(saveProduct);
-                    writer.write("success");
-                }else {
-                    writer.write("success");
+        if(product ==null){
+            writer.write("error");
+            writer.flush();
+            writer.close();
+            return SUCCESS;
+        }
+        //如果index==0,那么删除的是轮播图 如果index==1,删除的是商品详情图
+        if(index==0){
+            String lunboStr = product.getLunboImage();
+            String[] lunbos = lunboStr.split(",");
+            String lunboImage = "";
+            for(int i=0;i<lunbos.length;i++){
+                if(!(Integer.parseInt(lunbos[i])==page)){
+                    if(lunboImage==""){
+                        lunboImage = Integer.parseInt(lunbos[i])+"";
+                    }else {
+                        lunboImage += ","+Integer.parseInt(lunbos[i]);
+                    }
                 }
-            }else {
-                Product updateProduct = productService.getProduct(id);
-                if (updateProduct!=null){
-                    if(name!=null){
-                        Product product = productService.getProduct(name);
-                        if(product==null){
-                            updateProduct.setName(name);
-                        }
-                    }
-                    if(price!=0.0){
-                        updateProduct.setPrice(price);
-                    }
-                    if (categoryId!=0){
-                        Category category = categoryService.getCategory(categoryId);
-                        updateProduct.setCategory(category);
-                    }
-                    updateProduct.setImage(handleResult);
-                    productService.update(updateProduct);
-                }
-
-                writer.write("success");
             }
-
+            if(lunboImage!=""){
+                product.setLunboImage(lunboImage);
+                productService.update(product);
+            }else {
+                writer.write("error");
+                writer.flush();
+                writer.close();
+                return SUCCESS;
+            }
         }else {
-            writer.write(handleResult);
+            String lunboStr = product.getDetailImage();
+            String[] lunbos = lunboStr.split(",");
+            String lunboImage = "";
+            for(int i=0;i<lunbos.length;i++){
+                System.out.println(lunbos[i]);
+                if(!(Integer.parseInt(lunbos[i])==page)){
+                    if(lunboImage==""){
+                        lunboImage = Integer.parseInt(lunbos[i])+"";
+                    }else {
+                        lunboImage += ","+Integer.parseInt(lunbos[i]);
+                    }
+                }
+            }
+            if(lunboImage!=""){
+                product.setDetailImage(lunboImage);
+                productService.update(product);
+            }else {
+                writer.write("error");
+                writer.flush();
+                writer.close();
+                return SUCCESS;
+            }
+        }
+
+        writer.write("success");
+        writer.flush();
+        writer.close();
+        return SUCCESS;
+    }
+
+
+    //商品状态的改变,商品下架操作
+    @Action(
+            value = "saveProduct",
+            interceptorRefs = {
+                    @InterceptorRef(value = "sellerJsonStack")
+            },
+            results = {
+                    @Result(name = SUCCESS,type = "json")
+            }
+    )
+    public String saveProduct(){
+        Seller seller = (Seller)ServletActionContext.getRequest().getSession().getAttribute("seller");
+        Product product = productService.getProduct(id);
+        PrintWriter writer = CommonUtils.getHtmlPrintWriter(ServletActionContext.getResponse());
+        if(product ==null){
+            writer.write("error");
+            writer.flush();
+            writer.close();
+            return SUCCESS;
+        }
+        product.setName(name);
+        product.setPrice(price);
+        product.setComments(comments);
+        product.setCategory(categoryService.getCategory(categoryId));
+        product.setSeller(seller);
+        product.setState(0);
+        productService.update(product);
+        writer.write("success");
+        writer.flush();
+        writer.close();
+        return SUCCESS;
+    }
+
+
+    //商品状态的改变,商品下架操作
+    @Action(
+            value = "productDetail",
+            interceptorRefs = {
+                    @InterceptorRef(value = "sellerActionStack")
+            },
+            results = {
+                    @Result(name = SUCCESS,location = "/sellerPages/productDetail.jsp")
+            }
+    )
+    public String productDetail(){
+        Seller seller = (Seller)ServletActionContext.getRequest().getSession().getAttribute("seller");
+        Product product = null;
+        if(id!=0){
+            product = productService.getProduct(id);
+            //待完成图片
+            product.setLunboImages(productService.getImages(product.getLunboImage()));
+            product.setDetailImages(productService.getImages(product.getDetailImage()));
+        }else{
+            product = new Product();
+            product.setHot(0);
+            product.setSellNum(0);
+            product.setSeller(seller);
+            product.setState(-1);
+            product.setLunboImage("");
+            product.setDetailImage("");
+            product.setComments("");
+            product.setName("");
+            product.setNum(0);
+            product.setPrice(0.0f);
+            productService.save(product);
+        }
+        List<Category> categories = categoryService.getCategories();
+        ActionContext.getContext().getValueStack().set("id",product.getId());
+        ActionContext.getContext().getValueStack().set("categories",categories);
+        ActionContext.getContext().getValueStack().set("product",product);
+        return SUCCESS;
+    }
+
+    //上传图片头像
+    @Action(
+            value = "uploadHeadImage",
+            interceptorRefs = {
+                    @InterceptorRef(value = "sellerJsonStack")
+            },
+            results = {
+                    @Result(name = SUCCESS,type = "json")
+            }
+    )
+    public String uploadHeadImage(){
+        Seller seller = (Seller)ServletActionContext.getRequest().getSession().getAttribute("seller");
+        PrintWriter writer = CommonUtils.getHtmlPrintWriter(ServletActionContext.getResponse());
+        Product product = productService.getProduct(id);
+        if(product ==null){
+            writer.write("error");
+            writer.flush();
+            writer.close();
+            return SUCCESS;
+        }
+        Image headImage = FileUploadUtil.ossUpload(image,imageFileName);
+        if(headImage==null) {
+            headImage = uploadHandle1();
+        }
+        if(headImage !=null){
+            productService.save(headImage);
+            product.setHeadImage(headImage);
+            product.setSeller(seller);
+            productService.update(product);
+            writer.write(headImage.getId()+"");
+        }else {
+
+            writer.write("error");
         }
         writer.flush();
         writer.close();
         return SUCCESS;
     }
+
+    //上传详情图片
+    @Action(
+            value = "uploadDetailImage",
+            interceptorRefs = {
+                    @InterceptorRef(value = "sellerJsonStack")
+            },
+            results = {
+                    @Result(name = SUCCESS,type = "json")
+            }
+    )
+    public String uploadDetailImage(){
+        Seller seller = (Seller)ServletActionContext.getRequest().getSession().getAttribute("seller");
+        PrintWriter writer = CommonUtils.getHtmlPrintWriter(ServletActionContext.getResponse());
+        Product product = productService.getProduct(id);
+        if(product ==null){
+            writer.write("error");
+            writer.flush();
+            writer.close();
+            return SUCCESS;
+        }
+        String detailImages = product.getDetailImage();
+        Image detailImage = FileUploadUtil.ossUpload(image,imageFileName);
+        if(detailImage==null) {
+            detailImage = uploadHandle1();
+        }
+        if(detailImage !=null){
+            productService.save(detailImage);
+            String imageStr = product.getDetailImage();
+            if(imageStr.equals("")){
+                imageStr = detailImage.getId()+"";
+            }else {
+                imageStr += ","+detailImage.getId();
+            }
+            product.setDetailImage(imageStr);
+            product.setSeller(seller);
+            productService.update(product);
+            writer.write(detailImage.getId()+"");
+        }else {
+            writer.write("error");
+        }
+        writer.flush();
+        writer.close();
+        return SUCCESS;
+    }
+
+    //上传详情图片
+    @Action(
+            value = "uploadLunboImage",
+            interceptorRefs = {
+                    @InterceptorRef(value = "sellerJsonStack")
+            },
+            results = {
+                    @Result(name = SUCCESS,type = "json")
+            }
+    )
+    public String uploadLunboImage(){
+        Seller seller = (Seller)ServletActionContext.getRequest().getSession().getAttribute("seller");
+        PrintWriter writer = CommonUtils.getHtmlPrintWriter(ServletActionContext.getResponse());
+        Product product = productService.getProduct(id);
+        if(product ==null){
+            writer.write("error");
+            writer.flush();
+            writer.close();
+            return SUCCESS;
+        }
+        Image detailImage = FileUploadUtil.ossUpload(image,imageFileName);
+        if(detailImage==null) {
+            detailImage = uploadHandle1();
+        }
+        if(detailImage !=null){
+            productService.save(detailImage);
+            String imageStr = product.getLunboImage();
+            if(imageStr.equals("")){
+                imageStr = detailImage.getId()+"";
+            }else {
+                imageStr += ","+detailImage.getId();
+            }
+            product.setLunboImage(imageStr);
+            product.setSeller(seller);
+            productService.update(product);
+            writer.write(detailImage.getId()+"");
+        }else {
+            writer.write("error");
+        }
+        writer.flush();
+        writer.close();
+        return SUCCESS;
+    }
+
 
     //库存管理页面
     @Action(
@@ -185,6 +395,7 @@ public class SellerRCAction extends ActionSupport{
         return SUCCESS;
     }
 
+
     //类别管理
     @Action(
             value = "addUpdateCategory",
@@ -205,6 +416,7 @@ public class SellerRCAction extends ActionSupport{
                 category = new Category();
                 category.setName(name);
                 category.setState(0);
+                category.setOrderSales(0);
                 category.setScore(score);
                 categoryService.save(category);
                 writer.write("success");
@@ -253,7 +465,7 @@ public class SellerRCAction extends ActionSupport{
             if(!imageFormat){
                 return ERROR;
             }
-            filename = uploadBookImage(image,imageFileName, 50,50);
+            filename = uploadBookImage(image,imageFileName, 100,100);
             //表示上传图片出错
             if(filename.equals(ERROR)){
                 return ERROR;
@@ -265,24 +477,67 @@ public class SellerRCAction extends ActionSupport{
         return filename;
     }
 
+    public Image uploadHandle1(){
+        String filename = "";
+        if(image!=null){
+            String[] str = { "jpg", "jpeg", "bmp", "png" };
+            boolean imageFormat = false;
+            for (String s : str) {
+                if (imageFileName.endsWith(s)){
+                    imageFormat = true;
+                    break;
+                }
+            }
+            if(!imageFormat){
+                return null;
+            }
+            filename = uploadBookImage(image,imageFileName, 100,100);
+            //表示上传图片出错
+            if(filename.equals(null)){
+                return null;
+            }
+
+            Image image = new Image();
+            image.setImage(filename);
+            productService.save(image);
+            return image;
+
+        }
+
+        return null;
+    }
+
     //需要封装一个接收图片的方法
     private String uploadBookImage(File uploadFile,String uploadFileName,int width,int hight){
         String filename=null;
         String[] split = uploadFileName.split("\\.");
         String reg = split[1];
         filename= CommonUtils.UUID16()+"."+reg;
-        String path = ServletActionContext.getServletContext().getRealPath("/productImage");
+        String path = ServletActionContext.getServletContext().getRealPath("/testImage");
         String temFilename = filename;
-        filename= "/productImage/"+filename;
+        filename= "/testImage/"+filename;
         File file = new File(path);
         if(!file.exists()){
             file.mkdirs();
         }
         File destFile = new File(path, temFilename);
+        System.out.println(destFile.getAbsolutePath());
         try {
             FileUtils.copyFile(uploadFile, destFile);
-            CompressImg mypic = new CompressImg();
-            mypic.compressPic(destFile, path, temFilename, width, hight, true);
+            NarrowImage narrowImage = new NarrowImage();
+//            CompressImg mypic = new CompressImg();
+            if(uploadFile.length()<100000){
+
+            }else if(uploadFile.length()<200000&&uploadFile.length()>=100000){
+                narrowImage.writeHighQuality(narrowImage.zoomImage(destFile.getPath()), path+"/"+temFilename,0.2f);
+            }else if (uploadFile.length()<400000&&uploadFile.length()>=200000){
+                narrowImage.writeHighQuality(narrowImage.zoomImage(destFile.getPath()), path+"/"+temFilename,0.3f);
+            }else {
+                narrowImage.writeHighQuality(narrowImage.zoomImage(destFile.getPath()), path+"/"+temFilename,0.5f);
+            }
+
+//            mypic.compressPic(destFile, path+"/", temFilename, width, hight, true);
+
         } catch (IOException e) {
             e.printStackTrace();
             return ERROR;
@@ -292,6 +547,14 @@ public class SellerRCAction extends ActionSupport{
 
     //properties
 
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
     public void setPage(int page) {
         this.page = page;

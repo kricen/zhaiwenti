@@ -1,6 +1,8 @@
 package com.wenti.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,19 +13,24 @@ public class Product implements Serializable {
     private String name;
     private float price;
     private String comments;
-    private String image;
+    private Image headImage;
+    private String detailImage;
+    private String lunboImage;
     private int state;
-    private Set<Cartitem> cartitems;
-    private Set<Orderitem> orderitems;
+    private Set<Cartitem> cartitems = new HashSet<Cartitem>(0);
+    private Set<Orderitem> orderitems = new HashSet<Orderitem>(0);
     private Seller seller;
     private Category category;
     private int sellNum;
     //用户统计购物车中当前商品的数量，不牵扯数据库表
     private int num;
     private int hot;
+    private List<Image> detailImages;
+    private List<Image> lunboImages;
     public Integer getId() {
         return id;
     }
+
 
     public void setId(Integer id) {
         this.id = id;
@@ -37,9 +44,6 @@ public class Product implements Serializable {
         this.state = state;
     }
 
-    public String getImage() {
-        return image;
-    }
 
     public int getSellNum() {
         return sellNum;
@@ -57,9 +61,6 @@ public class Product implements Serializable {
         this.num = num;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
 
     public int getHot() {
         return hot;
@@ -93,6 +94,22 @@ public class Product implements Serializable {
         this.comments = comments;
     }
 
+    public List<Image> getDetailImages() {
+        return detailImages;
+    }
+
+    public void setDetailImages(List<Image> detailImages) {
+        this.detailImages = detailImages;
+    }
+
+    public List<Image> getLunboImages() {
+        return lunboImages;
+    }
+
+    public void setLunboImages(List<Image> lunboImages) {
+        this.lunboImages = lunboImages;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -110,6 +127,30 @@ public class Product implements Serializable {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
+    }
+
+    public Image getHeadImage() {
+        return headImage;
+    }
+
+    public void setHeadImage(Image headImage) {
+        this.headImage = headImage;
+    }
+
+    public String getDetailImage() {
+        return detailImage;
+    }
+
+    public void setDetailImage(String detailImage) {
+        this.detailImage = detailImage;
+    }
+
+    public String getLunboImage() {
+        return lunboImage;
+    }
+
+    public void setLunboImage(String lunboImage) {
+        this.lunboImage = lunboImage;
     }
 
     public Set<Cartitem> getCartitems() {

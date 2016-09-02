@@ -14,9 +14,25 @@
         <property name="tel" column="tel"/>
         <property name="name" column="name"/>
         <property name="ordertime" column="ordertime"/>
+        <property name="acceptTime" column="accept_time"/>
         <property name="successDate" column="success_date"/>
         <property name="totalFee" column="total_fee"/>
-        <property name="state" column="state"/>
+        <property name="productFee" column="product_fee"/>
+        <property name="deliveryFee" column="delivery_fee"/>
+        <property name="orderNo" column="order_no"/>
+        <property name="orderTradNo" column="order_trad_no"/>
+        <property name="state">
+            <column name="state">
+                <comment>
+                    -1代支付
+                    0支付完成,待接单
+                    1接单成功
+                    2订单成功
+                    3订单失败
+                </comment>
+            </column>
+        </property>
+        <property name="deliveryTime" column="delivery_time" type="java.lang.String"/>
         <property name="visible" column="visible"/>
         <many-to-one name="seller" column="sid" lazy="false" class="com.wenti.domain.Seller"/>
         <many-to-one name="user" column="uid" lazy="false" class="com.wenti.domain.User"/>

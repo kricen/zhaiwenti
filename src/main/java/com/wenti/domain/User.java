@@ -11,10 +11,18 @@ public class User implements Serializable {
     private String tel;
     private String name;
     private String addr;
+    private Integer school;
     private Integer state;
     private String openId;
-    private Set<Cart> carts;
     private Set<Order> orders;
+
+    public Integer getSchool() {
+        return school;
+    }
+
+    public void setSchool(Integer school) {
+        this.school = school;
+    }
 
     public Integer getId() {
         return id;
@@ -88,14 +96,6 @@ public class User implements Serializable {
         result = 31 * result + (addr != null ? addr.hashCode() : 0);
         result = 31 * result + (state != null ? state.hashCode() : 0);
         return result;
-    }
-
-    public Set<Cart> getCarts() {
-        return carts;
-    }
-
-    public void setCarts(Set<Cart> carts) {
-        this.carts = carts;
     }
 
     public Set<Order> getOrders() {

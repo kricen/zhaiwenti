@@ -140,7 +140,7 @@
             </table>
             <nav>
                 <ul class="pagination pagination-sm">
-                    <s:url value="/seller/acceptOrder.action" var="bookRepertory"></s:url>
+                    <s:url value="/seller/waitingOrderPage.action" var="bookRepertory"></s:url>
                     <s:if test="pageBean.page!=pageBean.startIndex">
                         <li>
                             <a href="<s:property value="#bookRepertory"/>?page=1" aria-label="Previous">
@@ -239,6 +239,7 @@
                             <th>名称</th>
                             <th>价格</th>
                             <th>数量</th>
+                            <th>购买类型</th>
                         </tr>
                         </thead>
                         <tr v-repeat="product in products">
@@ -248,6 +249,7 @@
                             <td v-text="product.name"></td>
                             <td class="price" v-text="product.price"></td>
                             <td v-text="product.num"></td>
+                            <td v-text="product.requirement"></td>
                         </tr>
                     </table>
                     <hr>

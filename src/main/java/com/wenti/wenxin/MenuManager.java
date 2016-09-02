@@ -22,28 +22,29 @@ public class MenuManager {
      */
     private static Menu getMenu() throws UnsupportedEncodingException {
 
-        String URL="http://112.124.109.220/user/index.action";
+        String URL="http://www.swying.com/user/weixinIndex.action";
         String shopUrl  = CommonUtil.getRedirectUrlEncode(URL);
         ViewButton btn11 = new ViewButton();
-        btn11.setName("购书中心");
+        btn11.setName("商城中心");
         btn11.setType("view");
-        btn11.setUrl(URL);
+        btn11.setUrl(shopUrl);
        /* ViewButton btn12 = new ViewButton();
         btn12.setName("卖书");
         btn12.setType("view");
         btn12.setUrl("http://mp.weixin.qq.com/s?__biz=MzI1MjA4ODU1MA==&mid=402766205&idx=1&sn=5e76f3d398dc40516e232294fe674aba#rd");*/
-//        ViewButton btn21 = new ViewButton();
-//        URL="http://www.goushubao.com/myCart.action";
-//        shopUrl  = CommonUtil.getRedirectUrlEncode(URL);
-//        btn21.setName("我的购物车");
-//        btn21.setType("view");
-//        btn21.setUrl(shopUrl);
-//        ViewButton btn22 = new ViewButton();
-//        URL="http://www.goushubao.com/myOrders.action";
-//        shopUrl  = CommonUtil.getRedirectUrlEncode(URL);
-//        btn22.setName("我的订单");
-//        btn22.setType("view");
-//        btn22.setUrl(shopUrl);
+        ViewButton btn21 = new ViewButton();
+        URL="http://www.swying.com/user/weixinCart.action";
+        shopUrl  = CommonUtil.getRedirectUrlEncode(URL);
+        btn21.setName("我的购物车");
+        btn21.setType("view");
+        btn21.setUrl(shopUrl);
+        ViewButton btn22 = new ViewButton();
+        URL="http://www.swying.com/user/weixinOrder.action";
+        shopUrl  = CommonUtil.getRedirectUrlEncode(URL);
+        System.out.println(shopUrl);
+        btn22.setName("我的订单");
+        btn22.setType("view");
+        btn22.setUrl(shopUrl);
 //        ClickButton btn24 = new ClickButton();
 //        btn24.setName("购书指南");
 //        btn24.setType("click");
@@ -76,16 +77,16 @@ public class MenuManager {
         ComplexButton mainBtn1 = new ComplexButton();
         mainBtn1.setName("商城中心");
         /*mainBtn1.setSub_button(new Button[]{btn11, btn12});*/
-//        ComplexButton mainBtn2 = new ComplexButton();
-//        mainBtn2.setName("个人中心");
-//        mainBtn2.setSub_button(new Button[]{btn21, btn22, btn24,btn26});
+        ComplexButton mainBtn2 = new ComplexButton();
+        mainBtn2.setName("个人中心");
+        mainBtn2.setSub_button(new Button[]{btn21, btn22});
 //        ComplexButton mainBtn3 = new ComplexButton();
 //        mainBtn3.setName("关于我们");
 //       /* mainBtn3.setSub_button(new Button[]{btn34, btn32, btn33, btn35, btn36});*/
 //        mainBtn3.setSub_button(new Button[]{btn34,btn36});
         Menu menu = new Menu();
 //        menu.setButton(new Button[] {btn11, mainBtn2, mainBtn3 });
-        menu.setButton(new Button[] {btn11});
+        menu.setButton(new Button[] {btn11,btn21,btn22});
 
         return menu;
     }

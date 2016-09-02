@@ -15,7 +15,7 @@ public class Seller implements Serializable {
     private float startingPrice;
     //配送费
     private float deliveryFee;
-    private Set<Cartitem> cartitems;
+    private String openid;
     private Set<Order> orders;
     private Set<Product> products;
 
@@ -67,6 +67,14 @@ public class Seller implements Serializable {
         this.username = username;
     }
 
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+
     public float getDeliveryFee(){
         return deliveryFee;
     }
@@ -101,13 +109,7 @@ public class Seller implements Serializable {
         return result;
     }
 
-    public Set<Cartitem> getCartitems() {
-        return cartitems;
-    }
 
-    public void setCartitems(Set<Cartitem> cartitems) {
-        this.cartitems = cartitems;
-    }
 
     public Set<Order> getOrders() {
         return orders;

@@ -4,10 +4,13 @@ import com.wenti.dao.OrderDao;
 import com.wenti.domain.Order;
 import com.wenti.domain.Orderitem;
 import com.wenti.domain.Product;
+import com.wenti.dto.OrderBaseBean;
 import com.wenti.utils.PageBean;
 import org.htmlparser.lexer.Page;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -82,6 +85,13 @@ public class OrderService {
         return pageBean;
     }
 
+    public List<Order> getOrderByState(int page, int state, int userId){
+        int limit = 8;
+        int startIndex = (page-1)*limit;
+        List<Order> orders = orderDao.getOrderByState(state,userId,limit,startIndex);
+        return orders;
+    }
+
     //根据用户得到要提交的订单
     public Order getFukuanOrder(int userId){
         return orderDao.getFukuanOrder(userId);
@@ -107,6 +117,16 @@ public class OrderService {
         return orderDao.getOrder(orderId);
     }
 
+    //根据用户获得订单
+    public List<Order> getOrdersByStateUser(int state,int userId,int page){
+        if(page<=1){
+            page = 1;
+        }
+        int limit = 10;
+
+
+        return orderDao.getOrdersByStateUser(state,userId,limit, (page - 1) * limit);
+    }
     //删除订单项
     public void delOrderitem(List<Orderitem> orderitems){
         orderDao.delOrderitem(orderitems);
@@ -114,6 +134,8 @@ public class OrderService {
 
     //删除订单
     public void delOrder(Order order){
+        List<Orderitem> orderitems = getOrderitemByOrder(order.getId());
+        orderDao.delOrderitem(orderitems);
         orderDao.delOrder(order);
     }
 

@@ -6,6 +6,7 @@ import com.wenti.utils.PageHibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 /**
  * Created by Administrator on 2016/3/16 0016.
@@ -23,9 +24,34 @@ public class OrderDao extends HibernateDaoSupport {
         if(order.getSuccessDate()!=null){
             find.setSuccessDate(order.getSuccessDate());
         }
+        if(order.getOrdertime()!=null){
+            find.setOrdertime(order.getOrdertime());
+        }
         find.setState(order.getState());
         this.getHibernateTemplate().update(find);
         return true;
+    }
+
+    //根据订单状态获得订单列表
+    public List<Order> getOrderByState(int state,int userId,int limit,int startIndex){
+        List<Order> find;
+        if(state==10){
+            String hql = "from Order o where o.user.id=? order by id desc";
+            find= this.getHibernateTemplate().execute(new PageHibernateCallback<Order>(hql,new Object[]{userId}, startIndex, limit));
+        }
+        else if(state==8){
+            String hql = "from Order o where o.user.id=? and state in(0,1) order by id desc";
+            find= this.getHibernateTemplate().execute(new PageHibernateCallback<Order>(hql,new Object[]{userId}, startIndex, limit));
+        }
+        else if(state==9){
+            String hql = "from Order o where o.user.id=? and state in(2,3) order by id desc";
+            find= this.getHibernateTemplate().execute(new PageHibernateCallback<Order>(hql,new Object[]{userId}, startIndex, limit));
+        }
+        else {
+            String hql = "from Order o where o.user.id=? and state=? order by id desc";
+            find= this.getHibernateTemplate().execute(new PageHibernateCallback<Order>(hql,new Object[]{userId,state}, startIndex, limit));
+        }
+        return find;
     }
 
     //根据用户得到要提交的订单
@@ -47,6 +73,37 @@ public class OrderDao extends HibernateDaoSupport {
         Order order = this.getHibernateTemplate().get(Order.class,orderId);
         return order;
     }
+
+    /**
+     * 根据订单状态和用户获得订单列表
+     * 如果state为0 则取订单状态为零的订单
+     * 如果state为1 则取状态为一的订单
+     * 如果state为2 择取状态为二的订单
+     * 若果state为3 则取状态为三的订单
+     * 如果state为5 则取012的订单
+     * 如果state为7 取23的订单
+     * 其他，取所有的订单
+     */
+    public List<Order> getOrdersByStateUser(int state,int userId,int limit,int startIndex){
+        String hql = null;
+        List<Order> find = new ArrayList<Order>();
+        System.out.println(state+"sdjfsdfsidfjsdifjsi");
+        if(state>=-1&&state<=3){
+            hql = "from Order o where o.state = ? and o.user.id=? order by o.id desc ";
+            find = this.getHibernateTemplate().execute(new PageHibernateCallback<Order>(hql,new Object[]{state,userId},startIndex,limit));
+        }else if(state==5){
+            hql = "from Order o where o.user.id=? and o.state in(0,1) order by o.id desc";
+            find = this.getHibernateTemplate().execute(new PageHibernateCallback<Order>(hql,new Object[]{userId},startIndex,limit));
+        }else if(state==6){
+            hql = "from Order o where o.user.id=? and o.state in(2,3) order by o.id desc";
+            find = this.getHibernateTemplate().execute(new PageHibernateCallback<Order>(hql,new Object[]{userId},startIndex,limit));
+        }else {
+            hql = "from Order o where o.user.id=? and o.state in(-1,0,1,2,3) order by o.id desc";
+            find = this.getHibernateTemplate().execute(new PageHibernateCallback<Order>(hql,new Object[]{userId},startIndex,limit));
+        }
+        return find;
+    }
+
     //根据订单编号以及状态获得订单
     public List<Order> getOrderById(int orderId,int state){
         String hql = "";

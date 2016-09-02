@@ -11,6 +11,7 @@
     <title>宅文体商品管理</title>
 
     <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/asset/sellerAsset/css/zyUpload.css" type="text/css">
     <link href="/asset/sellerAsset/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="/asset/sellerAsset/css/sb-admin.css" rel="stylesheet">
@@ -119,6 +120,7 @@
                     <th>价格</th>
                     <th>是否热销</th>
                     <th>状态</th>
+                    <th>商品介绍</th>
                     <th>类别</th>
                     <th>销售量</th>
                     <th>操作</th>
@@ -128,12 +130,16 @@
                         <tr id="<s:property value="#product.id"/>">
                             <input type="hidden" class="category" value="<s:property value="#product.category.id"/>"/>
                             <td>
-                                <img  src="<s:property value="#product.image"/>" data-html="true" data-toggle="popover" data-content="<img class='largeImg' src='<s:property value="#product.Image"/>'>">
+
+                                <s:iterator value="#product.image.split(',')" var="image">
+                                <img  src="<s:property value="#image"/>" data-html="true" data-toggle="popover" data-content="<img class='largeImg' src='<s:property value="#image"/>'>">
+                                </s:iterator>
                             </td>
                             <td class="title"  name="名称" title="<s:property value="#product.name"/>"><s:property value="#product.name"/></td>
                             <td  class="price" > <s:property value="#product.price"/></td>
                             <td class="isHot"  name="热销状态"><s:if test="#product.state==0">正常</s:if><s:else>热销</s:else> </td>
                             <td class="state"><s:if test="#product.state==0">正常</s:if><s:else>异常</s:else></td>
+                            <td class="comments"><s:property value="#product.comments"/></td>
                             <td class="state"><s:property value="#product.category.name"/></td>
                             <td class="sellCount"><s:property value="#product.sellNum"/></td>
                             <td>
@@ -207,16 +213,23 @@
                 <h4 class="modal-title">商品修改</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal">
-                    <input type="hidden" maxlength="10" class="form-control" v-model="productId">
-                    <div class="form-group">
-                        <img  style="width: 70px;height: 80px" src="/asset/userAsset/images/icon1.jpg">
-                        <div class="col-sm-3" style="margin-top: 15px;">
-                            <button v-on="click: changePic" type="button" id="changePic" class="btn btn-default btn-xs form-control">更改图片</button>
-                            <input name="image" v-on="change: pictureChangeHandle" style="display:none" type="file" accept="image/*" id="bookImage">
-                            <p id="imageE" hidden  class="pic-msg">图片上传失败</p>
+                <div id="uploadForm" class="col-xs-10 col-xs-offset-1">
+                    <div class="upload_box">
+                        <div class="upload_main single_main">
+                            <div class="status_bar">
+                                <div id="status_info" class="info">选中0张文件</div>
+                                <div class="btns">
+                                    <input onchange="javascript:imageChange(event)" id="fileImage" type="file" size="30" name="image">
+                                    <div class="webuploader_pick">选择文件</div>
+                                </div>
+                            </div>
+                            <div id="preview" class="upload_preview">
+                            </div>
                         </div>
                     </div>
+                </div>
+                <form class="form-horizontal">
+                    <input id="productId" type="hidden" maxlength="10" class="form-control" v-model="productId">
                     <div class="form-group">
                         <label for="inputPassword" class="col-sm-2 control-label">名称</label>
                         <div class="col-sm-8">
@@ -228,6 +241,13 @@
                         <div class="col-sm-8">
                             <input type="text" maxlength="10" class="form-control productPrice" v-model="price">
                             <p id="productPriceE" hidden  class="pic-msg">请输入正确的数值,eg:1.1</p>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-2 control-label">商品介绍</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" maxlength="150" v-model="comments"> rows="3"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -275,6 +295,7 @@
 <script src="/asset/sellerAsset/js/ajaxfileupload.js"></script>
 <script src="http://cdn.bootcss.com/vue/0.12.16/vue.min.js"></script>
 <script type="text/javascript">
+    var image = 1;
     $("#search").click(function(e){
         var id = $("#num").val();
         if(id!=''){
@@ -298,7 +319,8 @@
             title:'',
             price:'',
             selected:1,
-            productId:''
+            productId:'',
+            comments:''
         },
         methods:{
 
@@ -325,36 +347,17 @@
                 var name = this.title;
                 var price = this.price;
                 var categoryId = this.selected;
-                var productId = this.productId;
-                $.ajaxFileUpload(
-                        {
-                            url:'/seller/addUpdateProduct.action',
-                            data:{"name":name,"price":price,"id":productId,"categoryId":categoryId},
-                            secureuri: false, //是否需要安全协议，一般设置为false
-                            fileElementId:'bookImage', //文件上传域的ID
-                            dataType:'json', //返回值类型 一般设置为json
-                            success: function (data, status)  //服务器成功响应处理函数
-                            {
-                                if(data.responseText=="success"){
-                                  window.location.href="/seller/repertoryPage.action"
-                                }else if(data.responseText=="noLogin"){
-                                    window.location.href="/seller/pendingOrderPage.action"
-                                }else{
-                                    $("#imageE").show();
-                                }
-                            },
-                            error: function (data, status, e)//服务器响应失败处理函数
-                            {
-                                if(data.responseText=="success"){
-                                    window.location.href="/seller/repertoryPage.action"
-                                }else if(data.responseText=="noLogin"){
-                                    window.location.href="/seller/pendingOrderPage.action"
-                                }else{
-                                    $("#imageE").show();
-                                }
-                            }
-                        }
-                )
+                var productId = $("#productId").val().trim();
+                var comments = this.comments;
+                $.post('/seller/addUpdateProduct.action',{"name":name,"price":price,"id":productId,"categoryId":categoryId,"comments":comments},function (data) {
+                    if(data=="success"){
+                        window.location.href="/seller/repertoryPage.action"
+                    }else if(data=="noLogin"){
+                        window.location.href="/seller/pendingOrderPage.action"
+                    }else{
+                        $("#imageE").show();
+                    }
+                })
 
                 $("#editModal").modal('hide');
             }
@@ -368,6 +371,7 @@
         modal.$data.title = $trEl.find('.title').text().trim();
         modal.$data.price = $trEl.find('.price').text().trim();
         modal.$data.selected = $trEl.find('.category').val().trim();
+        modal.$data.comments = $trEl.find('.comments').text().trim();
         modal.$data.productId = id;
         $("#editModal").modal('show').find('input').first().focus();
     })
@@ -399,7 +403,8 @@
         modal.$data.price = '';
         modal.$data.selected =2;
         modal.$data.productId = '';
-        $("#bookImage").parent().siblings('img').attr('src','');
+        modal.$data.comments = '';
+        $("#preview").empty();
         $("#changePic").text("上传图片");
         $("#editModal").modal('show').find('input').first().focus();
     })
@@ -429,6 +434,82 @@
 
         return true;
 
+    }
+</script>
+<script type="text/javascript">
+    $(function () {
+        $(".webuploader_pick").click(function () {
+            $("#fileImage").click();
+        })
+
+
+
+    })
+
+    function imageChange(e) {
+
+        var productId = $("#productId").val();
+        $.ajaxFileUpload(
+                {
+                    url:'/seller/saveImage.action',
+                    data:{"id":productId},
+                    secureuri: false, //是否需要安全协议，一般设置为false
+                    fileElementId:'fileImage', //文件上传域的ID
+                    dataType:'html', //返回值类型 一般设置为json
+                    success: function (data, status)  //服务器成功响应处理函数
+                    {
+                        var reg = new RegExp("^[0-9]*$");
+                        if(reg.test(data.responseText)){
+                            $("#productId").val(data.responseText);
+                        }else if(data.responseText=="noLogin"){
+                                window.location.href="/seller/pendingOrderPage.action"
+                        }else{
+                            $("#imageE").show();
+                        }
+                    },
+                    error: function (data, status, e)//服务器响应失败处理函数
+                    {
+                        var reg = new RegExp("^[0-9]*$");
+                        if(reg.test(data.responseText)){
+                            $("#productId").val(data.responseText);
+                        }else if(data.responseText=="noLogin"){
+                            window.location.href="/seller/pendingOrderPage.action"
+                        }else{
+                            $("#imageE").show();
+                        }
+                    }
+                }
+        )
+
+        var target = $(e.target);
+        var reader = new FileReader();
+        //将文件以二进制形式读入页面
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload=function(e){
+            var innerhtml = '<div class="add_upload">'
+                    +'<div class="file_bar">		<div style="padding:5px;">			<p class="file_name">删除</p>                                                                         <span class="file_del" data-index="'+image+'" title="删除"></span>		</div>	</div>'
+                    +'<a  class="hightwith" title="点击添加文件" id="rapidAddImg" class="add_imgBox" href="javascript:void(0)">'
+                    +'<div class="uploadImg" >'
+                    +'<img class="upload_image hightwith" style="height: 120px" src="'+this.result+'" />'
+                    +'</div></a></div>';
+            var el = $(innerhtml);
+            el.find(".file_del").bind('click',function(){
+                var productId = $("#productId").val();
+                var index = $(this).attr("data-index");
+                console.log(index);
+//               $.post()
+            })
+            el.bind({
+                mouseenter: function(){
+                    $(this).find(".file_bar").addClass("file_hover");
+                },
+                mouseleave: function(){
+                    $(this).find(".file_bar").removeClass("file_hover");
+                }
+            })
+            image++;
+            $("#preview").append(el);
+        }
     }
 </script>
 </body>

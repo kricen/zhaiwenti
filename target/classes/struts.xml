@@ -11,15 +11,10 @@
     <constant name="struts.multipart.saveDir" value="/tmp"/>
     <package name="user-default" namespace="/user" extends="json-default">
         <interceptors>
-            <interceptor name="userJsonLogin" class="com.wenti.web.interceptor.UserJsonLogin"></interceptor>
-            <interceptor name="userActionLogin" class="com.wenti.web.interceptor.UserLogin"></interceptor>
-            <interceptor-stack name="userActionStack">
+            <interceptor name="weixin" class="com.wenti.web.interceptor.UserFromWeixin"></interceptor>
+            <interceptor-stack name="weixinLogin">
                 <interceptor-ref name="defaultStack"></interceptor-ref>
-                <interceptor-ref name="userActionLogin"></interceptor-ref>
-            </interceptor-stack>
-            <interceptor-stack name="userJsonStack">
-                <interceptor-ref name="defaultStack"></interceptor-ref>
-                <interceptor-ref name="userJsonLogin"></interceptor-ref>
+                <interceptor-ref name="weixin"></interceptor-ref>
             </interceptor-stack>
         </interceptors>
         <default-action-ref name="notFound"></default-action-ref>

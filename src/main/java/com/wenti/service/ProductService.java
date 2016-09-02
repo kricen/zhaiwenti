@@ -1,14 +1,15 @@
 package com.wenti.service;
 
 import com.wenti.dao.ProductDao;
+import com.wenti.dao.ProductHotBean;
 import com.wenti.domain.Cartitem;
+import com.wenti.domain.Image;
 import com.wenti.domain.Product;
 import com.wenti.utils.PageBean;
-import com.wenti.domain.ProductBean;
+import com.wenti.dto.ProductBean;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -18,10 +19,14 @@ import java.util.List;
 public class ProductService {
     private ProductDao productDao;
 
+    //获得图片集合
+    public List<Image> getImages(String ids){
+        return productDao.getImages(ids);
+    }
+
     //构建productBean用于首页的显示
     public List<ProductBean> getProductBeanList(List<Cartitem> cartitems){
         List<Product> products = productDao.getProducts();
-        System.out.println(products.size());
         List<ProductBean> productBeanList = new ArrayList<ProductBean>();
         int tempNum=0;
         for(int i=0;i<products.size();i++){
@@ -69,6 +74,53 @@ public class ProductService {
             }
         }
         return productBeanList;
+    }
+    //获得product集合
+    public List<ProductHotBean> getHotProduct(int page){
+        int limit = 8;
+        int startIndex = (page-1)*limit;
+        List<Product> products = productDao.getHotProduct(limit,startIndex);
+        List<ProductHotBean> hotBeans = new ArrayList<ProductHotBean>();
+        for(int i=0;i<products.size();i++){
+            Product product = products.get(i);
+            ProductHotBean hotBean = new ProductHotBean();
+            hotBean.setName(product.getName());
+            hotBean.setPrice(product.getPrice());
+            hotBean.setId(product.getId());
+            hotBeans.add(hotBean);
+        }
+        return hotBeans;
+    }
+    //获得product集合
+    public List<Product> getHotProduct(){
+        return productDao.getHotProduct();
+    }
+    public void hideProduct(){
+        productDao.hideProduct();
+    }
+    //获得product集合
+    public List<ProductHotBean> getCategoryProducts(int categoryId,int page){
+        int limit = 8;
+        int startIndex = (page-1)*limit;
+        List<Product> products = productDao.getCategoryProducts(categoryId,limit,startIndex);
+        List<ProductHotBean> hotBeans = new ArrayList<ProductHotBean>();
+        for(int i=0;i<products.size();i++){
+            Product product = products.get(i);
+            ProductHotBean hotBean = new ProductHotBean();
+            hotBean.setName(product.getName());
+            hotBean.setPrice(product.getPrice());
+            hotBean.setId(product.getId());
+            hotBean.setHot(product.getHot());
+            hotBeans.add(hotBean);
+        }
+        return hotBeans;
+    }
+
+    public List<Product> getCategoryProduct(int categoryId,int page){
+        int limit = 8;
+        int startIndex = (page-1)*limit;
+        List<Product> products = productDao.getCategoryProducts(categoryId,limit,startIndex);
+        return products;
     }
     //获得product集合
     public PageBean<Product> getPBeanProduct(int page,String name){
@@ -146,14 +198,6 @@ public class ProductService {
         productDao.update(product);
     }
 
-    //新增商品
-    public void save(Product product){
-        productDao.save(product);
-    }
-
-    public void setProductDao(ProductDao productDao) {
-        this.productDao = productDao;
-    }
 
     //private functions
     public ProductBean isExistProductBean(int id,List<ProductBean> productBeanList){
@@ -165,5 +209,26 @@ public class ProductService {
             }
         }
         return productBean;
+    }
+
+    //保存Image
+    public void save(Image image){
+        productDao.save(image);
+    }
+    //更新Image
+    public void update(Image image){
+        productDao.update(image);
+    }
+
+    //保存Image
+    public void save(Product product){
+        productDao.save(product);
+    }
+    //更新Image
+
+
+
+    public void setProductDao(ProductDao productDao) {
+        this.productDao = productDao;
     }
 }

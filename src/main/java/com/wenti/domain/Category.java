@@ -9,9 +9,12 @@ import java.util.Set;
 public class Category implements Serializable {
     private Integer id;
     private String name;
-    private int state;
-    private int score;
+    private Integer state;
+    private Integer score;
+    private String image;
+    private Integer orderSales;
     private Set<Product> products;
+
 
     public Integer getId() {
         return id;
@@ -43,6 +46,22 @@ public class Category implements Serializable {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public Integer getOrderSales() {
+        return orderSales;
+    }
+
+    public void setOrderSales(Integer orderSales) {
+        this.orderSales = orderSales;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override

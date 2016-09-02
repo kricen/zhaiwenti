@@ -4,6 +4,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.wenti.domain.*;
+import com.wenti.dto.OrderBean;
 import com.wenti.service.OrderService;
 import com.wenti.utils.CommonUtils;
 import com.wenti.utils.PageBean;
@@ -100,9 +101,10 @@ public class SellerOrderAction extends ActionSupport implements ModelDriven<Orde
     )
     public String changeOrderState(){
         Seller seller = (Seller)ServletActionContext.getRequest().getSession().getAttribute("seller");
+
         if(order.getState()==1){
             //发送接单消息模板
-            order.setSuccessDate(CommonUtils.getNowTime());
+            order.setOrdertime(CommonUtils.getNowTime());
         }
         if(order.getState()==2){
             //交易成功
@@ -178,7 +180,8 @@ public class SellerOrderAction extends ActionSupport implements ModelDriven<Orde
         config.setIgnoreDefaultExcludes(false);
         config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
         config.setExcludes(new String[]{
-        "cartitems","orderitems","seller","category","state","sellNum","hot"
+                "cartitems","orderitems","seller","category","state","sellNum","hot","additionalItems"
+                 ,"additionals","orders","carts"
         });
         return config;
     }

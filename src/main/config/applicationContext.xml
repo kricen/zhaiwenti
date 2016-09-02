@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx" xmlns:task="http://www.springframework.org/schema/task"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/aop
 	http://www.springframework.org/schema/aop/spring-aop.xsd
 	http://www.springframework.org/schema/tx 
-	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 	<!-- 配置Action -->
 	<!-- 数据库连接池  -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -19,6 +19,7 @@
 		<property name="jdbcUrl" value="jdbc:mysql:///wenti"></property>
 		<property name="user" value="root"></property>
 		<property name="password" value="492226568"></property>
+
 	</bean>
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
@@ -30,6 +31,13 @@
 				<prop key="hibernate.format_sql">true</prop> <!-- 控制台输出时，对SQL语句格式化 -->
 				<!-- 测试环境 create/ create-drop 正式环境 update validate -->
 				<prop key="hibernate.hbm2ddl.auto">update</prop> <!-- 自动建表 -->
+				<prop key="c3p0.acquire_increment">2</prop>
+				<prop key="c3p0.idle_test_period">200</prop>
+				<prop key="c3p0.timeout">1000</prop>
+				<prop key="c3p0.max_size">100</prop>
+				<prop key="hibernate.c3p0.max_statements">100</prop>
+				<prop key="hibernate.c3p0.min_size">20</prop>
+				<!--<prop key="user">bank</prop> <prop key="password">bank</prop>-->
 			</props>
 		</property>
 		<property name="mappingDirectoryLocations">
@@ -38,29 +46,40 @@
 			</list>
 		</property>
 	</bean>
+	<!--班级购轮寻操作-->
+	<bean id="keepLive" class="com.wenti.web.dwr.KeepLive">
+		<property name="sellerService" ref="sellerService"></property>
+	</bean>
+
+	<task:scheduled-tasks scheduler="myScheduler">
+		<task:scheduled ref="keepLive" method="findSeller" cron="0/60 * * * * *"/>
+		<!--每天凌晨一点 -->
+	</task:scheduled-tasks>
+	<task:scheduler id="myScheduler" pool-size="10"/>
+
 	<!--userAction start-->
 	<bean id="userAction" class="com.wenti.web.action.UserAction" scope="prototype"></bean>
 	<bean id="userCartAction" class="com.wenti.web.action.UserCartAction" scope="prototype"></bean>
 	<bean id="userOrderAction" class="com.wenti.web.action.UserOrderAction" scope="prototype"></bean>
+	<bean id="userWechatAction" class="com.wenti.web.action.UserWechatAction" scope="prototype"></bean>
 	<!--userAction end-->
 
 	<bean id="sellerAction" class="com.wenti.web.action.SellerAction" scope="prototype"></bean>
 	<bean id="sellerRCAction" class="com.wenti.web.action.SellerRCAction" scope="prototype"></bean>
 	<bean id="sellerOrderAction" class="com.wenti.web.action.SellerOrderAction" scope="prototype"></bean>
 
-	<!--cart start-->
-	<bean id="cartService" class="com.wenti.service.CartService">
-		<property name="cartDao" ref="cartDao"></property>
-	</bean>
-	<bean id="cartDao" class="com.wenti.dao.CartDao">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-	<!--cart end-->
 	<!--category start-->
 	<bean id="categoryService" class="com.wenti.service.CategoryService">
 		<property name="categoryDao" ref="categoryDao"></property>
 	</bean>
 	<bean id="categoryDao" class="com.wenti.dao.CategoryDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="cartService" class="com.wenti.service.CartService">
+		<property name="cartDao" ref="cartDao"></property>
+	</bean>
+	<bean id="cartDao" class="com.wenti.dao.CartDao">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<!--category end-->

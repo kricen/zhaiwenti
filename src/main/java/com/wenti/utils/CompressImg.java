@@ -111,9 +111,9 @@ public class CompressImg {
         return compressPic();
     }
     public static void main(String[] arg) {
-        File testFile = new File("e:\\1.jpg");
+        File testFile = new File("/Users/lixiao/Documents/wenti_2/target/mainStructure/testImage/d4dba36c90d04f00a92699e6f903897e.jpg");
         CompressImg mypic = new CompressImg();
-        mypic.compressPic(testFile ,"e:\\",  "r1.jpg", 1000, 650, true);
+        mypic.compressPic(testFile ,"/Users/lixiao/Documents/wenti_2/target/",  "r1.jpg", 1000, 650, true);
     }
 
 }

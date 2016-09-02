@@ -8,9 +8,11 @@
         <id name="id" column="id">
             <generator class="identity" />
         </id>
-        <property name="name" column="name"/>
-        <property name="score" column="score"/>
-        <property name="state" column="state"/>
+        <property name="name" column="name" type="java.lang.String"/>
+        <property name="score" column="score" type="java.lang.Integer"/>
+        <property name="state" column="state" type="java.lang.Integer"/>
+        <property name="image" column="image" type="java.lang.String"/>
+        <property name="orderSales" column="order_sales" type="java.lang.Integer"/>
         <set name="products" inverse="true" cascade="all">
             <key column="cid"/>
             <one-to-many  class="com.wenti.domain.Product"/>

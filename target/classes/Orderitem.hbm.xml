@@ -8,7 +8,8 @@
             <column name="id"></column>
             <generator class="identity" />
         </id>
-        <property name="num" column="num"/>
+        <property name="num" column="num" type="java.lang.Integer"/>
+        <property name="productFee" type="java.lang.Float" column="fee"/>
         <many-to-one name="order" lazy="false" column="oid" class="com.wenti.domain.Order"/>
         <many-to-one name="product" lazy="false" column="pid" class="com.wenti.domain.Product"/>
     </class>

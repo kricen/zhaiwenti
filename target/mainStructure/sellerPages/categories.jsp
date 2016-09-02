@@ -169,6 +169,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal">
+
                     <div class="form-group">
                         <label for="inputPassword" class="col-sm-2 control-label">类别名称</label>
                         <div class="col-sm-8">
@@ -200,8 +201,60 @@
 <script src="/asset/sellerAsset/js/jquery.js"></script>
 <script src="/asset/sellerAsset/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/asset/sellerAsset/js/vue.min.js"></script>
-<script type="text/javascript" src="/asset/sellerAsset/js/category.js"></script>
-</body>
+<script src="/asset/sellerAsset/js/ajaxfileupload.js"></script>
 
+</body>
+<script type="text/javascript">
+    $(function () {
+        $("#changePic").click(function () {
+            $("#bookImage").click();
+        })
+    })
+
+    function imageChange(e) {
+
+//        var productId = $("#productId").val();
+//        $.ajaxFileUpload(
+//                {
+//                    url:'/seller/saveImage.action',
+//                    data:{"id":productId},
+//                    secureuri: false, //是否需要安全协议，一般设置为false
+//                    fileElementId:'fileImage', //文件上传域的ID
+//                    dataType:'html', //返回值类型 一般设置为json
+//                    success: function (data, status)  //服务器成功响应处理函数
+//                    {
+//                        var reg = new RegExp("^[0-9]*$");
+//                        if(reg.test(data.responseText)){
+//                            $("#productId").val(data.responseText);
+//                        }else if(data.responseText=="noLogin"){
+////                                window.location.href="/seller/pendingOrderPage.action"
+//                        }else{
+//                            $("#imageE").show();
+//                        }
+//                    },
+//                    error: function (data, status, e)//服务器响应失败处理函数
+//                    {
+//                        var reg = new RegExp("^[0-9]*$");
+//                        if(reg.test(data.responseText)){
+//                            $("#productId").val(data.responseText);
+//                        }else if(data.responseText=="noLogin"){
+//                            window.location.href="/seller/pendingOrderPage.action"
+//                        }else{
+//                            $("#imageE").show();
+//                        }
+//                    }
+//                }
+//        )
+
+        var target = $(e.target);
+        var reader = new FileReader();
+        //将文件以二进制形式读入页面
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload=function(e){
+            target.parent().siblings('img').attr('src',this.result);
+        }
+    }
+</script>
+<script type="text/javascript" src="/asset/sellerAsset/js/category.js"></script>
 </html>
 

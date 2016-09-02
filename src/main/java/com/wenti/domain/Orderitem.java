@@ -10,6 +10,8 @@ public class Orderitem implements Serializable {
     private Integer num;
     private Order order;
     private Product product;
+    private float productFee;
+
 
     public Integer getId() {
         return id;
@@ -20,7 +22,13 @@ public class Orderitem implements Serializable {
     }
 
 
+    public float getProductFee() {
+        return productFee;
+    }
 
+    public void setProductFee(float productFee) {
+        this.productFee = productFee;
+    }
 
     public Integer getNum() {
         return num;
@@ -49,6 +57,7 @@ public class Orderitem implements Serializable {
         result = 31 * result + (num != null ? num.hashCode() : 0);
         return result;
     }
+
 
     public Order getOrder() {
         return order;

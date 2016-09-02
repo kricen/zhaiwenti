@@ -12,7 +12,7 @@ public class CategoryDao extends HibernateDaoSupport {
 
     //获得category列表
     public List<Category> getCategories(){
-        String hql = "from Category where state=0 order by id ";
+        String hql = "from Category c where c.state=0 order by c.score desc,c.id asc";
         List<Category> find = this.getHibernateTemplate().find(hql);
         return find;
     }
@@ -22,7 +22,7 @@ public class CategoryDao extends HibernateDaoSupport {
     }
     //根据名称获得category
     public Category getCategory(String name){
-        String hql = "from Category where name=?";
+        String hql = "from Category c where c.name=?";
         List<Category> find = this.getHibernateTemplate().find(hql,name);
         return find.isEmpty()? null:find.get(0);
     }

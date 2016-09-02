@@ -1,0 +1,8 @@
+﻿@charset "utf-8";
+/* CSS Document *
+
+/*浮动*/
+.shop_cart{position:fixed; right:5px; top:100px;}
+.shop_cart .cart_img{position:relative; width:60%; float:right;}
+.shop_cart p{position:absolute; top:13px; right:12px; color:#f9faf4;}
+/*底部浮动导航*/

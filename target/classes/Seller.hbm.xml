@@ -13,16 +13,13 @@
         <property name="password" column="password"/>
         <property name="name" column="name"/>
         <property name="username" column="username"/>
+        <property name="openid" column="openid"/>
         <property name="startingPrice" column="starting_price"/>
         <property name="deliveryFee">
             <column name="delivery_fee">
                 <comment>配送费</comment>
             </column>
         </property>
-        <set name="cartitems" inverse="true">
-            <key column="sid"/>
-            <one-to-many not-found="ignore" class="com.wenti.domain.Cartitem"/>
-        </set>
         <set name="orders" inverse="true">
             <key column="sid"/>
             <one-to-many not-found="ignore" class="com.wenti.domain.Order"/>

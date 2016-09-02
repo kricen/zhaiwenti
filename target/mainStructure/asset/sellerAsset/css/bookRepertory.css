@@ -21,6 +21,10 @@ div#book-repertory table.table {
       text-align: center; }
   div#book-repertory table.table tbody td.title {
     max-width: 116px; }
+div#book-repertory table.table tbody td.state {
+  max-width: 120px; }
+div#book-repertory table.table tbody td.comments {
+  max-width: 210px; }
   div#book-repertory table.table tbody td.author {
     max-width: 140px; }
   div#book-repertory table.table tbody td.publisher {

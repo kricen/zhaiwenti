@@ -1,5 +1,7 @@
 package com.wenti.utils;
 
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +14,13 @@ import java.util.UUID;
  * Created by Administrator on 2016/3/17 0017.
  */
 public class CommonUtils {
+
+    public static String getOrderNo(int orderId) {
+        String str = new SimpleDateFormat("yyMMddHHmmss").format(new Date());
+        long orderNo = Long.parseLong((str)) * 10000;
+        orderNo += orderId;
+        return orderNo+"";
+    }
     /**
      * uuid 获得唯一id
      */
@@ -90,6 +99,15 @@ public class CommonUtils {
     public static String getDate(){
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = simpleDateFormat.format(date);
+        return time;
+    }
+    /**
+     * 获得当前时间
+     * @return
+     */
+    public static String getDate(Date date){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String time = simpleDateFormat.format(date);
         return time;
     }

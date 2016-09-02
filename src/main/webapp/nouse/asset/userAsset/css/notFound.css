@@ -1,0 +1,53 @@
+@charset "UTF-8";
+@import url("global.css");
+/* 定义全局颜色 */
+html{
+  background-color:#E6EAF6;
+}
+header {
+  width: 100%;
+  background-color: #F56900;
+  height: 44px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  line-height: 44px;
+  color: #fdfefe; }
+  header h1 {
+    font-weight: bolder;
+    text-align: center;
+    font-size: 16px; }
+  header a.back {
+    width: 36px;
+    position: absolute;
+    left: 0px;
+    padding-left: 10px;
+    text-align: left;
+    color: #fdfefe;
+    display: inline-block;
+    font-weight: normal;
+    text-decoration: none; }
+  header span.menu {
+    font-size: 22px;
+    float: right;
+    display: inline-block;
+    margin-right: 10px;
+    font-weight: bold; }
+
+div#nothing {
+  width: 100%;
+  padding: 0 15px;
+  margin-right: 10px;
+  margin-top: 230px;
+}
+  div#nothing img {
+    display: block;
+    margin:0 auto;
+    width: 50%; }
+  div#nothing p {
+    margin-top: 24px;
+    text-align: center;
+    color: #888;
+    font-size: 14px; }
+
+/*# sourceMappingURL=notFound.css.map */

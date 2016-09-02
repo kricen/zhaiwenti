@@ -9,6 +9,10 @@ import java.util.List;
  * Created by Administrator on 2016/3/16 0016.
  */
 public class SellerDao extends HibernateDaoSupport {
+
+    public Seller getSeller(int id){
+        return this.getHibernateTemplate().get(Seller.class,id);
+    }
     //通过账号名密码获得商家
     public Seller getSellerByTelPwd(String tel, String password){
         String hql = "from Seller where tel=? and password=?";

@@ -15,6 +15,9 @@ public class SellerService {
     public Seller getSellerByTelPwd(String tel,String password){
         return sellerDao.getSellerByTelPwd(tel,password);
     }
+    public Seller getSeller(int id){
+        return sellerDao.getSeller(id);
+    }
 
     public void setSellerDao(SellerDao sellerDao) {
         this.sellerDao = sellerDao;

@@ -1,0 +1,73 @@
+@charset "UTF-8";
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre,
+form, fieldset, input, textarea, p, blockquote, th, td {
+  padding: 0;
+  margin: 0; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+fieldset, img {
+  border: 0; }
+
+address, caption, cite, code, dfn, em, strong, th, var {
+  font-weight: normal;
+  font-style: normal; }
+
+ol, ul {
+  list-style: none; }
+
+caption, th {
+  text-align: left; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+  font-size: 100%; }
+
+q:before, q:after {
+  content: ¡±; }
+
+abbr, acronym {
+  border: 0; }
+
+a:hover, a:visited, a:link {
+  text-decoration: none; }
+
+/* 默认不显示下划线，保持页面简洁 */
+a {
+  text-decoration: none; }
+
+a, button, input, i {
+  -webkit-tap-highlight-color: transparent;
+  -moz-tap-highlight-color: transparent;
+  -ms-tap-highlight-color: transparent;
+  tap-highlight-color: transparent; }
+
+/* iconfont 设置 */
+@font-face {
+  font-family: 'iconfont';
+    src: url("//at.alicdn.com/t/font_1450235301_9462955.eot");
+  /* IE9*/
+    src: url("//at.alicdn.com/t/font_1450235301_9462955.eot?#iefix") format("embedded-opentype"), url("//at.alicdn.com/t/font_1450235301_9462955.woff") format("woff"), url("//at.alicdn.com/t/font_1450235301_9462955.ttf") format("truetype"), url("//at.alicdn.com/t/font_1450235301_9462955.svg#iconfont") format("svg");;
+  /* iOS 4.1- */ }
+.iconfont {
+  font-family: "iconfont";
+  font-size: 16px;
+  font-style: normal; }
+
+/* 全局设置 */
+html {
+  background-color: #EEE;
+  height: 100%;
+  width: 100%;
+  font-family: 'Heiti SC', 'Microsoft YaHei';
+  overflow: hidden;
+  outline: 0;
+  -webkit-text-size-adjust: none;
+  max-width: 540px;
+  margin: 0 auto;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch; }
+
+/*# sourceMappingURL=global.css.map */

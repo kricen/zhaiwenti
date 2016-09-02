@@ -1,7 +1,9 @@
 package com.wenti.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -10,8 +12,15 @@ import java.util.Set;
 public class Order implements Serializable {
     private Integer id;
     private Date ordertime;
+    private Date acceptTime;
     private Date successDate;
+    private String strDate;
     private float totalFee;
+    private float productFee;
+    private float deliveryFee;
+    //减免下限,如果到达多少减免运费
+    private String orderNo;
+    private String orderTradNo;
     private Integer state;
     private Seller seller;
     private User user;
@@ -19,8 +28,44 @@ public class Order implements Serializable {
     private String tel;
     private String name;
     private String addr;
+    private String deliveryTime;
+    private List<Orderitem> orderitemList = new ArrayList<Orderitem>();
     private int num;
+
     private int visible;
+
+    public float getDeliveryFee() {
+        return deliveryFee;
+    }
+
+    public void setDeliveryFee(float deliveryFee) {
+        this.deliveryFee = deliveryFee;
+    }
+
+    public String getStrDate() {
+        return strDate;
+    }
+
+    public void setStrDate(String strDate) {
+        this.strDate = strDate;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
+    public String getOrderTradNo() {
+        return orderTradNo;
+    }
+
+    public void setOrderTradNo(String orderTradNo) {
+        this.orderTradNo = orderTradNo;
+    }
+
     private Set<Orderitem> orderitems;
 
     public String getRemark() {
@@ -71,6 +116,13 @@ public class Order implements Serializable {
         this.successDate = successDate;
     }
 
+    public String getDeliveryTime() {
+        return deliveryTime;
+    }
+
+    public void setDeliveryTime(String deliveryTime) {
+        this.deliveryTime = deliveryTime;
+    }
 
     public String getAddr() {
         return addr;
@@ -82,6 +134,14 @@ public class Order implements Serializable {
 
     public String getTel() {
         return tel;
+    }
+
+    public Date getAcceptTime() {
+        return acceptTime;
+    }
+
+    public void setAcceptTime(Date acceptTime) {
+        this.acceptTime = acceptTime;
     }
 
     public void setTel(String tel) {
@@ -104,6 +164,13 @@ public class Order implements Serializable {
         this.totalFee = totalFee;
     }
 
+    public float getProductFee() {
+        return productFee;
+    }
+
+    public void setProductFee(float productFee) {
+        this.productFee = productFee;
+    }
 
     public Integer getState() {
         return state;
@@ -111,6 +178,14 @@ public class Order implements Serializable {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public void setOrderitemList(List<Orderitem> orderitemList) {
+        this.orderitemList = orderitemList;
+    }
+
+    public List<Orderitem> getOrderitemList() {
+        return orderitemList;
     }
 
     @Override

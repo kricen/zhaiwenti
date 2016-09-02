@@ -9,14 +9,20 @@
             <column name="id"></column>
             <generator class="identity" />
         </id>
-        <property name="hot" column="hot"/>
+        <property name="hot" >
+            <column name="hot">
+                <comment>0正常 1 产品热销</comment>
+            </column>
+        </property>
         <property name="name" column="name"/>
         <property name="price" column="price"/>
-        <property name="image" column="image"/>
+        <property name="detailImage" column="detail_image"/>
+        <property name="lunboImage" column="lunbo_image"/>
         <property name="sellNum" column="sell_count"/>
         <property name="state" column="state"/>
-        <property name="comments" column="commonts"/>
+        <property name="comments" column="commonts" length="200"/>
         <many-to-one name="seller" column="sid" lazy="false" class="com.wenti.domain.Seller"/>
+        <many-to-one name="headImage" column="head_image" lazy="false" class="com.wenti.domain.Image"/>
         <many-to-one name="category" column="cid" lazy="false" class="com.wenti.domain.Category"/>
         <set name="cartitems" inverse="true">
             <key column="pid"/>
